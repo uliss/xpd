@@ -1,5 +1,8 @@
-if(WITH_COVERALLS)
-    message(STATUS "Build with coveralls")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-endif()
+set(SERVER_SRC pdLib.hpp pdLib.cpp pdServer.hpp pdServer.cpp)
+
+include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
+
+add_library(xpd_static STATIC ${SERVER_SRC})
+add_library(xpd_shared SHARED ${SERVER_SRC})
+target_link_libraries(xpd_static pd_core_static)
+target_link_libraries(xpd_shared pd_core_static)
