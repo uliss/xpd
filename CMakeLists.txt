@@ -17,7 +17,7 @@ include(cmake_uninstall)
 
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -funroll-loops -fomit-frame-pointer")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -funroll-loops -fomit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=gnu++11 -funroll-loops -fomit-frame-pointer")
 #set(CMAKE_OSX_DEPLOYMENT_TARGET 10.6)
 #set(CMAKE_OSX_ARCHITECTURES "i386;x86_64")
 set(CMAKE_MACOSX_RPATH ON)

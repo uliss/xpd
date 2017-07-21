@@ -1,4 +1,9 @@
-set(SERVER_SRC pdLib.hpp pdLib.cpp pdServer.hpp pdServer.cpp)
+set(SERVER_SRC 
+    abstractserver.cpp
+    abstractserverprocess.cpp
+pdLib.hpp pdServer.hpp 
+#pdLib.cpp  pdServer.cpp
+    )
 
 include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
 
