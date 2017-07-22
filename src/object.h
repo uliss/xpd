@@ -13,7 +13,10 @@ namespace xpd {
 class ServerCanvas;
 class Observer;
 class ClassInfo;
+class Object;
+class ObjectList;
 
+typedef std::unique_ptr<Object> ObjectPtr;
 typedef std::vector<Inlet> InletList;
 typedef std::vector<Outlet> OutletList;
 typedef std::shared_ptr<Observer> ObserverPtr;
@@ -60,6 +63,10 @@ public:
     virtual const ObjectProperties& properties() const;
 
     ObjectId id() const;
+
+    virtual bool isRoot() const;
+    virtual bool hasChildren() const;
+    virtual const ObjectList& children() const;
 
 private:
     Object(const Object&);

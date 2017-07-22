@@ -14,6 +14,7 @@ set(SERVER_SRC
     mididevice.cpp
     mididevicemanager.cpp
     object.cpp
+    objectlist.cpp
     objectproperties.cpp
     observer.cpp
     propertyobserver.cpp

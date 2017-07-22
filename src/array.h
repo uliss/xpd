@@ -7,7 +7,7 @@ namespace xpd {
 
 class Array : public Object {
 public:
-    Array();
+    Array(const ServerCanvas* parent, const std::string& name);
 };
 
 } // namespace xpd

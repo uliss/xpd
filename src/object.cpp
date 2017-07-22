@@ -1,4 +1,5 @@
 #include "object.h"
+#include "objectlist.h"
 #include "propertyobserver.h"
 
 namespace xpd {
@@ -71,6 +72,22 @@ const ObjectProperties& Object::properties() const
 ObjectId Object::id() const
 {
     return id_;
+}
+
+bool Object::isRoot() const
+{
+    return false;
+}
+
+bool Object::hasChildren() const
+{
+    return false;
+}
+
+const ObjectList& Object::children() const
+{
+    static ObjectList empty;
+    return empty;
 }
 
 } // namespace xpd
