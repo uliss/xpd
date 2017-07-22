@@ -21,4 +21,9 @@ void AbstractServer::setSettings(const ServerSettings& s)
     settings_ = s;
 }
 
+const std::string& ServerSettings::name() const
+{
+    return name_;
+}
+
 } // namespace xpd

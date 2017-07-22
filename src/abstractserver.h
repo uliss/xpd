@@ -15,8 +15,15 @@ typedef std::shared_ptr<AbstractServerProcess> ProcessPtr;
 typedef std::vector<ProcessPtr> ProcessList;
 
 class ServerSettings {
+    std::string name_;
+
 public:
-    ServerSettings() {}
+    ServerSettings(const std::string& name)
+        : name_(name)
+    {
+    }
+
+    const std::string& name() const;
 };
 
 class AbstractServer {

@@ -3,7 +3,7 @@
 namespace xpd {
 
 LocalServer::LocalServer(const ServerSettings& s)
-    : AbstractServer(a)
+    : AbstractServer(s)
 {
 }
 

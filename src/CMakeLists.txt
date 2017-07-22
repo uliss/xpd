@@ -10,6 +10,7 @@ set(SERVER_SRC
     consoleobserver.cpp
     device.cpp
     libraryinfo.cpp
+    localserver.cpp
     logger.cpp
     mididevice.cpp
     mididevicemanager.cpp
