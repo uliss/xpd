@@ -205,3 +205,5 @@ add_library(pd_core_shared SHARED ${PD_SOURCES} ${PD_EXTRA_SOURCES})
 add_library(pd_core_static STATIC ${PD_SOURCES} ${PD_EXTRA_SOURCES})
 target_link_libraries(pd_core_shared ${PD_LINK_LIBRARIES})
 target_link_libraries(pd_core_static ${PD_LINK_LIBRARIES})
+
+add_subdirectory(cmp)

@@ -2,6 +2,7 @@
 #define ABSTRACTSERVERPROCESS_H
 
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 #include "classinfo.h"
@@ -47,6 +48,9 @@ class AbstractServerProcess {
     ConsoleObserverPtr console_observer_;
     const AbstractServer* parent_;
     LogLevel log_level_;
+
+public:
+    typedef std::runtime_error Exception;
 
 public:
     AbstractServerProcess(const AbstractServer* parent, const ServerProcessSettings& s);
