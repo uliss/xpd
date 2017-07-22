@@ -18,13 +18,21 @@ ProcessPtr LocalPdServer::createProcess()
     if (process_list_.size() > 0)
         return process_list_.front();
 
-    ServerProcessSettings s;
-    ProcessPtr p = std::make_shared<LocalPdProcess>(this, s);
+    ProcessPtr ptr;
 
-    if (!p)
-        return p;
+    try {
+        ServerProcessSettings s;
+        ptr = std::make_shared<LocalPdProcess>(this, s);
 
-    process_list_.push_back(p);
+        if (!ptr)
+            return ptr;
+
+    } catch (std::exception& e) {
+        std::cerr << "LocalPdProcess crashed: " << e.what() << std::endl;
+        return ProcessPtr();
+    }
+
+    process_list_.push_back(ptr);
     return process_list_.front();
 }
 
