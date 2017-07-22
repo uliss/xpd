@@ -16,5 +16,7 @@ TEST_CASE("localserver", "[server]")
         ServerSettings s1("other pd");
         srv.setSettings(s1);
         REQUIRE(s1 == srv.settings());
+
+        REQUIRE(srv.name() == "other pd");
     }
 }
