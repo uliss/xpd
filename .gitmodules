@@ -1,3 +1,6 @@
 [submodule "pd/pure-data"]
 	path = pd/pure-data
 	url = https://github.com/pure-data/pure-data
+[submodule "tests/Catch"]
+	path = tests/Catch
+	url = https://github.com/philsquared/Catch
