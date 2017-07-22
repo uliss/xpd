@@ -23,14 +23,14 @@ public:
     const std::string& name() const;
 };
 
-class ServerCanvas : public Object {
+class Canvas : public Object {
     CanvasSettings settings_;
     std::string path_;
     CanvasObserverList observer_list_;
     ObjectList obj_list_;
 
 public:
-    ServerCanvas(const ServerCanvas* parent, const CanvasSettings& s);
+    Canvas(const Canvas* parent, const CanvasSettings& s);
     const CanvasSettings& settings() const;
 
     const std::string& path() const;

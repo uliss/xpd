@@ -85,15 +85,11 @@ void AbstractServerProcess::setLogLevel(LogLevel l)
     log_level_ = l;
 }
 
-ServerCanvasPtr AbstractServerProcess::createCanvas()
+bool AbstractServerProcess::deleteCanvas(CanvasPtr cnv)
 {
 }
 
-bool AbstractServerProcess::deleteCanvas(ServerCanvasPtr cnv)
-{
-}
-
-const ServerCanvasList& AbstractServerProcess::canvasList() const
+const CanvasList& AbstractServerProcess::canvasList() const
 {
     return canvas_list_;
 }

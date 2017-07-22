@@ -20,8 +20,8 @@ public:
     ServerProcessSettings() {}
 };
 
-typedef std::unique_ptr<ServerCanvas> ServerCanvasPtr;
-typedef std::vector<ServerCanvasPtr> ServerCanvasList;
+typedef std::shared_ptr<Canvas> CanvasPtr;
+typedef std::vector<CanvasPtr> CanvasList;
 
 typedef std::shared_ptr<ConsoleObserver> ConsoleObserverPtr;
 typedef std::shared_ptr<Observer> ObserverPtr;
@@ -41,8 +41,9 @@ enum LogLevel {
 };
 
 class AbstractServerProcess {
+protected:
     ServerProcessSettings settings_;
-    ServerCanvasList canvas_list_;
+    CanvasList canvas_list_;
     ObserverList observer_list_;
     ServerPath path_;
     ConsoleObserverPtr console_observer_;
@@ -86,9 +87,9 @@ public:
     LogLevel logLevel() const;
     void setLogLevel(LogLevel l);
 
-    virtual ServerCanvasPtr createCanvas();
-    virtual bool deleteCanvas(ServerCanvasPtr cnv);
-    const ServerCanvasList& canvasList() const;
+    virtual CanvasPtr createCanvas() = 0;
+    virtual bool deleteCanvas(CanvasPtr cnv);
+    const CanvasList& canvasList() const;
 
     virtual LibraryList loadedLibraries() const;
     virtual ClassList loadedClasses() const;

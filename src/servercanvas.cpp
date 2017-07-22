@@ -5,67 +5,67 @@ namespace xpd {
 
 static ClassInfoPtr canvas_class = std::make_shared<ClassInfo>("canvas");
 
-ServerCanvas::ServerCanvas(const ServerCanvas* parent, const CanvasSettings& s)
+Canvas::Canvas(const Canvas* parent, const CanvasSettings& s)
     : Object(parent, canvas_class, s.name())
     , settings_(s)
 {
 }
 
-const CanvasSettings& ServerCanvas::settings() const
+const CanvasSettings& Canvas::settings() const
 {
     return settings_;
 }
 
-const std::string& ServerCanvas::path() const
+const std::string& Canvas::path() const
 {
     return path_;
 }
 
-void ServerCanvas::registerObserver(CanvasObserverPtr o)
+void Canvas::registerObserver(CanvasObserverPtr o)
 {
 }
 
-void ServerCanvas::deleteObserver(CanvasObserverPtr o)
+void Canvas::deleteObserver(CanvasObserverPtr o)
 {
 }
 
-const ObjectList& ServerCanvas::objects() const
+const ObjectList& Canvas::objects() const
 {
     return obj_list_;
 }
 
-bool ServerCanvas::connect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
+bool Canvas::connect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
 {
     return false;
 }
 
-bool ServerCanvas::disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
+bool Canvas::disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
 {
     return false;
 }
 
-ObjectId ServerCanvas::createObject(const std::string& name)
+ObjectId Canvas::createObject(const std::string& name)
 {
 }
 
-bool ServerCanvas::deleteObject(ObjectId objId)
+bool Canvas::deleteObject(ObjectId objId)
 {
 }
 
-ObjectId ServerCanvas::createArray(const std::string& name, size_t size)
+ObjectId Canvas::createArray(const std::string& name, size_t size)
 {
 }
 
-bool ServerCanvas::deleteArray(const std::string& name)
+bool Canvas::deleteArray(const std::string& name)
 {
 }
 
-bool ServerCanvas::hasChildren() const
+bool Canvas::hasChildren() const
 {
     return true;
 }
 
-const ObjectList& ServerCanvas::children() const
+const ObjectList& Canvas::children() const
 {
     return obj_list_;
 }

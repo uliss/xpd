@@ -1,6 +1,8 @@
 #include "catch.hpp"
 
+#include "abstractserverprocess.h"
 #include "localserver.h"
+
 using namespace xpd;
 
 TEST_CASE("localserver", "[server]")
@@ -33,5 +35,11 @@ TEST_CASE("localserver", "[server]")
         REQUIRE(p);
         REQUIRE(p == p1);
         REQUIRE(srv.processList().size() == 1);
+
+        REQUIRE(p1->parent() == p->parent());
+        REQUIRE(p1->parent() == &srv);
+
+        CanvasPtr cnv = p->createCanvas();
+        REQUIRE(cnv);
     }
 }

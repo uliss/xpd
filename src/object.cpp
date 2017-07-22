@@ -4,7 +4,7 @@
 
 namespace xpd {
 
-Object::Object(const ServerCanvas* parent, ClassInfoPtr c, const std::string& name)
+Object::Object(const Canvas* parent, ClassInfoPtr c, const std::string& name)
     : parent_(parent)
     , name_(name)
     , class_(c)
@@ -21,7 +21,7 @@ const std::string& Object::name() const
     return name_;
 }
 
-const ServerCanvas* Object::parent() const
+const Canvas* Object::parent() const
 {
     return parent_;
 }

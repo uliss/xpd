@@ -10,7 +10,7 @@
 
 namespace xpd {
 
-class ServerCanvas;
+class Canvas;
 class Observer;
 class ClassInfo;
 class Object;
@@ -35,18 +35,18 @@ typedef size_t ObjectId;
 
 class Object {
     std::string name_;
-    const ServerCanvas* parent_;
+    const Canvas* parent_;
     InletList inlet_list_;
     OutletList outlet_list_;
     ClassInfoPtr class_;
     ObjectId id_;
 
 public:
-    Object(const ServerCanvas* parent, ClassInfoPtr c, const std::string& name);
+    Object(const Canvas* parent, ClassInfoPtr c, const std::string& name);
     virtual ~Object();
 
     const std::string& name() const;
-    const ServerCanvas* parent() const;
+    const Canvas* parent() const;
 
     virtual size_t inletCount() const;
     virtual size_t outletCount() const;

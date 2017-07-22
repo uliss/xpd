@@ -7,7 +7,7 @@
 
 namespace xpd {
 
-class ServerCanvas;
+class Canvas;
 
 class Connection {
     ObjectId src_, dest_;
