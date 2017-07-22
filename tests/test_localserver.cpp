@@ -20,4 +20,18 @@ TEST_CASE("localserver", "[server]")
 
         REQUIRE(srv.name() == "other pd");
     }
+
+    SECTION("create")
+    {
+        LocalPdServer srv(ServerSettings("local"));
+
+        ProcessPtr p = srv.createProcess();
+        REQUIRE(p);
+        REQUIRE(srv.processList().size() == 1);
+
+        ProcessPtr p1 = srv.createProcess();
+        REQUIRE(p);
+        REQUIRE(p == p1);
+        REQUIRE(srv.processList().size() == 1);
+    }
 }

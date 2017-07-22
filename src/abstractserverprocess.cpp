@@ -4,7 +4,8 @@
 
 using namespace xpd;
 
-AbstractServerProcess::AbstractServerProcess(AbstractServer* parent, const ServerProcessSettings& s)
+AbstractServerProcess::AbstractServerProcess(const AbstractServer* parent,
+    const ServerProcessSettings& s)
     : settings_(s)
     , parent_(parent)
     , log_level_(LOG_DEBUG)

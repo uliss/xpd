@@ -11,6 +11,7 @@ set(SERVER_SRC
     device.cpp
     libraryinfo.cpp
     localserver.cpp
+    localpdprocess.cpp
     logger.cpp
     mididevice.cpp
     mididevicemanager.cpp

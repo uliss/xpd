@@ -1,4 +1,5 @@
 #include "localserver.h"
+#include "localpdprocess.h"
 
 namespace xpd {
 
@@ -17,7 +18,12 @@ ProcessPtr LocalPdServer::createProcess()
     if (process_list_.size() > 0)
         return process_list_.front();
 
-    ProcessPtr p;
+    ServerProcessSettings s;
+    ProcessPtr p = std::make_shared<LocalPdProcess>(this, s);
+
+    if (!p)
+        return p;
+
     process_list_.push_back(p);
     return process_list_.front();
 }

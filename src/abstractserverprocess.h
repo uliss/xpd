@@ -49,7 +49,7 @@ class AbstractServerProcess {
     LogLevel log_level_;
 
 public:
-    AbstractServerProcess(AbstractServer* parent, const ServerProcessSettings& s);
+    AbstractServerProcess(const AbstractServer* parent, const ServerProcessSettings& s);
     virtual ~AbstractServerProcess();
 
     void dspOn() { dspSwitch(true); }
