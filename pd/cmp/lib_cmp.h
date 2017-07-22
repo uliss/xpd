@@ -9,7 +9,7 @@ extern "C" {
 /// \brief initializes pd library
 /// \return 1 on success, 0 on error
 ///
-int cmp_pdinit();
+int cpd_init();
 
 #ifdef __cplusplus
 }

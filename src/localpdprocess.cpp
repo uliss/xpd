@@ -6,7 +6,7 @@ namespace xpd {
 LocalPdProcess::LocalPdProcess(const AbstractServer* parent, const ServerProcessSettings& s)
     : AbstractServerProcess(parent, s)
 {
-    if (!cmp_pdinit())
+    if (!cpd_init())
         throw Exception("can't start pd");
 }
 

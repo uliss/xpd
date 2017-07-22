@@ -13,7 +13,7 @@ extern "C" {
 
 extern "C" void pd_init();
 
-int cmp_pdinit()
+int cpd_init()
 {
     // copied from libpd
     signal(SIGFPE, SIG_IGN);
