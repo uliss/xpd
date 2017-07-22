@@ -27,21 +27,24 @@ TEST_CASE("localserver", "[server]")
     {
         LocalPdServer srv(ServerSettings("local"));
 
-        ProcessPtr p = srv.createProcess();
-        REQUIRE(p);
+        ProcessPtr p0 = srv.createProcess();
+        REQUIRE(p0);
         REQUIRE(srv.processList().size() == 1);
 
         ProcessPtr p1 = srv.createProcess();
-        REQUIRE(p);
-        REQUIRE(p == p1);
+        REQUIRE(p0);
+        REQUIRE(p0 == p1);
         REQUIRE(srv.processList().size() == 1);
 
-        REQUIRE(p1->parent() == p->parent());
+        REQUIRE(p1->parent() == p0->parent());
         REQUIRE(p1->parent() == &srv);
 
-        CanvasPtr cnv = p->createCanvas();
-        REQUIRE(cnv);
-        REQUIRE(!p->canvasList().empty());
-        REQUIRE(p->canvasList().size() == 1);
+        CanvasPtr cnv0 = p0->createCanvas();
+        REQUIRE(cnv0);
+        REQUIRE(p0->canvasList().size() == 1);
+
+        CanvasPtr cnv1 = p0->createCanvas();
+        REQUIRE(cnv1);
+        REQUIRE(p1->canvasList().size() == 2);
     }
 }
