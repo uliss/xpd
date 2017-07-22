@@ -1,5 +1,5 @@
 #include "localpdprocess.h"
-#include "lib_cmp.h"
+#include "lib_cpd.h"
 
 namespace xpd {
 
