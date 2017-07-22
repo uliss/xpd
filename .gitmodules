@@ -4,3 +4,6 @@
 [submodule "tests/Catch"]
 	path = tests/Catch
 	url = https://github.com/philsquared/Catch
+[submodule "distrib/spdlog"]
+	path = distrib/spdlog
+	url = https://github.com/gabime/spdlog.git
