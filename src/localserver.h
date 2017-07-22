@@ -10,6 +10,12 @@ public:
     LocalServer(const ServerSettings& s);
 };
 
+class LocalPdServer : public LocalServer {
+public:
+    LocalPdServer(const ServerSettings& s);
+    ProcessPtr createProcess();
+};
+
 } // namespace xpd
 
 #endif // LOCALSERVER_H
