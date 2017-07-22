@@ -1,6 +1,19 @@
 set(SERVER_SRC 
     abstractserver.cpp
     abstractserverprocess.cpp
+    audiodevice.cpp
+    audiodevicemanager.cpp
+    classinfo.cpp
+    consoleobserver.cpp
+    device.cpp
+    libraryinfo.cpp
+    logger.cpp
+    mididevice.cpp
+    mididevicemanager.cpp
+    observer.cpp
+    servercanvas.cpp
+    serverpath.cpp
+    videodevice.cpp
 pdLib.hpp pdServer.hpp 
 #pdLib.cpp  pdServer.cpp
     )
