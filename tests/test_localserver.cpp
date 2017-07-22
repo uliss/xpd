@@ -41,5 +41,7 @@ TEST_CASE("localserver", "[server]")
 
         CanvasPtr cnv = p->createCanvas();
         REQUIRE(cnv);
+        REQUIRE(!p->canvasList().empty());
+        REQUIRE(p->canvasList().size() == 1);
     }
 }
