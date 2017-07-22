@@ -1,6 +1,8 @@
 #include "servercanvas.h"
 #include "classinfo.h"
 
+#include <algorithm>
+
 namespace xpd {
 
 static ClassInfoPtr canvas_class = std::make_shared<ClassInfo>("canvas");
@@ -70,8 +72,12 @@ const ObjectList& Canvas::children() const
     return obj_list_;
 }
 
-CanvasSettings::CanvasSettings(const std::string& name)
+CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)
     : name_(name)
+    , x_(std::max(0, x))
+    , y_(std::max(0, y))
+    , w_(w)
+    , h_(h)
 {
 }
 

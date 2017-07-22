@@ -11,10 +11,17 @@ extern "C" {
 #include <csignal>
 #include <iostream>
 
+#include "spdlog/spdlog.h"
+
 extern "C" void pd_init();
+
+// Console logger with color
+static auto console = spdlog::stdout_color_mt("cpd");
 
 int cpd_init()
 {
+    spdlog::set_level(spdlog::level::debug);
+
     // copied from libpd
     signal(SIGFPE, SIG_IGN);
 
@@ -36,13 +43,12 @@ int cpd_init()
 
     sys_set_audio_api(API_PORTAUDIO); // API_PORTAUDIO
 
-    //    sys_startgui(NULL);
-
     if (!pd_this) {
-        error("Initialization failed");
+        cpd_error("Initialization failed");
         return 0;
-    } else
-        std::cout << ("Pd library initialized: %x") << pd_this << "\n";
+    } else {
+        console->info("Pd library initialized: {}", static_cast<void*>(pd_this));
+    }
 
     STUFF->st_soundin = NULL;
     STUFF->st_soundout = NULL;
@@ -63,4 +69,35 @@ int cpd_init()
 
     sys_reopen_audio();
     return 1;
+}
+
+t_canvas* cpd_new_patch(int x, int y, int w, int h, int font_size)
+{
+    t_atom argv[5];
+    SETFLOAT(&argv[0], x);
+    SETFLOAT(&argv[1], y);
+    SETFLOAT(&argv[2], w);
+    SETFLOAT(&argv[3], h);
+    SETFLOAT(&argv[4], font_size);
+
+    pd_typedmess(&pd_canvasmaker, gensym("canvas"), 5, argv);
+    t_canvas* ret = (t_canvas*)pd_newest();
+
+    console->debug("new canvas ({},{} {}x{}) with font size {}. {}",
+        x, y, w, h, font_size, static_cast<void*>(ret));
+
+    return ret;
+}
+
+void cpd_error(const char* msg, ...)
+{
+    char buf[MAXPDSTRING];
+    va_list ap;
+    va_start(ap, msg);
+    vsnprintf(buf, MAXPDSTRING - 1, msg, ap);
+    va_end(ap);
+    strcat(buf, "\n");
+
+    console->error(buf);
+    error("%s", buf);
 }

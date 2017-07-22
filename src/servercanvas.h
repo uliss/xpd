@@ -17,10 +17,17 @@ typedef std::vector<CanvasObserverPtr> CanvasObserverList;
 
 class CanvasSettings {
     std::string name_;
+    int x_, y_;
+    size_t w_, h_;
 
 public:
-    CanvasSettings(const std::string& name);
+    CanvasSettings(const std::string& name, int x = 0, int y = 0, size_t w = 600, size_t h = 400);
     const std::string& name() const;
+
+    int x() const { return x_; }
+    int y() const { return y_; }
+    size_t width() const { return w_; }
+    size_t height() const { return h_; }
 };
 
 class Canvas : public Object {
