@@ -26,8 +26,8 @@ public:
 
     const std::string& name() const;
 
-    bool operator==(const ServerSettings& s);
-    bool operator!=(const ServerSettings& s);
+    bool operator==(const ServerSettings& s) const;
+    bool operator!=(const ServerSettings& s) const;
 };
 
 class AbstractServer {

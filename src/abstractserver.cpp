@@ -36,12 +36,12 @@ const std::string& ServerSettings::name() const
     return name_;
 }
 
-bool ServerSettings::operator==(const ServerSettings& s)
+bool ServerSettings::operator==(const ServerSettings& s) const
 {
     return name_ == s.name_;
 }
 
-bool ServerSettings::operator!=(const ServerSettings& s)
+bool ServerSettings::operator!=(const ServerSettings& s) const
 {
     return !operator==(s);
 }
