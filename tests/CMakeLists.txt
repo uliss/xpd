@@ -1,5 +1,6 @@
 include_directories(Catch/single_include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/pd/cpd)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 
@@ -37,4 +38,6 @@ macro(xpd_add_test title name)
 endmacro()
 
 add_library(test_catch_main_lib STATIC tests_catch_main.cpp)
+
 xpd_add_test(LocalServer localserver)
+xpd_add_test(cpd cpd)

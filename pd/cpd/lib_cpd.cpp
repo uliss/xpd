@@ -68,25 +68,78 @@ int cpd_init()
     sched_set_using_audio(SCHED_AUDIO_POLL);
 
     sys_reopen_audio();
+
+    // hack lol - removes empty canvas with array template and creates an empty new one
+    // cpd_delete_patch(cpd_new_patch(0, 0, 0, 0, 10));
+
     return 1;
 }
 
-t_canvas* cpd_new_patch(int x, int y, int w, int h, int font_size)
+extern "C" void glob_menunew(void* dummy, t_symbol* filesym, t_symbol* dirsym);
+
+t_canvas* cpd_new_patch()
 {
-    t_atom argv[5];
-    SETFLOAT(&argv[0], x);
-    SETFLOAT(&argv[1], y);
-    SETFLOAT(&argv[2], w);
-    SETFLOAT(&argv[3], h);
-    SETFLOAT(&argv[4], font_size);
+    static int cnt = 1;
+    fmt::MemoryWriter w;
+    w.write("Untitled-{}", cnt++);
 
-    pd_typedmess(&pd_canvasmaker, gensym("canvas"), 5, argv);
-    t_canvas* ret = (t_canvas*)pd_newest();
+    glob_menunew(0, gensym(w.c_str()), gensym("~/"));
 
-    console->debug("new canvas ({},{} {}x{}) with font size {}. {}",
-        x, y, w, h, font_size, static_cast<void*>(ret));
+    //        glob_setfilename(0, gensym("Untitled-1"), gensym("~/"));
+    //    canvas_new(0, 0, 0, 0);
+    //    сanvas_pop((t_canvas*)s__X.s_thing, 0);
+    //    pd_popsym(t_pd *x);
 
+    //    t_pd* dest = gensym("pd")->s_thing;
+    //    if (dest == NULL) {
+    //        cpd_error("Pd object not found");
+    //        return 0;
+    //    };
+
+    //    pd_typedmess(dest, gensym("menunew"), 2, argv);
+
+    //    pd_typedmess(&pd_canvasmaker, gensym("canvas"), 5, argv);
+
+    t_canvas* ret = 0; //(t_canvas*)pd_newest();
+
+    if (pd_this) {
+        ret = pd_getcanvaslist()->gl_next;
+
+        while (ret->gl_next) {
+            //cout << "canvas: " << ret << "\n";
+            ret = ret->gl_next;
+        }
+
+        //cout << "pd_this: " << pd_this << "\n";
+    } else {
+        return 0;
+    }
+
+    //    canvas_setcurrent(ret);
+
+    //    glist_maybevis(x);
+    canvas_vis(ret, 0);
+
+    console->debug("new canvas [{}] ({},{} {}x{}) with font size {}",
+        static_cast<void*>(ret),
+        ret->gl_screenx1,
+        ret->gl_screeny1,
+        ret->gl_screenx2,
+        ret->gl_screeny2,
+        ret->gl_font);
+
+    canvas_setcurrent(0);
     return ret;
+}
+
+int cpd_is_canvas(t_object* x)
+{
+    if (!x) {
+        console->error("cpd_is_canvas: null pointer given");
+        return 0;
+    }
+
+    return (pd_class(&x->te_pd) == canvas_class);
 }
 
 void cpd_error(const char* msg, ...)
@@ -100,4 +153,94 @@ void cpd_error(const char* msg, ...)
 
     console->error(buf);
     error("%s", buf);
+}
+
+void cpd_delete_patch(t_canvas* canvas)
+{
+    if (!canvas) {
+        console->error("cpd_closepatch: null pointer given");
+        return;
+    }
+
+    canvas_free(canvas);
+    console->debug("free canvas {}", static_cast<void*>(canvas));
+}
+
+extern "C" void sys_stopgui(void);
+
+int cpd_stop()
+{
+    t_canvas* x = 0;
+    for (x = pd_getcanvaslist(); x; x = x->gl_next)
+        canvas_vis(x, 0);
+}
+
+t_cpd_canvas* cpd_root_canvas_last()
+{
+    t_cpd_canvas* cnv = pd_getcanvaslist();
+
+    if (!cnv)
+        return cnv;
+
+    while (cnv->gl_next) {
+        cnv = cnv->gl_next;
+    }
+
+    return cnv;
+}
+
+size_t cpd_root_canvas_count()
+{
+    t_cpd_canvas* cnv = pd_getcanvaslist();
+
+    size_t n = 0;
+
+    while (cnv) {
+        cnv = cnv->gl_next;
+        n++;
+    }
+
+    return n;
+}
+
+t_cpd_canvas* cpd_root_canvas_at(size_t n)
+{
+    t_cpd_canvas* cnv = pd_getcanvaslist();
+
+    size_t cur = 0;
+
+    while (cnv) {
+        if (cur == n)
+            return cnv;
+
+        cnv = cnv->gl_next;
+        cur++;
+    }
+
+    return 0;
+}
+
+t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv)
+{
+    if (!cnv)
+        return cnv;
+
+    return cnv->gl_next;
+}
+
+const char* cpd_canvas_name(t_cpd_canvas* c)
+{
+    if (!c)
+        return 0;
+
+    return c->gl_name->s_name;
+}
+
+int cpd_canvas_free(t_cpd_canvas* c)
+{
+    if (!c)
+        return 0;
+
+    canvas_free(c);
+    return 1;
 }
