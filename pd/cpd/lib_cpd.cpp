@@ -280,6 +280,44 @@ int cpd_canvas_fontsize(t_cpd_canvas* c)
 
 t_cpd_canvas* cpd_root_canvas_new()
 {
-    return canvas_new(0, 0, 0, 0);
-    return 0;
+    static int cnt = 1;
+    fmt::MemoryWriter w;
+    w.write("Untitled-{}", cnt++);
+
+    if (canvas_getcurrent())
+        canvas_unsetcurrent(canvas_getcurrent());
+
+    glob_setfilename(0, gensym(w.c_str()), gensym("~/"));
+    t_cpd_canvas* res = canvas_new(0, 0, 0, 0);
+    return res;
+}
+
+int cpd_canvas_is_root(t_cpd_canvas* c)
+{
+    if (!c) {
+        console->debug("cpd_canvas_is_root: NULL given");
+        return 0;
+    }
+
+    return c->gl_owner == 0 ? 1 : 0;
+}
+
+t_cpd_canvas* cpd_canvas_current()
+{
+    return canvas_getcurrent();
+}
+
+const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console->debug("cpd_root_canvas_dir: NULL given");
+        return "";
+    }
+
+    canvas_getenv(cnv);
+    if (cpd_canvas_is_root(cnv))
+        return canvas_getdir(cnv)->s_name;
+
+    console->debug("cpd_root_canvas_dir: non root canvas given");
+    return "";
 }

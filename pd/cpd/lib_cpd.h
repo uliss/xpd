@@ -40,6 +40,11 @@ t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv);
 t_cpd_canvas* cpd_root_canvas_at(size_t n);
 
 /**
+  * Returns root canvas directory path or "" on error
+  */
+const char* cpd_root_canvas_dir(t_cpd_canvas* cnv);
+
+/**
  * Returns canvas name
  */
 const char* cpd_canvas_name(t_cpd_canvas* c);
@@ -55,9 +60,19 @@ int cpd_canvas_fontsize(t_cpd_canvas* c);
 t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c);
 
 /**
+ * Returns pointer to current canvas
+ */
+t_cpd_canvas* cpd_canvas_current();
+
+/**
   * Removes canvas
   */
 int cpd_canvas_free(t_cpd_canvas* c);
+
+/**
+ * Checks if canvas is root (top-level)
+ */
+int cpd_canvas_is_root(t_cpd_canvas* c);
 
 ////
 /// \brief initializes pd library

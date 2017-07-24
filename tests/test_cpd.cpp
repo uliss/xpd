@@ -8,7 +8,7 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
     {
         cpd_init();
 
-        SECTION("predifined")
+        SECTION("predefined")
         {
             REQUIRE(cpd_root_canvas_count() == 3);
             REQUIRE(cpd_root_canvas_last() != 0);
@@ -23,6 +23,9 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
             REQUIRE(cpd_root_canvas_at(2) == cpd_root_canvas_last());
             REQUIRE(cpd_root_canvas_next(cpd_root_canvas_at(0)) == cpd_root_canvas_at(1));
             REQUIRE(cpd_root_canvas_next(0) == 0);
+
+            REQUIRE(cpd_canvas_is_root(cpd_root_canvas_at(0)));
+            REQUIRE(cpd_canvas_current() == 0);
         }
 
         SECTION("name")
@@ -57,9 +60,35 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
 
         SECTION("new")
         {
+            REQUIRE(cpd_canvas_current() == 0);
+
             size_t n = cpd_root_canvas_count();
             REQUIRE(cpd_root_canvas_new());
             REQUIRE(cpd_root_canvas_count() == n + 1);
+
+            t_cpd_canvas* c0 = cpd_root_canvas_last();
+            REQUIRE(cpd_canvas_name(cpd_root_canvas_last()) == std::string("_text_template"));
+            REQUIRE(cpd_canvas_is_root(c0));
+
+            t_cpd_canvas* c1 = cpd_root_canvas_new();
+            REQUIRE(cpd_canvas_is_root(c1));
+            REQUIRE(cpd_root_canvas_count() == n + 2);
+            REQUIRE(c1 != 0);
+            REQUIRE(c1 != c0);
+
+            t_cpd_canvas* c2 = cpd_root_canvas_new();
+            REQUIRE(cpd_canvas_is_root(c2));
+            REQUIRE(cpd_root_canvas_count() == n + 3);
+            REQUIRE(c2 != 0);
+            REQUIRE(c2 != c1);
+
+            cpd_canvas_free(c0);
+            cpd_canvas_free(c1);
+            cpd_canvas_free(c2);
+
+            REQUIRE(cpd_root_canvas_dir(cpd_root_canvas_last()) == std::string("."));
+
+            REQUIRE(cpd_root_canvas_count() == n);
         }
     }
 }
