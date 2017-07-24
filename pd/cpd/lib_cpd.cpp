@@ -320,3 +320,43 @@ const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
     console->debug("cpd_root_canvas_dir: non root canvas given");
     return "";
 }
+
+int cpd_root_canvas_x(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console->debug("cpd_root_canvas_x: NULL given");
+        return 0;
+    }
+
+    return cnv->gl_screenx1;
+}
+
+int cpd_root_canvas_y(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console->debug("cpd_root_canvas_y: NULL given");
+        return 0;
+    }
+
+    return cnv->gl_screeny1;
+}
+
+int cpd_root_canvas_width(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console->debug("cpd_root_canvas_width: NULL given");
+        return 0;
+    }
+
+    return cnv->gl_screenx2 - cnv->gl_screenx1;
+}
+
+int cpd_root_canvas_height(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console->debug("cpd_root_canvas_height: NULL given");
+        return 0;
+    }
+
+    return cnv->gl_screeny2 - cnv->gl_screeny1;
+}

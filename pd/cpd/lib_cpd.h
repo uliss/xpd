@@ -44,6 +44,11 @@ t_cpd_canvas* cpd_root_canvas_at(size_t n);
   */
 const char* cpd_root_canvas_dir(t_cpd_canvas* cnv);
 
+int cpd_root_canvas_x(t_cpd_canvas* cnv);
+int cpd_root_canvas_y(t_cpd_canvas* cnv);
+int cpd_root_canvas_width(t_cpd_canvas* cnv);
+int cpd_root_canvas_height(t_cpd_canvas* cnv);
+
 /**
  * Returns canvas name
  */
