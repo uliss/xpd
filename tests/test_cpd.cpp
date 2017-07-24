@@ -25,8 +25,17 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
         REQUIRE(cpd_canvas_name(cpd_root_canvas_at(1)) == std::string("_float_template"));
         REQUIRE(cpd_canvas_name(cpd_root_canvas_at(2)) == std::string("_text_template"));
 
+        REQUIRE(cpd_canvas_root(cpd_root_canvas_at(0)) == cpd_root_canvas_at(0));
+        REQUIRE(cpd_canvas_root(cpd_root_canvas_at(1)) == cpd_root_canvas_at(1));
+        REQUIRE(cpd_canvas_root(cpd_root_canvas_at(2)) == cpd_root_canvas_at(2));
+
         REQUIRE(!cpd_canvas_free(0));
-        REQUIRE(cpd_canvas_free(cpd_root_canvas_at(2)));
+        REQUIRE(cpd_canvas_free(cpd_root_canvas_at(0)));
         REQUIRE(cpd_root_canvas_count() == 2);
+
+        REQUIRE(cpd_canvas_name(cpd_root_canvas_at(0)) == std::string("_float_template"));
+        REQUIRE(cpd_canvas_name(cpd_root_canvas_at(1)) == std::string("_text_template"));
+
+        REQUIRE(cpd_canvas_fontsize(cpd_root_canvas_at(0)) == 10);
     }
 }

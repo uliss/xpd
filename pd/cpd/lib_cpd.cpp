@@ -222,25 +222,51 @@ t_cpd_canvas* cpd_root_canvas_at(size_t n)
 
 t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv)
 {
-    if (!cnv)
+    if (!cnv) {
+        console->debug("cpd_root_canvas_next: NULL given");
         return cnv;
+    }
 
     return cnv->gl_next;
 }
 
 const char* cpd_canvas_name(t_cpd_canvas* c)
 {
-    if (!c)
+    if (!c) {
+        console->debug("cpd_canvas_name: NULL given");
         return 0;
+    }
 
     return c->gl_name->s_name;
 }
 
 int cpd_canvas_free(t_cpd_canvas* c)
 {
-    if (!c)
+    if (!c) {
+        console->debug("cpd_canvas_free: NULL given");
         return 0;
+    }
 
     canvas_free(c);
     return 1;
+}
+
+t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c)
+{
+    if (!c) {
+        console->debug("cpd_canvas_root: NULL given");
+        return 0;
+    }
+
+    return canvas_getrootfor(c);
+}
+
+int cpd_canvas_fontsize(t_cpd_canvas* c)
+{
+    if (!c) {
+        console->debug("cpd_canvas_fontsize: NULL given");
+        return -1;
+    }
+
+    return c->gl_font;
 }

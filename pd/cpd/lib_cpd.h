@@ -39,6 +39,16 @@ t_cpd_canvas* cpd_root_canvas_at(size_t n);
 const char* cpd_canvas_name(t_cpd_canvas* c);
 
 /**
+ * Returns canvas font size or -1 on error
+ */
+int cpd_canvas_fontsize(t_cpd_canvas* c);
+
+/**
+ * Returns pointer to root (top level) parent canvas or 0 if already top
+ */
+t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c);
+
+/**
   * Removes canvas
   */
 int cpd_canvas_free(t_cpd_canvas* c);
