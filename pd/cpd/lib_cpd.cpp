@@ -314,8 +314,7 @@ const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
         return "";
     }
 
-    canvas_getenv(cnv);
-    if (cpd_canvas_is_root(cnv))
+    if (cpd_canvas_is_root(cnv) && canvas_getenv(cnv))
         return canvas_getdir(cnv)->s_name;
 
     console->debug("cpd_root_canvas_dir: non root canvas given");
