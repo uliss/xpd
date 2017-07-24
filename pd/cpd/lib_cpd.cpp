@@ -20,6 +20,12 @@ static auto console = spdlog::stdout_color_mt("cpd");
 
 int cpd_init()
 {
+    static bool initialized = false;
+    if (initialized) {
+        console->info("cpd_init: already initialized");
+        return 1;
+    }
+
     spdlog::set_level(spdlog::level::debug);
 
     // copied from libpd
@@ -72,6 +78,7 @@ int cpd_init()
     // hack lol - removes empty canvas with array template and creates an empty new one
     // cpd_delete_patch(cpd_new_patch(0, 0, 0, 0, 10));
 
+    initialized = true;
     return 1;
 }
 
@@ -269,4 +276,10 @@ int cpd_canvas_fontsize(t_cpd_canvas* c)
     }
 
     return c->gl_font;
+}
+
+t_cpd_canvas* cpd_root_canvas_new()
+{
+    return canvas_new(0, 0, 0, 0);
+    return 0;
 }

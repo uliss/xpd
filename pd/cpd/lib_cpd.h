@@ -9,9 +9,15 @@ extern "C" {
 
 struct _text;
 struct _glist;
+
 typedef struct _glist t_cpd_canvas;
-#define t_canvas struct _glist
 typedef struct _text t_object;
+
+/**
+ * Creates new root (top-level) canvas
+ * @return pointer to new canvas or NULL on error
+ */
+t_cpd_canvas* cpd_root_canvas_new();
 
 /** 
  * \return pointer to last root (top) canvas or 0 if not found
@@ -60,18 +66,6 @@ int cpd_canvas_free(t_cpd_canvas* c);
 int cpd_init();
 
 int cpd_stop();
-
-////
-/// \brief creates new t_canvas
-/// \return new canvas or 0 if failed
-///
-t_canvas* cpd_new_patch();
-
-////
-/// \brief closes and frees the canvas
-/// \param canvas
-///
-void cpd_delete_patch(t_canvas* canvas);
 
 ////
 /// \brief check if canvas given
