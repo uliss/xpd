@@ -12,6 +12,7 @@ set(SERVER_SRC
     libraryinfo.cpp
     localserver.cpp
     localpdprocess.cpp
+    logger.h
     logger.cpp
     mididevice.cpp
     mididevicemanager.cpp
@@ -31,6 +32,7 @@ set(SERVER_SRC
 
 include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
 include_directories(${CMAKE_SOURCE_DIR}/pd/cpd)
+include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 
 add_library(xpd_static STATIC ${SERVER_SRC})
 add_library(xpd_shared SHARED ${SERVER_SRC})

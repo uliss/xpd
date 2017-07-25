@@ -2,27 +2,10 @@
 
 namespace xpd {
 
-Logger::Logger()
+std::shared_ptr<spdlog::logger> log()
 {
-}
-
-Logger::~Logger()
-{
-}
-
-std::ostream& Logger::log()
-{
-    return std::cout;
-}
-
-StreamLogger::StreamLogger(std::ostream& stream)
-    : stream_(stream)
-{
-}
-
-std::ostream& StreamLogger::log()
-{
-    return stream_;
+    static auto console = spdlog::stdout_color_mt("xpd");
+    return console;
 }
 
 } // namespace xpd

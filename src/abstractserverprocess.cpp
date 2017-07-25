@@ -61,17 +61,17 @@ const AbstractServer* AbstractServerProcess::parent() const
     return parent_;
 }
 
-Logger& AbstractServerProcess::post(const std::string& text)
+void AbstractServerProcess::post(const std::string& text)
 {
     std::cout << text << std::endl;
 }
 
-Logger& AbstractServerProcess::error(const std::string& text)
+void AbstractServerProcess::error(const std::string& text)
 {
     std::cerr << "[error] " << text << std::endl;
 }
 
-Logger& AbstractServerProcess::log(LogLevel level, const std::string& text)
+void AbstractServerProcess::log(LogLevel level, const std::string& text)
 {
 }
 

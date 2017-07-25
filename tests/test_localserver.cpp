@@ -42,9 +42,20 @@ TEST_CASE("localserver", "[server]")
         CanvasPtr cnv0 = p0->createCanvas();
         REQUIRE(cnv0);
         REQUIRE(p0->canvasList().size() == 1);
+    }
 
-        CanvasPtr cnv1 = p0->createCanvas();
-        REQUIRE(cnv1);
-        REQUIRE(p1->canvasList().size() == 2);
+    SECTION("c2")
+    {
+        LocalPdServer srv(ServerSettings("local"));
+
+        {
+            ProcessPtr p = srv.createProcess();
+            CanvasPtr cnv = p->createCanvas();
+        }
+
+        {
+            ProcessPtr p = srv.createProcess();
+            CanvasPtr cnv = p->createCanvas();
+        }
     }
 }

@@ -9,9 +9,13 @@ namespace xpd {
 
 class PdCanvas : public Canvas {
     t_canvas* cnv_;
+    PdCanvas();
+    PdCanvas(const PdCanvas&);
+    void operator=(const PdCanvas&);
 
 public:
     PdCanvas(const Canvas* parent, const CanvasSettings& s);
+    ~PdCanvas();
 };
 
 } // namespace xpd

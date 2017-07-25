@@ -8,7 +8,6 @@
 #include "classinfo.h"
 #include "consoleobserver.h"
 #include "libraryinfo.h"
-#include "logger.h"
 #include "observer.h"
 #include "servercanvas.h"
 #include "serverpath.h"
@@ -41,6 +40,10 @@ enum LogLevel {
 };
 
 class AbstractServerProcess {
+private:
+    AbstractServerProcess();
+    AbstractServerProcess(const AbstractServerProcess&);
+
 protected:
     ServerProcessSettings settings_;
     CanvasList canvas_list_;
@@ -80,9 +83,9 @@ public:
 
     const AbstractServer* parent() const;
 
-    virtual Logger& post(const std::string& text = "");
-    virtual Logger& error(const std::string& text = "");
-    virtual Logger& log(LogLevel level, const std::string& text);
+    virtual void post(const std::string& text = "");
+    virtual void error(const std::string& text = "");
+    virtual void log(LogLevel level, const std::string& text);
 
     LogLevel logLevel() const;
     void setLogLevel(LogLevel l);

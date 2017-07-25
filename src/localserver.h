@@ -13,6 +13,7 @@ public:
 class LocalPdServer : public LocalServer {
 public:
     LocalPdServer(const ServerSettings& s);
+    ~LocalPdServer();
     ProcessPtr createProcess();
 };
 

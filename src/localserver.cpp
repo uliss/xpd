@@ -1,5 +1,6 @@
 #include "localserver.h"
 #include "localpdprocess.h"
+#include "logger.h"
 
 namespace xpd {
 
@@ -10,6 +11,10 @@ LocalServer::LocalServer(const ServerSettings& s)
 
 LocalPdServer::LocalPdServer(const ServerSettings& s)
     : LocalServer(s)
+{
+}
+
+LocalPdServer::~LocalPdServer()
 {
 }
 
@@ -28,7 +33,7 @@ ProcessPtr LocalPdServer::createProcess()
             return ptr;
 
     } catch (std::exception& e) {
-        std::cerr << "LocalPdProcess crashed: " << e.what() << std::endl;
+        log()->critical("LocalPdProcess crashed: {}", e.what());
         return ProcessPtr();
     }
 

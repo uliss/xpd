@@ -11,6 +11,11 @@ LocalPdProcess::LocalPdProcess(const AbstractServer* parent, const ServerProcess
         throw Exception("can't start pd");
 }
 
+LocalPdProcess::~LocalPdProcess()
+{
+    cpd_stop();
+}
+
 void LocalPdProcess::dspSwitch(bool value)
 {
 }

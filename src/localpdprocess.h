@@ -8,6 +8,7 @@ namespace xpd {
 class LocalPdProcess : public AbstractServerProcess {
 public:
     LocalPdProcess(const AbstractServer* parent, const ServerProcessSettings& s);
+    ~LocalPdProcess();
 
     void dspSwitch(bool value);
 
