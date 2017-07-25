@@ -180,6 +180,8 @@ int cpd_stop()
     t_canvas* x = 0;
     for (x = pd_getcanvaslist(); x; x = x->gl_next)
         canvas_vis(x, 0);
+
+    return 1;
 }
 
 t_cpd_canvas* cpd_root_canvas_last()
