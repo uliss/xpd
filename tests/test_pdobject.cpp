@@ -10,12 +10,11 @@ using namespace xpd;
 TEST_CASE("PdObject", "[server]")
 {
     LocalPdServer srv(ServerSettings("local"));
+    ProcessPtr p = srv.createProcess();
+    CanvasPtr c = p->createCanvas();
 
     SECTION("init")
     {
-        ProcessPtr p = srv.createProcess();
-        CanvasPtr c = p->createCanvas();
-
         REQUIRE(c->type() == OBJ_TYPE_CANVAS);
 
         auto o = std::make_shared<PdObject>(c.get(), "mtof", 100, 200);
@@ -36,5 +35,12 @@ TEST_CASE("PdObject", "[server]")
         REQUIRE_FALSE(o->hasChildren());
         REQUIRE(o->children().empty());
         REQUIRE(o->type() == OBJ_TYPE_SIMPLE_BOX);
+    }
+
+    SECTION("inlet count")
+    {
+        auto o = std::make_shared<PdObject>(c.get(), "metro", 0, 0);
+        REQUIRE(o->inletCount() == 2);
+        REQUIRE(o->outletCount() == 1);
     }
 }
