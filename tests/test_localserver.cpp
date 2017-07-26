@@ -68,4 +68,14 @@ TEST_CASE("localserver", "[server]")
             REQUIRE(p->canvasCount() == 1);
         }
     }
+
+    SECTION("obj")
+    {
+        LocalPdServer srv(ServerSettings("local"));
+        ProcessPtr p = srv.createProcess();
+        CanvasPtr cnv = p->createCanvas();
+
+        REQUIRE_THROWS_AS(cnv->createObject("test", 100, 200), Object::Exception);
+        ObjectId id = cnv->createObject("metro", 100, 200);
+    }
 }

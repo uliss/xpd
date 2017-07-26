@@ -1,14 +1,13 @@
 #ifndef PDCANVAS_H
 #define PDCANVAS_H
 
-#include "m_pd.h"
-
+#include "lib_cpd.h"
 #include "servercanvas.h"
 
 namespace xpd {
 
 class PdCanvas : public Canvas {
-    t_canvas* cnv_;
+    t_cpd_canvas* cnv_;
     PdCanvas();
     PdCanvas(const PdCanvas&);
     void operator=(const PdCanvas&);
@@ -16,6 +15,10 @@ class PdCanvas : public Canvas {
 public:
     PdCanvas(const Canvas* parent, const CanvasSettings& s);
     ~PdCanvas();
+
+    ObjectId createObject(const std::string& name, int x, int y);
+
+    const t_cpd_canvas* canvas() const;
 };
 
 } // namespace xpd

@@ -21,6 +21,7 @@ set(SERVER_SRC
     objectproperties.cpp
     observer.cpp
     pdcanvas.cpp
+    pdobject.cpp
     propertyobserver.cpp
     servercanvas.cpp
     serverpath.cpp

@@ -4,11 +4,12 @@
 
 namespace xpd {
 
-Object::Object(const Canvas* parent, ClassInfoPtr c, const std::string& name)
+Object::Object(const Canvas* parent, const std::string& name, int x, int y)
     : parent_(parent)
     , name_(name)
-    , class_(c)
     , id_(0)
+    , x_(x)
+    , y_(y)
 {
 }
 
@@ -88,6 +89,25 @@ const ObjectList& Object::children() const
 {
     static ObjectList empty;
     return empty;
+}
+
+int Object::x() const
+{
+    return x_;
+}
+
+int Object::y() const
+{
+}
+
+void Object::setX(int x)
+{
+    x_ = x;
+}
+
+void Object::setY(int y)
+{
+    y_ = y;
 }
 
 } // namespace xpd

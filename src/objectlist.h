@@ -22,6 +22,8 @@ public:
 
     const ConnectionList& connections() const;
     ConnectionList& connections();
+
+    void push_back(const ObjectPtr& o);
 };
 
 } // namespace xpd

@@ -31,6 +31,7 @@ public:
 };
 
 class Canvas : public Object {
+protected:
     CanvasSettings settings_;
     std::string path_;
     CanvasObserverList observer_list_;
@@ -50,7 +51,7 @@ public:
     virtual bool connect(const Object& src, int outletIdx, const Object& dest, int inletIdx);
     virtual bool disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx);
 
-    virtual ObjectId createObject(const std::string& name);
+    virtual ObjectId createObject(const std::string& name, int x, int y) = 0;
     virtual bool deleteObject(ObjectId objId);
 
     ObjectId createArray(const std::string& name, size_t size);

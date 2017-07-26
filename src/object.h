@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -16,7 +17,7 @@ class ClassInfo;
 class Object;
 class ObjectList;
 
-typedef std::unique_ptr<Object> ObjectPtr;
+typedef std::shared_ptr<Object> ObjectPtr;
 typedef std::vector<Inlet> InletList;
 typedef std::vector<Outlet> OutletList;
 typedef std::shared_ptr<Observer> ObserverPtr;
@@ -34,15 +35,20 @@ enum ObjectType {
 typedef size_t ObjectId;
 
 class Object {
+protected:
     std::string name_;
     const Canvas* parent_;
     InletList inlet_list_;
     OutletList outlet_list_;
     ClassInfoPtr class_;
     ObjectId id_;
+    int x_, y_;
 
 public:
-    Object(const Canvas* parent, ClassInfoPtr c, const std::string& name);
+    typedef std::runtime_error Exception;
+
+public:
+    Object(const Canvas* parent, const std::string& name, int x = 0, int y = 0);
     virtual ~Object();
 
     const std::string& name() const;
@@ -67,6 +73,12 @@ public:
     virtual bool isRoot() const;
     virtual bool hasChildren() const;
     virtual const ObjectList& children() const;
+
+    int x() const;
+    int y() const;
+
+    virtual void setX(int x);
+    virtual void setY(int y);
 
 private:
     Object(const Object&);

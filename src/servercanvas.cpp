@@ -1,14 +1,11 @@
 #include "servercanvas.h"
-#include "classinfo.h"
 
 #include <algorithm>
 
 namespace xpd {
 
-static ClassInfoPtr canvas_class = std::make_shared<ClassInfo>("canvas");
-
 Canvas::Canvas(const Canvas* parent, const CanvasSettings& s)
-    : Object(parent, canvas_class, s.name())
+    : Object(parent, s.name())
     , settings_(s)
 {
 }
@@ -44,10 +41,6 @@ bool Canvas::connect(const Object& src, int outletIdx, const Object& dest, int i
 bool Canvas::disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
 {
     return false;
-}
-
-ObjectId Canvas::createObject(const std::string& name)
-{
 }
 
 bool Canvas::deleteObject(ObjectId objId)

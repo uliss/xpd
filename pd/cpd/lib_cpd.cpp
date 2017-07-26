@@ -8,6 +8,7 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+#include <algorithm>
 #include <csignal>
 #include <iostream>
 
@@ -139,7 +140,7 @@ t_canvas* cpd_new_patch()
     return ret;
 }
 
-int cpd_is_canvas(t_object* x)
+int cpd_is_canvas(t_cpd_object* x)
 {
     if (!x) {
         console->error("cpd_is_canvas: null pointer given");
@@ -361,4 +362,118 @@ int cpd_root_canvas_height(t_cpd_canvas* cnv)
     }
 
     return cnv->gl_screeny2 - cnv->gl_screeny1;
+}
+
+t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y)
+{
+    console->trace("cpd_object_new {");
+
+    const size_t N = args ? args->n : 0;
+
+    std::vector<t_atom> data(N + 3);
+    t_atom* argv = &data.front();
+
+    SETFLOAT(&argv[0], x);
+    SETFLOAT(&argv[1], y);
+    SETSYMBOL(&argv[2], gensym(name));
+
+    if (args) {
+        std::copy(args->data, args->data + args->n, argv + 3);
+    }
+
+    pd_typedmess((t_pd*)c, gensym("obj"), N + 3, argv);
+
+    t_pd* ptr = pd_newest();
+    if (!ptr) {
+        cpd_error("cpd_object_new: object creation failed");
+        return 0;
+    }
+
+    t_object* res = pd_checkobject(ptr);
+    if (!res) {
+        cpd_error("cpd_object_new: invalid object");
+        return 0;
+    }
+
+    console->debug("  cpd_object_new: created [{}] ({})", name, (void*)res);
+    return res;
+}
+
+t_cpd_atom* cpd_atom_float_new(float f)
+{
+    t_atom* a = new t_atom;
+    SETFLOAT(a, f);
+    return a;
+}
+
+void cpd_atom_free(t_cpd_atom* a)
+{
+    delete a;
+}
+
+t_cpd_atom* cpd_atom_symbol_new(const char* s)
+{
+    t_atom* a = new t_atom;
+    SETSYMBOL(a, gensym(s));
+    return a;
+}
+
+void cpd_atom_set_float(t_cpd_atom* a, float f)
+{
+    SETFLOAT(a, f);
+}
+
+void cpd_atom_set_symbol(t_cpd_atom* a, const char* s)
+{
+    SETSYMBOL(a, gensym(s));
+}
+
+int cpd_atom_is_float(t_cpd_atom* a)
+{
+    return a->a_type == A_DEFFLOAT ? 1 : 0;
+}
+
+int cpd_atom_is_symbol(t_cpd_atom* a)
+{
+    return a->a_type == A_DEFSYMBOL ? 1 : 0;
+}
+
+float cpd_atom_float(t_cpd_atom* a)
+{
+    if (cpd_atom_is_float(a))
+        return a->a_w.w_float;
+
+    return 0;
+}
+
+const char* cpd_atom_symbol(t_cpd_atom* a)
+{
+    if (cpd_atom_is_symbol(a))
+        return a->a_w.w_symbol->s_name;
+
+    return 0;
+}
+
+t_cpd_atomlist* cpd_atomlist_new(size_t n)
+{
+    t_cpd_atomlist* lst = new t_cpd_atomlist;
+    lst->n = n;
+    lst->data = new t_cpd_atom[n];
+
+    for (size_t i = 0; i < n; i++) {
+        SETFLOAT(lst->data + i, 0);
+    }
+
+    return lst;
+}
+
+void cpd_atomlist_free(t_cpd_atomlist* l)
+{
+    if (!l) {
+        console->error("cpd_atomlist_free: NULL pointer given");
+        return;
+    }
+
+    delete[] l->data;
+    delete l;
 }

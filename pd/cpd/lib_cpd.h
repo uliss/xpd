@@ -7,11 +7,31 @@
 extern "C" {
 #endif
 
+struct _atom;
 struct _text;
 struct _glist;
 
 typedef struct _glist t_cpd_canvas;
-typedef struct _text t_object;
+typedef struct _text t_cpd_object;
+typedef struct _atom t_cpd_atom;
+
+typedef struct _cpd_atomlist {
+    size_t n;
+    t_cpd_atom* data;
+} t_cpd_atomlist;
+
+t_cpd_atom* cpd_atom_float_new(float f);
+t_cpd_atom* cpd_atom_symbol_new(const char* s);
+void cpd_atom_set_float(t_cpd_atom* a, float f);
+void cpd_atom_set_symbol(t_cpd_atom* a, const char* s);
+int cpd_atom_is_float(t_cpd_atom* a);
+int cpd_atom_is_symbol(t_cpd_atom* a);
+float cpd_atom_float(t_cpd_atom* a);
+const char* cpd_atom_symbol(t_cpd_atom* a);
+void cpd_atom_free(t_cpd_atom* a);
+
+t_cpd_atomlist* cpd_atomlist_new(size_t n);
+void cpd_atomlist_free(t_cpd_atomlist* l);
 
 /**
  * Creates new root (top-level) canvas
@@ -79,6 +99,16 @@ int cpd_canvas_free(t_cpd_canvas* c);
  */
 int cpd_canvas_is_root(t_cpd_canvas* c);
 
+/**
+ * Creates new object on specified canvas
+ * @param c - parent canvas
+ * @param name
+ * @param x
+ * @param y
+ * @return pointer to new object or NULL
+ */
+t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y);
+
 ////
 /// \brief initializes pd library
 /// \return 1 on success, 0 on error
@@ -92,7 +122,7 @@ int cpd_stop();
 /// \param x - pointer to object
 /// \return 1 is given object is canvas, otherwise 0
 ///
-int cpd_is_canvas(t_object* x);
+int cpd_is_canvas(t_cpd_object* x);
 
 ////
 ///

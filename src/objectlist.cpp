@@ -16,4 +16,9 @@ ConnectionList& ObjectList::connections()
     return conn_;
 }
 
+void ObjectList::push_back(const ObjectPtr& o)
+{
+    obj_.push_back(o);
+}
+
 } // namespace xpd
