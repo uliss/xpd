@@ -30,6 +30,7 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, int x, int y)
 
     id_ = id_counter_++;
 
+    // cache xlet number, since it should not change after object creation
     inlet_n_ = cpd_object_inlet_count(obj_);
     outlet_n_ = cpd_object_outlet_count(obj_);
 }
