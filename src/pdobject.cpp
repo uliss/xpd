@@ -8,6 +8,8 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, int x, int y)
     : Object(parent, name, x, y)
     , cnv_(0)
     , obj_(0)
+    , inlet_n_(0)
+    , outlet_n_(0)
 {
     static size_t id_counter_ = 2000;
 
@@ -27,6 +29,9 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, int x, int y)
     }
 
     id_ = id_counter_++;
+
+    inlet_n_ = cpd_object_inlet_count(obj_);
+    outlet_n_ = cpd_object_outlet_count(obj_);
 }
 
 PdObject::~PdObject()
@@ -48,12 +53,12 @@ void PdObject::setY(int y)
 
 size_t PdObject::inletCount() const
 {
-    return cpd_object_inlet_count(obj_);
+    return inlet_n_;
 }
 
 size_t PdObject::outletCount() const
 {
-    return cpd_object_outlet_count(obj_);
+    return outlet_n_;
 }
 
 } // namespace xpd

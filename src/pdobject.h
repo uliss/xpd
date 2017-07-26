@@ -9,6 +9,8 @@ namespace xpd {
 class PdObject : public Object {
     t_cpd_canvas* cnv_;
     t_cpd_object* obj_;
+    size_t inlet_n_;
+    size_t outlet_n_;
 
 public:
     PdObject(const Canvas* parent, const std::string& name, int x = 0, int y = 0);
