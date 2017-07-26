@@ -87,11 +87,22 @@ void AbstractServerProcess::setLogLevel(LogLevel l)
 
 bool AbstractServerProcess::deleteCanvas(CanvasPtr cnv)
 {
+    auto it = std::find(canvas_list_.begin(), canvas_list_.end(), cnv);
+    if (it == canvas_list_.end())
+        return false;
+
+    canvas_list_.erase(it);
+    return true;
 }
 
 const CanvasList& AbstractServerProcess::canvasList() const
 {
     return canvas_list_;
+}
+
+size_t AbstractServerProcess::canvasCount() const
+{
+    return canvas_list_.size();
 }
 
 LibraryList AbstractServerProcess::loadedLibraries() const

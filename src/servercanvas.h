@@ -50,8 +50,8 @@ public:
     virtual bool connect(const Object& src, int outletIdx, const Object& dest, int inletIdx);
     virtual bool disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx);
 
-    ObjectId createObject(const std::string& name);
-    bool deleteObject(ObjectId objId);
+    virtual ObjectId createObject(const std::string& name);
+    virtual bool deleteObject(ObjectId objId);
 
     ObjectId createArray(const std::string& name, size_t size);
     bool deleteArray(const std::string& name);

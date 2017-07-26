@@ -39,8 +39,12 @@ TEST_CASE("localserver", "[server]")
         REQUIRE(p1->parent() == p0->parent());
         REQUIRE(p1->parent() == &srv);
 
+        // create new canvas
+        REQUIRE(p0->canvasCount() == 0);
         CanvasPtr cnv0 = p0->createCanvas();
+
         REQUIRE(cnv0);
+        REQUIRE(p0->canvasCount() == 1);
         REQUIRE(p0->canvasList().size() == 1);
     }
 
@@ -51,11 +55,17 @@ TEST_CASE("localserver", "[server]")
         {
             ProcessPtr p = srv.createProcess();
             CanvasPtr cnv = p->createCanvas();
+            REQUIRE(p->canvasCount() == 1);
+            REQUIRE(!p->deleteCanvas(CanvasPtr()));
+            REQUIRE(p->canvasCount() == 1);
+            REQUIRE(p->deleteCanvas(cnv));
+            REQUIRE(p->canvasCount() == 0);
         }
 
         {
             ProcessPtr p = srv.createProcess();
             CanvasPtr cnv = p->createCanvas();
+            REQUIRE(p->canvasCount() == 1);
         }
     }
 }

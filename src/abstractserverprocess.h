@@ -93,6 +93,7 @@ public:
     virtual CanvasPtr createCanvas() = 0;
     virtual bool deleteCanvas(CanvasPtr cnv);
     const CanvasList& canvasList() const;
+    virtual size_t canvasCount() const;
 
     virtual LibraryList loadedLibraries() const;
     virtual ClassList loadedClasses() const;
