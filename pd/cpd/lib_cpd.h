@@ -102,12 +102,35 @@ int cpd_canvas_is_root(t_cpd_canvas* c);
 /**
  * Creates new object on specified canvas
  * @param c - parent canvas
- * @param name
- * @param x
- * @param y
+ * @param name - object name
+ * @param args - arguments list structure
+ * @param x - X-position on canvas
+ * @param y - Y-position on canvas
  * @return pointer to new object or NULL
  */
 t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y);
+
+/**
+ * @brief Removed object from canvas and frees it
+ * @param cnv - object canvas
+ * @param obj - obj pointer
+ */
+void cpd_object_free(t_cpd_canvas* cnv, t_cpd_object* obj);
+
+/**
+ * @brief Returns object name
+ * @param obj - pointer to object
+ * @return object name or empty string on error
+ */
+const char* cpd_object_name(t_cpd_object* obj);
+
+int cpd_object_xpos(t_cpd_object* obj);
+int cpd_object_ypos(t_cpd_object* obj);
+void cpd_object_set_xpos(t_cpd_object* obj, int x);
+void cpd_object_set_ypos(t_cpd_object* obj, int y);
+
+size_t cpd_object_inlet_count(t_cpd_object* obj);
+size_t cpd_object_outlet_count(t_cpd_object* obj);
 
 ////
 /// \brief initializes pd library

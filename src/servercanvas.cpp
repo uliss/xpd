@@ -57,12 +57,22 @@ bool Canvas::deleteArray(const std::string& name)
 
 bool Canvas::hasChildren() const
 {
-    return true;
+    return !obj_list_.empty();
+}
+
+size_t Canvas::childrenCount() const
+{
+    return obj_list_.size();
 }
 
 const ObjectList& Canvas::children() const
 {
     return obj_list_;
+}
+
+ObjectType Canvas::type() const
+{
+    return OBJ_TYPE_CANVAS;
 }
 
 CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)

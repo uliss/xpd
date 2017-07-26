@@ -18,6 +18,7 @@ PdCanvas::PdCanvas(const Canvas* parent, const CanvasSettings& s)
 
 PdCanvas::~PdCanvas()
 {
+    obj_list_.clear();
     cpd_canvas_free(cnv_);
 }
 
@@ -32,9 +33,9 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     lst.n = 0;
     lst.data = 0;
 
-    ObjectPtr ptr(new PdObject(this, name));
-    obj_list_.push_back(ptr);
-    return ptr->id();
+    Object* obj = new PdObject(this, name);
+    obj_list_.append(obj);
+    return obj->id();
 }
 
 const t_cpd_canvas* PdCanvas::canvas() const

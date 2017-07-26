@@ -76,6 +76,10 @@ TEST_CASE("localserver", "[server]")
         CanvasPtr cnv = p->createCanvas();
 
         REQUIRE_THROWS_AS(cnv->createObject("test", 100, 200), Object::Exception);
-        ObjectId id = cnv->createObject("metro", 100, 200);
+        ObjectId id = cnv->createObject("mtof", 100, 200);
+        REQUIRE(id != 0);
+
+        REQUIRE(cnv->hasChildren());
+        REQUIRE(cnv->childrenCount() == 1);
     }
 }

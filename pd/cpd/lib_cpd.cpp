@@ -477,3 +477,76 @@ void cpd_atomlist_free(t_cpd_atomlist* l)
     delete[] l->data;
     delete l;
 }
+
+void cpd_object_free(t_cpd_canvas* cnv, t_cpd_object* obj)
+{
+    if (!cnv) {
+        console->error("cpd_object_free: NULL canvas given");
+        return;
+    }
+
+    if (!obj) {
+        console->error("cpd_object_free: NULL object given");
+        return;
+    }
+
+    console->debug("  cpd_object_free: [{}]", cpd_object_name(obj));
+
+    glist_delete(cnv, &obj->te_g);
+}
+
+const char* cpd_object_name(t_cpd_object* obj)
+{
+    if (!obj)
+        return "";
+
+    return obj->te_g.g_pd->c_name->s_name;
+}
+
+int cpd_object_xpos(t_cpd_object* obj)
+{
+    if (!obj)
+        return -1;
+
+    return obj->te_xpix;
+}
+
+int cpd_object_ypos(t_cpd_object* obj)
+{
+    if (!obj)
+        return -1;
+
+    return obj->te_ypix;
+}
+
+void cpd_object_set_xpos(t_cpd_object* obj, int x)
+{
+    if (!obj)
+        return;
+
+    obj->te_xpix = x;
+}
+
+void cpd_object_set_ypos(t_cpd_object* obj, int y)
+{
+    if (!obj)
+        return;
+
+    obj->te_ypix = y;
+}
+
+size_t cpd_object_inlet_count(t_cpd_object* obj)
+{
+    if (!obj)
+        return 0;
+
+    return obj_ninlets(obj);
+}
+
+size_t cpd_object_outlet_count(t_cpd_object* obj)
+{
+    if (!obj)
+        return 0;
+
+    return obj_noutlets(obj);
+}

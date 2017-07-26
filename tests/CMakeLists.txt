@@ -39,5 +39,6 @@ endmacro()
 
 add_library(test_catch_main_lib STATIC tests_catch_main.cpp)
 
+xpd_add_test(PdObject pdobject)
 xpd_add_test(LocalServer localserver)
 xpd_add_test(cpd cpd)

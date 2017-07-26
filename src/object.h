@@ -17,7 +17,7 @@ class ClassInfo;
 class Object;
 class ObjectList;
 
-typedef std::shared_ptr<Object> ObjectPtr;
+typedef std::unique_ptr<Object> ObjectPtr;
 typedef std::vector<Inlet> InletList;
 typedef std::vector<Outlet> OutletList;
 typedef std::shared_ptr<Observer> ObserverPtr;
@@ -72,6 +72,7 @@ public:
 
     virtual bool isRoot() const;
     virtual bool hasChildren() const;
+    virtual size_t childrenCount() const;
     virtual const ObjectList& children() const;
 
     int x() const;

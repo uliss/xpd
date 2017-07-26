@@ -85,6 +85,11 @@ bool Object::hasChildren() const
     return false;
 }
 
+size_t Object::childrenCount() const
+{
+    return 0;
+}
+
 const ObjectList& Object::children() const
 {
     static ObjectList empty;
@@ -98,6 +103,7 @@ int Object::x() const
 
 int Object::y() const
 {
+    return y_;
 }
 
 void Object::setX(int x)

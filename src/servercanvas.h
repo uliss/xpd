@@ -58,7 +58,10 @@ public:
     bool deleteArray(const std::string& name);
 
     bool hasChildren() const;
+    size_t childrenCount() const;
     const ObjectList& children() const;
+
+    ObjectType type() const;
 };
 
 //    vector<ServerPatchcord*> _patchcords;

@@ -11,19 +11,24 @@ namespace xpd {
 typedef std::vector<Connection> ConnectionList;
 
 class ObjectList {
-    std::vector<ObjectPtr> obj_;
+    std::vector<Object*> obj_;
     ConnectionList conn_;
 
 public:
     ObjectList();
+    ~ObjectList();
 
-    const std::vector<ObjectPtr>& get() const { return obj_; }
-    std::vector<ObjectPtr>& get() { return obj_; }
+    const std::vector<Object*>& get() const { return obj_; }
+    std::vector<Object*>& get() { return obj_; }
 
     const ConnectionList& connections() const;
     ConnectionList& connections();
 
-    void push_back(const ObjectPtr& o);
+    void append(Object* o);
+    void clear();
+
+    bool empty() const;
+    size_t size() const;
 };
 
 } // namespace xpd

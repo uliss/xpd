@@ -95,4 +95,25 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
             REQUIRE(cpd_root_canvas_count() == n);
         }
     }
+
+    SECTION("objects")
+    {
+        t_cpd_canvas* cnv = cpd_root_canvas_new();
+
+        t_cpd_object* obj0 = cpd_object_new(cnv, "unknown", 0, 0, 0);
+        REQUIRE(obj0 == 0);
+        REQUIRE(cpd_object_name(obj0) == std::string(""));
+        obj0 = cpd_object_new(cnv, "mtof", 0, 10, 20);
+
+        REQUIRE(obj0 != 0);
+        REQUIRE(cpd_object_name(obj0) == std::string("mtof"));
+
+        t_cpd_object* obj1 = cpd_object_new(cnv, "metro", 0, 10, 20);
+        REQUIRE(cpd_object_xpos(obj1) == 10);
+        REQUIRE(cpd_object_ypos(obj1) == 20);
+        cpd_object_free(cnv, obj1);
+
+        cpd_object_free(cnv, obj0);
+        cpd_canvas_free(cnv);
+    }
 }

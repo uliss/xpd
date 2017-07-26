@@ -13,6 +13,12 @@ class PdObject : public Object {
 public:
     PdObject(const Canvas* parent, const std::string& name, int x = 0, int y = 0);
     ~PdObject();
+
+    void setX(int x);
+    void setY(int y);
+
+    size_t inletCount() const;
+    size_t outletCount() const;
 };
 
 } // namespace xpd
