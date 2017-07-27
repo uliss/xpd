@@ -38,9 +38,9 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     return obj->id();
 }
 
-bool PdCanvas::connect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
+bool PdCanvas::connect(ObjectId src, int outletIdx, ObjectId dest, int inletIdx)
 {
-    obj_list_.connect(src.id(), outletIdx, dest.id(), inletIdx);
+    obj_list_.connect(src, outletIdx, dest, inletIdx);
 }
 
 const t_cpd_canvas* PdCanvas::canvas() const

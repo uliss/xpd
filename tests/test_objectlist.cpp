@@ -11,6 +11,7 @@ public:
         : Object(0, name)
     {
         cnt++;
+        id_ = cnt + 5000;
     }
 
     ~TestObject()
@@ -68,6 +69,9 @@ TEST_CASE("ObjectList", "[server]")
         lst.append(o1);
         lst.append(o2);
 
+        REQUIRE(lst.contains(o1->id()));
+        REQUIRE(lst.contains(o2->id()));
+
         REQUIRE(lst.connect(o1->id(), 0, o2->id(), 0));
         // double connection
         REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 0));
@@ -85,6 +89,31 @@ TEST_CASE("ObjectList", "[server]")
         // invalid dest inlet
         REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 3));
         REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 4));
+
+        REQUIRE(lst.isConnected(o1->id(), o2->id()));
+        REQUIRE(lst.isConnected(o2->id(), o1->id()));
+        REQUIRE_FALSE(lst.isConnected(o1->id(), o1->id()));
+        REQUIRE_FALSE(lst.isConnected(o2->id(), o2->id()));
+
+        // self connection
+        REQUIRE_FALSE(lst.connect(o1->id(), 0, o1->id(), 0));
+    }
+
+    SECTION("disconnect")
+    {
+        ObjectList lst;
+        auto o1 = new TestObject("object1");
+        auto o2 = new TestObject("object1");
+
+        lst.append(o1);
+        lst.append(o2);
+        REQUIRE(lst.connect(o1->id(), 0, o2->id(), 1));
+        REQUIRE(lst.isConnected(o1->id(), o2->id()));
+
+        REQUIRE(lst.disconnect(o1->id(), 0, o2->id(), 1));
+        REQUIRE_FALSE(lst.isConnected(o1->id(), o2->id()));
+        // second attempt
+        REQUIRE_FALSE(lst.disconnect(o1->id(), 0, o2->id(), 1));
     }
 
     REQUIRE(TestObject::cnt == 0);

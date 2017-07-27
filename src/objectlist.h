@@ -35,6 +35,8 @@ public:
     size_t size() const;
 
     bool connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx);
+    bool disconnect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx);
+    bool isConnected(ObjectId obj1, ObjectId obj2) const;
 
     Object* findObject(ObjectId id);
     const Object* findObject(ObjectId id) const;

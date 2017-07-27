@@ -53,6 +53,11 @@ size_t ObjectList::size() const
 
 bool ObjectList::connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx)
 {
+    if (src == dest) {
+        log()->error("ObjectList::connect: self-connection attempt {}->{}", src, dest);
+        return false;
+    }
+
     if (!checkObjectOutlet(src, srcOutletIdx))
         return false;
 
@@ -67,6 +72,28 @@ bool ObjectList::connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_
 
     conn_.push_back(c);
     return true;
+}
+
+bool ObjectList::disconnect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx)
+{
+    Connection c(src, srcOutletIdx, dest, destInletIdx);
+    auto it = std::find(conn_.begin(), conn_.end(), c);
+    if (it == conn_.end()) {
+        log()->error("ObjectList::disconnect: connection not found");
+        return false;
+    }
+
+    conn_.erase(it);
+    return true;
+}
+
+bool ObjectList::isConnected(ObjectId obj1, ObjectId obj2) const
+{
+    auto it = std::find_if(conn_.begin(), conn_.end(),
+        [obj1, obj2](const Connection& c) { return (c.src() == obj1 && c.dest() == obj2)
+                                                || (c.src() == obj2 && c.dest() == obj1); });
+
+    return it != conn_.end();
 }
 
 Object* ObjectList::findObject(ObjectId id)

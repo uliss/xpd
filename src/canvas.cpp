@@ -33,12 +33,12 @@ const ObjectList& Canvas::objects() const
     return obj_list_;
 }
 
-bool Canvas::connect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
+bool Canvas::connect(ObjectId, int outletIdx, ObjectId dest, int inletIdx)
 {
     return false;
 }
 
-bool Canvas::disconnect(const Object& src, int outletIdx, const Object& dest, int inletIdx)
+bool Canvas::disconnect(ObjectId src, int outletIdx, ObjectId dest, int inletIdx)
 {
     return false;
 }
