@@ -1,4 +1,4 @@
-#include "pdcanvas.h"
+#include "pd_canvas.h"
 #include "lib_cpd.h"
 #include "logger.h"
 #include "pdobject.h"

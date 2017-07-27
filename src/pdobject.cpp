@@ -1,6 +1,6 @@
 #include "pdobject.h"
 #include "logger.h"
-#include "pdcanvas.h"
+#include "pd_canvas.h"
 
 namespace xpd {
 
