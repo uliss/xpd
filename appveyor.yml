@@ -15,7 +15,7 @@ install:
 build_script:
     - mkdir build
     - cd build
-    - cmake .. -G "Visual Studio 14 2015" -DWITH_PORTAUDIO=OFF
+    - cmake -G "Visual Studio 14 2015" -DWITH_PORTAUDIO=OFF ..
     - cmake --build .
 
 
