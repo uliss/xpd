@@ -32,7 +32,7 @@ endif()
 
 macro(xpd_add_test title name)
     add_executable("test_${name}" "test_${name}.cpp")
-    target_link_libraries("test_${name}" test_catch_main_lib pd_core_static xpd_static)
+    target_link_libraries("test_${name}" test_catch_main_lib xpd_static pd_core_static)
     set(_exec_cmd "test_${name}")
 
     add_test(NAME ${title} COMMAND ${_exec_cmd})
