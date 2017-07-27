@@ -9,7 +9,7 @@ using namespace xpd;
 
 TEST_CASE("PdObject", "[server]")
 {
-    LocalPdServer srv(ServerSettings("local"));
+    PdLocalServer srv(ServerSettings("local"));
     ProcessPtr p = srv.createProcess();
     CanvasPtr c = p->createCanvas();
 

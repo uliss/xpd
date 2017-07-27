@@ -10,7 +10,7 @@ TEST_CASE("localserver", "[server]")
     SECTION("init")
     {
         ServerSettings s("local pd");
-        LocalPdServer srv(s);
+        PdLocalServer srv(s);
 
         REQUIRE(srv.name() == "local pd");
         REQUIRE(srv.processList().empty());
@@ -25,7 +25,7 @@ TEST_CASE("localserver", "[server]")
 
     SECTION("create")
     {
-        LocalPdServer srv(ServerSettings("local"));
+        PdLocalServer srv(ServerSettings("local"));
 
         ProcessPtr p0 = srv.createProcess();
         REQUIRE(p0);
@@ -50,7 +50,7 @@ TEST_CASE("localserver", "[server]")
 
     SECTION("c2")
     {
-        LocalPdServer srv(ServerSettings("local"));
+        PdLocalServer srv(ServerSettings("local"));
 
         {
             ProcessPtr p = srv.createProcess();
@@ -71,7 +71,7 @@ TEST_CASE("localserver", "[server]")
 
     SECTION("obj")
     {
-        LocalPdServer srv(ServerSettings("local"));
+        PdLocalServer srv(ServerSettings("local"));
         ProcessPtr p = srv.createProcess();
         CanvasPtr cnv = p->createCanvas();
 
