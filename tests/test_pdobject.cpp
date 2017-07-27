@@ -2,7 +2,7 @@
 
 #include "abstractserverprocess.h"
 #include "localserver.h"
-#include "pdobject.h"
+#include "pd_object.h"
 #include "servercanvas.h"
 
 using namespace xpd;

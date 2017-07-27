@@ -23,7 +23,7 @@ set(SERVER_SRC
     observer.cpp
     pd_arguments.cpp
     pd_canvas.cpp
-    pdobject.cpp
+    pd_object.cpp
     propertyobserver.cpp
     servercanvas.cpp
     serverpath.cpp

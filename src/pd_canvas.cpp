@@ -1,7 +1,7 @@
 #include "pd_canvas.h"
 #include "lib_cpd.h"
 #include "logger.h"
-#include "pdobject.h"
+#include "pd_object.h"
 
 using namespace xpd;
 
