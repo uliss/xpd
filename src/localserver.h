@@ -5,10 +5,10 @@
 
 namespace xpd {
 
-class LocalPdServer : public AbstractServer {
+class PdLocalServer : public AbstractServer {
 public:
-    LocalPdServer(const ServerSettings& s);
-    ~LocalPdServer();
+    PdLocalServer(const ServerSettings& s);
+    ~PdLocalServer();
     ProcessPtr createProcess();
 };
 

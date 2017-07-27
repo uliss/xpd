@@ -4,16 +4,16 @@
 
 namespace xpd {
 
-LocalPdServer::LocalPdServer(const ServerSettings& s)
+PdLocalServer::PdLocalServer(const ServerSettings& s)
     : AbstractServer(s)
 {
 }
 
-LocalPdServer::~LocalPdServer()
+PdLocalServer::~PdLocalServer()
 {
 }
 
-ProcessPtr LocalPdServer::createProcess()
+ProcessPtr PdLocalServer::createProcess()
 {
     if (process_list_.size() > 0)
         return process_list_.front();
