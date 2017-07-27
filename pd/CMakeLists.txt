@@ -207,4 +207,8 @@ add_library(pd_core_static STATIC ${PD_SOURCES} ${PD_EXTRA_SOURCES})
 target_link_libraries(pd_core_shared ${PD_LINK_LIBRARIES})
 target_link_libraries(pd_core_static ${PD_LINK_LIBRARIES})
 
+if(UNIX)
+    set_target_properties(pd_core_static PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 add_subdirectory(cpd)
