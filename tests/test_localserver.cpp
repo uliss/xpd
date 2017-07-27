@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
 #include "abstractserverprocess.h"
-#include "localserver.h"
+#include "pd_localserver.h"
 
 using namespace xpd;
 
