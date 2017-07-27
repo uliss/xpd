@@ -1,4 +1,4 @@
-#include "servercanvas.h"
+#include "canvas.h"
 
 #include <algorithm>
 

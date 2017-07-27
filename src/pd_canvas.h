@@ -1,8 +1,8 @@
 #ifndef PDCANVAS_H
 #define PDCANVAS_H
 
+#include "canvas.h"
 #include "lib_cpd.h"
-#include "servercanvas.h"
 
 namespace xpd {
 

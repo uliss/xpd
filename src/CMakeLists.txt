@@ -5,6 +5,7 @@ set(SERVER_SRC
     array.cpp
     audiodevice.cpp
     audiodevicemanager.cpp
+    canvas.cpp
     canvasobserver.cpp
     classinfo.cpp
     connection.cpp
@@ -25,7 +26,6 @@ set(SERVER_SRC
     pd_localprocess.cpp
     pd_object.cpp
     propertyobserver.cpp
-    servercanvas.cpp
     serverpath.cpp
     videodevice.cpp
     xlets.cpp

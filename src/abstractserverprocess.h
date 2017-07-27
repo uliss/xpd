@@ -9,7 +9,7 @@
 #include "consoleobserver.h"
 #include "libraryinfo.h"
 #include "observer.h"
-#include "servercanvas.h"
+#include "canvas.h"
 #include "serverpath.h"
 
 namespace xpd {

@@ -1,9 +1,9 @@
 #include "catch.hpp"
 
 #include "abstractserverprocess.h"
+#include "canvas.h"
 #include "localserver.h"
 #include "pd_object.h"
-#include "servercanvas.h"
 
 using namespace xpd;
 
