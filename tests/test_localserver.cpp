@@ -82,4 +82,19 @@ TEST_CASE("localserver", "[server]")
         REQUIRE(cnv->hasChildren());
         REQUIRE(cnv->childrenCount() == 1);
     }
+
+    SECTION("connect")
+    {
+        PdLocalServer srv(ServerSettings("local"));
+        ProcessPtr p = srv.createProcess();
+        CanvasPtr cnv = p->createCanvas();
+
+        ObjectId id0 = cnv->createObject("mtof", 100, 200);
+        REQUIRE(id0 != 0);
+
+        ObjectId id1 = cnv->createObject("print", 100, 200);
+        REQUIRE(id1 != 0);
+
+        REQUIRE(cnv->connect(id0, 0, id1, 0));
+    }
 }

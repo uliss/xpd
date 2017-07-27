@@ -68,4 +68,9 @@ const Arguments& PdObject::arguments() const
     return args_;
 }
 
+t_cpd_object* PdObject::pdObject()
+{
+    return obj_;
+}
+
 } // namespace xpd

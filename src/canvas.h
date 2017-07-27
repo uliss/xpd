@@ -48,8 +48,8 @@ public:
 
     const ObjectList& objects() const;
 
-    virtual bool connect(ObjectId, int outletIdx, ObjectId dest, int inletIdx);
-    virtual bool disconnect(ObjectId src, int outletIdx, ObjectId dest, int inletIdx);
+    virtual bool connect(ObjectId, size_t outletIdx, ObjectId dest, size_t inletIdx);
+    virtual bool disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
 
     virtual ObjectId createObject(const std::string& name, int x, int y) = 0;
     virtual bool deleteObject(ObjectId objId);

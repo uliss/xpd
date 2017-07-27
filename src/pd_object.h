@@ -25,6 +25,8 @@ public:
     size_t outletCount() const;
 
     const Arguments& arguments() const;
+
+    t_cpd_object* pdObject();
 };
 
 } // namespace xpd

@@ -38,12 +38,29 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     return obj->id();
 }
 
-bool PdCanvas::connect(ObjectId src, int outletIdx, ObjectId dest, int inletIdx)
+bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
 {
-    obj_list_.connect(src, outletIdx, dest, inletIdx);
+    t_cpd_object* pd_src = findById(src);
+    t_cpd_object* pd_dest = findById(dest);
+
+    if (!pd_src || !pd_dest) {
+        log()->error("PdCanvas::connect: invalid object ID: {} {}", src, dest);
+        return false;
+    }
+
+    if (!obj_list_.connect(src, outletIdx, dest, inletIdx))
+        return false;
+
+    return cpd_connect(pd_src, outletIdx, pd_dest, inletIdx);
 }
 
 const t_cpd_canvas* PdCanvas::canvas() const
 {
     return cnv_;
+}
+
+t_cpd_object* PdCanvas::findById(ObjectId id)
+{
+    Object* o = obj_list_.findObject(id);
+    return o ? static_cast<PdObject*>(o)->pdObject() : nullptr;
 }
