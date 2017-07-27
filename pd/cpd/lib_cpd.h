@@ -123,6 +123,17 @@ int cpd_init();
 
 int cpd_stop();
 
+/** 
+ * standard pd hook for print function
+ */
+typedef void (*t_printhook)(const char* s);
+
+/**
+ * @brief connects to print hook function
+ * @param h - pointer to function
+ */
+void cpd_setprinthook(t_printhook h);
+
 ////
 /// \brief check if canvas given
 /// \param x - pointer to object

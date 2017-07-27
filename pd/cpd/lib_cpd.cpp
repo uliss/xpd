@@ -17,6 +17,11 @@ extern "C" {
 
 extern "C" void pd_init();
 
+static void cpd_log_print(const char* c)
+{
+    console()->info(c);
+}
+
 int cpd_init()
 {
     static bool initialized = false;
@@ -78,6 +83,9 @@ int cpd_init()
     // cpd_delete_patch(cpd_new_patch(0, 0, 0, 0, 10));
 
     initialized = true;
+
+    cpd_setprinthook(cpd_log_print);
+
     return 1;
 }
 
@@ -412,4 +420,9 @@ size_t cpd_object_outlet_count(t_cpd_object* obj)
         return 0;
 
     return obj_noutlets(obj);
+}
+
+void cpd_setprinthook(t_printhook h)
+{
+    sys_printhook = h;
 }
