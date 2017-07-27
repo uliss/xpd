@@ -16,7 +16,6 @@ make test
 if [ -z "$COVERAGE" ]
 then
     echo "Coverage...."
-    make coverage
     bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 fi
 
