@@ -2,9 +2,9 @@
 
 using namespace xpd;
 
-Connection::Connection(const Object& src, int outln, const Object& dest, int inln)
-    : src_(src.id())
-    , dest_(dest.id())
+Connection::Connection(ObjectId src, int outln, ObjectId dest, int inln)
+    : src_(src)
+    , dest_(dest)
     , src_out_(outln)
     , dest_in_(inln)
 {

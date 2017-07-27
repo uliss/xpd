@@ -115,6 +115,8 @@ void cpd_object_set_ypos(t_cpd_object* obj, int y);
 size_t cpd_object_inlet_count(t_cpd_object* obj);
 size_t cpd_object_outlet_count(t_cpd_object* obj);
 
+int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
+
 void cpd_bang(t_cpd_object* obj);
 
 ////

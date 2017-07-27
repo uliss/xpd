@@ -1,4 +1,5 @@
 #include "objectlist.h"
+#include "logger.h"
 
 namespace xpd {
 
@@ -16,14 +17,20 @@ const ConnectionList& ObjectList::connections() const
     return conn_;
 }
 
-ConnectionList& ObjectList::connections()
+bool ObjectList::append(Object* o)
 {
-    return conn_;
-}
+    if (!o)
+        return false;
 
-void ObjectList::append(Object* o)
-{
+    // check if already exists
+    auto it = std::find(obj_.begin(), obj_.end(), o);
+    if (it != obj_.end()) {
+        log()->error("ObjectList::append: double insertion attempt ({})", static_cast<void*>(o));
+        return false;
+    }
+
     obj_.push_back(o);
+    return true;
 }
 
 void ObjectList::clear()
@@ -42,6 +49,22 @@ bool ObjectList::empty() const
 size_t ObjectList::size() const
 {
     return obj_.size();
+}
+
+bool ObjectList::connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx)
+{
+    return false;
+}
+
+Object* ObjectList::findObject(ObjectId id)
+{
+    auto it = std::find_if(obj_.begin(), obj_.end(), [id](Object* o) { return o->id() == id; });
+    return it == obj_.end() ? 0 : *it;
+}
+
+bool ObjectList::contains(ObjectId id)
+{
+    return findObject(id) != 0;
 }
 
 } // namespace xpd

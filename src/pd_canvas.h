@@ -18,6 +18,8 @@ public:
 
     ObjectId createObject(const std::string& name, int x, int y);
 
+    bool connect(const Object& src, int outletIdx, const Object& dest, int inletIdx);
+
     const t_cpd_canvas* canvas() const;
 };
 

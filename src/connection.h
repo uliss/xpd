@@ -14,7 +14,7 @@ class Connection {
     int src_out_, dest_in_;
 
 public:
-    Connection(const Object& src, int outln, const Object& dest, int inln);
+    Connection(ObjectId src, int outln, ObjectId dest, int inln);
 
     ObjectId src() const { return src_; }
     ObjectId dest() const { return dest_; }

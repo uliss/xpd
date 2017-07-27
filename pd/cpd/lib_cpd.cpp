@@ -431,3 +431,24 @@ void cpd_bang(t_cpd_object* obj)
 {
     pd_typedmess(&obj->te_g.g_pd, &s_bang, 0, 0);
 }
+
+int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno)
+{
+    if (!obj1 || !obj2) {
+        console()->error("cpd_connect: NULL objects are given");
+        return 0;
+    }
+
+    if (outno >= cpd_object_outlet_count(obj1)) {
+        console()->error("cpd_connect: invalid source outlet {}", outno);
+        return 0;
+    }
+
+    if (inno >= cpd_object_inlet_count(obj2)) {
+        console()->error("cpd_connect: invalid destination inlet {}", inno);
+        return 0;
+    }
+
+    auto conn = obj_connect(obj1, outno, obj2, inno);
+    return 1;
+}

@@ -22,13 +22,22 @@ public:
     std::vector<Object*>& get() { return obj_; }
 
     const ConnectionList& connections() const;
-    ConnectionList& connections();
 
-    void append(Object* o);
+    /**
+     * Appends object to object list
+     * @return true on success, false on error
+     */
+    bool append(Object* o);
     void clear();
+    bool remove(ObjectId id);
 
     bool empty() const;
     size_t size() const;
+
+    bool connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx);
+
+    Object* findObject(ObjectId id);
+    bool contains(ObjectId id);
 };
 
 } // namespace xpd
