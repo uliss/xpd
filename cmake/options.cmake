@@ -1,1 +1,1 @@
-option(WITH_COVERALLS "Build with coveralls")
+option(WITH_COVERAGE "Build with coverage")

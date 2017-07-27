@@ -5,9 +5,14 @@ include_directories(${PROJECT_SOURCE_DIR}/distrib/variant/include)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 
-if(${WITH_COVERAGE})
+if(WITH_COVERAGE)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+    
     find_program(LCOV NAMES lcov PATHS /usr/bin /usr/local/bin)
-    find_program (GCOV NAMES gcov-5 gcov-6 gcov PATHS /usr/bin /usr/local/bin)
+    find_program (GCOV NAMES gcov gcov-7 gcov-6 gcov-5 PATHS /usr/bin /usr/local/bin)
 
     if(LCOV AND GCOV)
         message(STATUS "lcov found: ${LCOV}")
@@ -15,11 +20,12 @@ if(${WITH_COVERAGE})
         add_custom_target(coverage
             COMMAND ${LCOV}
                 --gcov-tool=${GCOV}
-                --directory ${CMAKE_CURRENT_BINARY_DIR}
+                --directory "${CMAKE_CURRENT_BINARY_DIR}/.."
                 --capture
                 --output-file coverage.info
             COMMAND ${LCOV}
-                --remove coverage.info 'Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h'
+                --remove coverage.info 'Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h' "${CMAKE_SOURCE_DIR}/distrib/*"
+                    "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_SOURCE_DIR}/tests/Catch/single_include/*"
                 --output-file coverage.info
             COMMAND ${LCOV}
                 --list coverage.info)
