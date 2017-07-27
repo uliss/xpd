@@ -111,7 +111,6 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(WIN32)
-    
     if(${CMAKE_SYSTEM_NAME} STREQUAL "WindowsStore")
         message("Building for UWP")
         set(FIPS_UWP 1)
@@ -127,7 +126,6 @@ if(WIN32)
         set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
     endif()
 
-    
     add_definitions(-DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")
     set(CMAKE_CXX_FLAGS "-mms-bitfields -O2 -funroll-loops -fomit-frame-pointer")

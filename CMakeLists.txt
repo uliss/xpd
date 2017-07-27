@@ -22,6 +22,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=gnu++11 -funroll-loops -fomit-fram
 #set(CMAKE_OSX_ARCHITECTURES "i386;x86_64")
 set(CMAKE_MACOSX_RPATH ON)
 
+if(WIN32)
+	add_definitions("/D_CRT_SECURE_NO_WARNINGS /wd4091 /wd4996")
+endif()
+
 add_subdirectory(pd)
 add_subdirectory(src)
 
