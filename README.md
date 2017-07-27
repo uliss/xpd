@@ -3,7 +3,7 @@ C/C++ API for PureData engine
 
 
 [![Build Status](https://travis-ci.org/uliss/xpd.svg?branch=master)](https://travis-ci.org/uliss/xpd)
-[![codecov][codecov-badge]][codecov-link]
+[![codecov](https://codecov.io/gh/uliss/xpd/branch/devel/graph/badge.svg)](https://codecov.io/gh/uliss/xpd)
 
 
 ## Authors
@@ -14,5 +14,3 @@ C/C++ API for PureData engine
 ## License
 GPLv3
 
-[codecov-badge]:   https://codecov.io/gh/uliss/xpd/branch/master/graph/badge.svg
-[codecov-link]:    https://codecov.io/gh/uliss/xpd
