@@ -5,12 +5,7 @@
 
 namespace xpd {
 
-class LocalServer : public AbstractServer {
-public:
-    LocalServer(const ServerSettings& s);
-};
-
-class LocalPdServer : public LocalServer {
+class LocalPdServer : public AbstractServer {
 public:
     LocalPdServer(const ServerSettings& s);
     ~LocalPdServer();

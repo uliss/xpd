@@ -4,13 +4,8 @@
 
 namespace xpd {
 
-LocalServer::LocalServer(const ServerSettings& s)
-    : AbstractServer(s)
-{
-}
-
 LocalPdServer::LocalPdServer(const ServerSettings& s)
-    : LocalServer(s)
+    : AbstractServer(s)
 {
 }
 
