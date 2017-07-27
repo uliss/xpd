@@ -427,7 +427,7 @@ void cpd_setprinthook(t_printhook h)
     sys_printhook = h;
 }
 
-void cpd_bang(t_cpd_object* obj)
+void cpd_send_bang(t_cpd_object* obj)
 {
     pd_typedmess(&obj->te_g.g_pd, &s_bang, 0, 0);
 }
@@ -451,4 +451,9 @@ int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inn
 
     auto conn = obj_connect(obj1, outno, obj2, inno);
     return 1;
+}
+
+void cpd_send_float(t_cpd_object* obj, float f)
+{
+    pd_float(&obj->te_g.g_pd, f);
 }

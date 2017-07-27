@@ -117,7 +117,8 @@ size_t cpd_object_outlet_count(t_cpd_object* obj);
 
 int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
 
-void cpd_bang(t_cpd_object* obj);
+void cpd_send_bang(t_cpd_object* obj);
+void cpd_send_float(t_cpd_object* obj, float f);
 
 ////
 /// \brief initializes pd library

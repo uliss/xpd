@@ -122,4 +122,16 @@ void Object::setY(int y)
     y_ = y;
 }
 
+void Object::sendBang()
+{
+}
+
+void Object::sendFloat(float f)
+{
+}
+
+void Object::sendSymbol(const std::string& s)
+{
+}
+
 } // namespace xpd

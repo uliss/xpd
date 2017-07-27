@@ -84,6 +84,10 @@ public:
     virtual void setX(int x);
     virtual void setY(int y);
 
+    virtual void sendBang();
+    virtual void sendFloat(float f);
+    virtual void sendSymbol(const std::string& s);
+
 private:
     Object(const Object&);
     void operator=(const Object&);

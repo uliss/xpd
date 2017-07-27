@@ -73,4 +73,18 @@ t_cpd_object* PdObject::pdObject()
     return obj_;
 }
 
+void PdObject::sendBang()
+{
+    cpd_send_bang(obj_);
+}
+
+void PdObject::sendFloat(float f)
+{
+    cpd_send_float(obj_, f);
+}
+
+void PdObject::sendSymbol(const std::string& s)
+{
+}
+
 } // namespace xpd

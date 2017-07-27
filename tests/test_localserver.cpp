@@ -96,5 +96,7 @@ TEST_CASE("localserver", "[server]")
         REQUIRE(id1 != 0);
 
         REQUIRE(cnv->connect(id0, 0, id1, 0));
+
+        cnv->sendFloat(id0, 60);
     }
 }

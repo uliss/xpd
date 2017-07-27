@@ -27,6 +27,10 @@ public:
     const Arguments& arguments() const;
 
     t_cpd_object* pdObject();
+
+    void sendBang();
+    void sendFloat(float f);
+    void sendSymbol(const std::string& s);
 };
 
 } // namespace xpd

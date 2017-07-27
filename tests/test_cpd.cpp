@@ -124,7 +124,7 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
 
         int n = 10;
         while (n--) {
-            cpd_bang(obj0);
+            cpd_send_bang(obj0);
         }
 
         cpd_object_free(cnv, obj0);

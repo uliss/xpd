@@ -62,6 +62,9 @@ public:
     const ObjectList& children() const;
 
     ObjectType type() const;
+
+    void sendBang(ObjectId id);
+    void sendFloat(ObjectId id, float f);
 };
 
 //    vector<ServerPatchcord*> _patchcords;

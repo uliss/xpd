@@ -1,4 +1,5 @@
 #include "canvas.h"
+#include "logger.h"
 
 #include <algorithm>
 
@@ -76,6 +77,28 @@ const ObjectList& Canvas::children() const
 ObjectType Canvas::type() const
 {
     return OBJ_TYPE_CANVAS;
+}
+
+void Canvas::sendBang(ObjectId id)
+{
+    Object* o = obj_list_.findObject(id);
+    if (!o) {
+        log()->error("Canvas::sendBang: invalid object ID {}", id);
+        return;
+    }
+
+    o->sendBang();
+}
+
+void Canvas::sendFloat(ObjectId id, float f)
+{
+    Object* o = obj_list_.findObject(id);
+    if (!o) {
+        log()->error("Canvas::sendFloat: invalid object ID {}", id);
+        return;
+    }
+
+    o->sendFloat(f);
 }
 
 CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)
