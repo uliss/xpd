@@ -24,8 +24,9 @@ if(WITH_COVERAGE)
                 --capture
                 --output-file coverage.info
             COMMAND ${LCOV}
-                --remove coverage.info 'Catch/*' '/usr/*' '/Applications/Xcode.app/*' 'src/m_pd.h' "${CMAKE_SOURCE_DIR}/distrib/*"
-                    "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_SOURCE_DIR}/tests/Catch/single_include/*"
+                --extract coverage.info
+                    "${CMAKE_SOURCE_DIR}/pd/cpd/*"
+                    "${CMAKE_SOURCE_DIR}/src/*" 
                 --output-file coverage.info
             COMMAND ${LCOV}
                 --list coverage.info)
