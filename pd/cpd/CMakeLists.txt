@@ -1,6 +1,10 @@
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 set(CMP_SOURCES lib_cpd.cpp lib_cpd.h atom.cpp atomlist.cpp pr_log.cpp)
 
+if(WIN32)
+    add_definitions(-DCPD_INTERNAL)
+endif()
+
 if(WITH_COVERAGE)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
