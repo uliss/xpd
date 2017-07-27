@@ -9,22 +9,16 @@ git:
   submodules: true
   depth: 3
 
-before_install:
-  ## install some dependencies
-  - sudo apt-get install -qq portaudio19-dev libfftw3-dev libasound2-dev libjack-dev 
+addons:
+  apt:
+    packages: ['portaudio19-dev', 'libfftw3-dev', 'libasound2-dev', 'libjack-dev']
 
 matrix:
   include:
     - os: linux
       compiler: gcc
-      addons:
-        apt:
-          packages: ['python-pip', 'python-yaml']
-      before_script:
-      #  - openssl aes-256-cbc -K $encrypted_e84e7849f94f_key -iv $encrypted_e84e7849f94f_iv -in config/travisci_rsa.enc -out config/travisci_rsa -d
-        - pip install --user git+git://github.com/eddyxu/cpp-coveralls.git
       env:
-        - COVERALLS
+        - COVERAGE
         - DOXYGEN
     - os: linux
       compiler: clang
