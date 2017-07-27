@@ -1,5 +1,6 @@
 #include "abstractserverprocess.h"
 
+#include <algorithm>
 #include <iostream>
 
 using namespace xpd;
