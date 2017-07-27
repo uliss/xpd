@@ -115,6 +115,8 @@ void cpd_object_set_ypos(t_cpd_object* obj, int y);
 size_t cpd_object_inlet_count(t_cpd_object* obj);
 size_t cpd_object_outlet_count(t_cpd_object* obj);
 
+void cpd_bang(t_cpd_object* obj);
+
 ////
 /// \brief initializes pd library
 /// \return 1 on success, 0 on error

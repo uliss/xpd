@@ -426,3 +426,8 @@ void cpd_setprinthook(t_printhook h)
 {
     sys_printhook = h;
 }
+
+void cpd_bang(t_cpd_object* obj)
+{
+    pd_typedmess(&obj->te_g.g_pd, &s_bang, 0, 0);
+}

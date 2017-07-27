@@ -116,4 +116,18 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
         cpd_object_free(cnv, obj0);
         cpd_canvas_free(cnv);
     }
+
+    SECTION("bang")
+    {
+        t_cpd_canvas* cnv = cpd_root_canvas_new();
+        t_cpd_object* obj0 = cpd_object_new(cnv, "print", 0, 0, 0);
+
+        int n = 10;
+        while (n--) {
+            cpd_bang(obj0);
+        }
+
+        cpd_object_free(cnv, obj0);
+        cpd_canvas_free(cnv);
+    }
 }
