@@ -37,7 +37,13 @@ public:
     bool connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx);
 
     Object* findObject(ObjectId id);
-    bool contains(ObjectId id);
+    const Object* findObject(ObjectId id) const;
+    bool contains(ObjectId id) const;
+
+private:
+    bool checkObjectInlet(ObjectId id, size_t n) const;
+    bool checkObjectOutlet(ObjectId id, size_t n) const;
+    bool hasConnection(const Connection& c) const;
 };
 
 } // namespace xpd

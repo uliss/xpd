@@ -18,6 +18,9 @@ public:
         cnt--;
     }
 
+    size_t inletCount() const { return 3; }
+    size_t outletCount() const { return 1; }
+
 public:
     static int cnt;
 };
@@ -54,6 +57,34 @@ TEST_CASE("ObjectList", "[server]")
 
         // double insertion
         REQUIRE_FALSE(lst.append(o));
+    }
+
+    SECTION("connect")
+    {
+        ObjectList lst;
+        auto o1 = new TestObject("object1");
+        auto o2 = new TestObject("object1");
+
+        lst.append(o1);
+        lst.append(o2);
+
+        REQUIRE(lst.connect(o1->id(), 0, o2->id(), 0));
+        // double connection
+        REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 0));
+
+        // other xlets
+        REQUIRE(lst.connect(o1->id(), 0, o2->id(), 1));
+
+        // invalid source
+        REQUIRE_FALSE(lst.connect(101, 0, o2->id(), 0));
+        // invalid dest
+        REQUIRE_FALSE(lst.connect(o1->id(), 0, 201, 0));
+        // invalid source inlet
+        REQUIRE_FALSE(lst.connect(o1->id(), 1, o2->id(), 0));
+        REQUIRE_FALSE(lst.connect(o1->id(), 2, o2->id(), 0));
+        // invalid dest inlet
+        REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 3));
+        REQUIRE_FALSE(lst.connect(o1->id(), 0, o2->id(), 4));
     }
 
     REQUIRE(TestObject::cnt == 0);

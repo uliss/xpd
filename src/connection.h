@@ -18,6 +18,14 @@ public:
 
     ObjectId src() const { return src_; }
     ObjectId dest() const { return dest_; }
+
+    bool operator==(const Connection& c) const
+    {
+        return src_ == c.src_
+            && dest_ == c.dest_
+            && src_out_ == c.src_out_
+            && dest_in_ == c.dest_in_;
+    }
 };
 
 } // namespace xpm

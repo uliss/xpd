@@ -53,7 +53,20 @@ size_t ObjectList::size() const
 
 bool ObjectList::connect(ObjectId src, size_t srcOutletIdx, ObjectId dest, size_t destInletIdx)
 {
-    return false;
+    if (!checkObjectOutlet(src, srcOutletIdx))
+        return false;
+
+    if (!checkObjectInlet(dest, destInletIdx))
+        return false;
+
+    Connection c(src, srcOutletIdx, dest, destInletIdx);
+    if (hasConnection(c)) {
+        log()->error("ObjectList::connect: connection already exists");
+        return false;
+    }
+
+    conn_.push_back(c);
+    return true;
 }
 
 Object* ObjectList::findObject(ObjectId id)
@@ -62,9 +75,54 @@ Object* ObjectList::findObject(ObjectId id)
     return it == obj_.end() ? 0 : *it;
 }
 
-bool ObjectList::contains(ObjectId id)
+const Object* ObjectList::findObject(ObjectId id) const
+{
+    auto it = std::find_if(obj_.begin(), obj_.end(), [id](const Object* o) { return o->id() == id; });
+    return it == obj_.end() ? 0 : *it;
+}
+
+bool ObjectList::contains(ObjectId id) const
 {
     return findObject(id) != 0;
+}
+
+bool ObjectList::checkObjectInlet(ObjectId id, size_t n) const
+{
+    const Object* obj = findObject(id);
+    if (!obj) {
+        log()->error("ObjectList::checkObjectInlet: object not found in list - id:{}", id);
+        return false;
+    }
+
+    if (!(n < obj->inletCount())) {
+        log()->error("ObjectList::checkObjectInlet: invalid inlet index - {}, max values is {}",
+            n, obj->inletCount());
+        return false;
+    }
+
+    return true;
+}
+
+bool ObjectList::checkObjectOutlet(ObjectId id, size_t n) const
+{
+    const Object* obj = findObject(id);
+    if (!obj) {
+        log()->error("ObjectList::checkObjectOutlet: object not found in list - id:{}", id);
+        return false;
+    }
+
+    if (!(n < obj->outletCount())) {
+        log()->error("ObjectList::checkObjectOutlet: invalid outlet index - {}, max values is {}",
+            n, obj->outletCount());
+        return false;
+    }
+
+    return true;
+}
+
+bool ObjectList::hasConnection(const Connection& c) const
+{
+    return std::find(conn_.begin(), conn_.end(), c) != conn_.end();
 }
 
 } // namespace xpd
