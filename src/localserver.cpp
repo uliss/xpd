@@ -1,6 +1,6 @@
 #include "localserver.h"
-#include "localpdprocess.h"
 #include "logger.h"
+#include "pd_localprocess.h"
 
 namespace xpd {
 
@@ -27,7 +27,7 @@ ProcessPtr LocalPdServer::createProcess()
 
     try {
         ServerProcessSettings s;
-        ptr = std::make_shared<LocalPdProcess>(this, s);
+        ptr = std::make_shared<PdLocalProcess>(this, s);
 
         if (!ptr)
             return ptr;

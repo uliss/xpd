@@ -11,8 +11,7 @@ set(SERVER_SRC
     consoleobserver.cpp
     device.cpp
     libraryinfo.cpp
-    localserver.cpp
-    localpdprocess.cpp
+    localserver.cpp 
     logger.h
     logger.cpp
     mididevice.cpp
@@ -23,6 +22,7 @@ set(SERVER_SRC
     observer.cpp
     pd_arguments.cpp
     pd_canvas.cpp
+    pd_localprocess.cpp
     pd_object.cpp
     propertyobserver.cpp
     servercanvas.cpp

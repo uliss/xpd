@@ -1,26 +1,26 @@
-#include "localpdprocess.h"
+#include "pd_localprocess.h"
 #include "lib_cpd.h"
 #include "pd_canvas.h"
 
 namespace xpd {
 
-LocalPdProcess::LocalPdProcess(const AbstractServer* parent, const ServerProcessSettings& s)
+PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s)
     : AbstractServerProcess(parent, s)
 {
     if (!cpd_init())
         throw Exception("can't start pd");
 }
 
-LocalPdProcess::~LocalPdProcess()
+PdLocalProcess::~PdLocalProcess()
 {
     cpd_stop();
 }
 
-void LocalPdProcess::dspSwitch(bool value)
+void PdLocalProcess::dspSwitch(bool value)
 {
 }
 
-CanvasPtr LocalPdProcess::createCanvas()
+CanvasPtr PdLocalProcess::createCanvas()
 {
     CanvasSettings s("Untitled-1");
     CanvasPtr cnv = std::make_shared<PdCanvas>(nullptr, s);

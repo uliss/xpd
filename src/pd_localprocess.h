@@ -5,10 +5,10 @@
 
 namespace xpd {
 
-class LocalPdProcess : public AbstractServerProcess {
+class PdLocalProcess : public AbstractServerProcess {
 public:
-    LocalPdProcess(const AbstractServer* parent, const ServerProcessSettings& s);
-    ~LocalPdProcess();
+    PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s);
+    ~PdLocalProcess();
 
     void dspSwitch(bool value);
 
