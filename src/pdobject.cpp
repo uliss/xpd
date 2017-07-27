@@ -24,7 +24,7 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArgume
         throw Exception("PdObject: NULL canvas pointer");
     }
 
-    obj_ = cpd_object_new(cnv_, name.c_str(), 0, x, y);
+    obj_ = cpd_object_new(cnv_, name.c_str(), args.atomList(), x, y);
     if (!obj_) {
         throw Exception("PdObject: can't create object");
     }

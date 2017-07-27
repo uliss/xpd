@@ -62,6 +62,11 @@ void PdArguments::clear()
     cpd_atomlist_clear(lst_);
 }
 
+const t_cpd_atomlist* PdArguments::atomList() const
+{
+    return lst_;
+}
+
 void PdArguments::free()
 {
     args_.clear();

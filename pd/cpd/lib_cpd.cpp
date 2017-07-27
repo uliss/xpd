@@ -305,7 +305,7 @@ int cpd_root_canvas_height(t_cpd_canvas* cnv)
     return cnv->gl_screeny2 - cnv->gl_screeny1;
 }
 
-t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y)
+t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atomlist* args, int x, int y)
 {
     console()->trace("cpd_object_new {");
 
@@ -319,7 +319,7 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* 
     SETSYMBOL(&argv[2], gensym(name));
 
     if (args) {
-        auto begin = cpd_atomlist_at(args, 0);
+        auto begin = cpd_atomlist_at(const_cast<t_cpd_atomlist*>(args), 0);
         std::copy(begin, begin + N, argv + 3);
     }
 

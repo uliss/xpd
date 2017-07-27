@@ -21,6 +21,8 @@ public:
     void parseString(const std::string& s);
 
     void clear();
+    
+    const t_cpd_atomlist* atomList() const;
 
 private:
     void free();

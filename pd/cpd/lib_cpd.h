@@ -91,7 +91,7 @@ int cpd_canvas_is_root(t_cpd_canvas* c);
  * @param y - Y-position on canvas
  * @return pointer to new object or NULL
  */
-t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y);
+t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atomlist* args, int x, int y);
 
 /**
  * @brief Removed object from canvas and frees it
