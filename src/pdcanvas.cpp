@@ -29,11 +29,11 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
         return ObjectId(-1);
     }
 
-    t_cpd_atomlist lst;
-    lst.n = 0;
-    lst.data = 0;
+    //    t_cpd_atomlist* lst = cpd_atomlist_new();
+    //    lst.n = 0;
+    //    lst.data = 0;
 
-    Object* obj = new PdObject(this, name);
+    Object* obj = new PdObject(this, name, PdArguments(), x, y);
     obj_list_.append(obj);
     return obj->id();
 }

@@ -4,12 +4,13 @@
 
 namespace xpd {
 
-PdObject::PdObject(const Canvas* parent, const std::string& name, int x, int y)
+PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArguments& args, int x, int y)
     : Object(parent, name, x, y)
     , cnv_(0)
     , obj_(0)
     , inlet_n_(0)
     , outlet_n_(0)
+    , args_(args)
 {
     static size_t id_counter_ = 2000;
 
@@ -60,6 +61,11 @@ size_t PdObject::inletCount() const
 size_t PdObject::outletCount() const
 {
     return outlet_n_;
+}
+
+const Arguments& PdObject::arguments() const
+{
+    return args_;
 }
 
 } // namespace xpd

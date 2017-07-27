@@ -1,6 +1,7 @@
 #include "lib_cpd.h"
 
 #include "m_pd.h"
+#include "pr_log.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -10,20 +11,17 @@ extern "C" {
 
 #include <algorithm>
 #include <csignal>
+#include <cstring>
 #include <iostream>
-
-#include "spdlog/spdlog.h"
+#include <iterator>
 
 extern "C" void pd_init();
-
-// Console logger with color
-static auto console = spdlog::stdout_color_mt("cpd");
 
 int cpd_init()
 {
     static bool initialized = false;
     if (initialized) {
-        console->info("cpd_init: already initialized");
+        console()->info("cpd_init: already initialized");
         return 1;
     }
 
@@ -54,7 +52,7 @@ int cpd_init()
         cpd_error("Initialization failed");
         return 0;
     } else {
-        console->info("Pd library initialized: {}", static_cast<void*>(pd_this));
+        console()->info("Pd library initialized: {}", static_cast<void*>(pd_this));
     }
 
     STUFF->st_soundin = NULL;
@@ -83,67 +81,10 @@ int cpd_init()
     return 1;
 }
 
-extern "C" void glob_menunew(void* dummy, t_symbol* filesym, t_symbol* dirsym);
-
-t_canvas* cpd_new_patch()
-{
-    static int cnt = 1;
-    fmt::MemoryWriter w;
-    w.write("Untitled-{}", cnt++);
-
-    glob_menunew(0, gensym(w.c_str()), gensym("~/"));
-
-    //        glob_setfilename(0, gensym("Untitled-1"), gensym("~/"));
-    //    canvas_new(0, 0, 0, 0);
-    //    сanvas_pop((t_canvas*)s__X.s_thing, 0);
-    //    pd_popsym(t_pd *x);
-
-    //    t_pd* dest = gensym("pd")->s_thing;
-    //    if (dest == NULL) {
-    //        cpd_error("Pd object not found");
-    //        return 0;
-    //    };
-
-    //    pd_typedmess(dest, gensym("menunew"), 2, argv);
-
-    //    pd_typedmess(&pd_canvasmaker, gensym("canvas"), 5, argv);
-
-    t_canvas* ret = 0; //(t_canvas*)pd_newest();
-
-    if (pd_this) {
-        ret = pd_getcanvaslist()->gl_next;
-
-        while (ret->gl_next) {
-            //cout << "canvas: " << ret << "\n";
-            ret = ret->gl_next;
-        }
-
-        //cout << "pd_this: " << pd_this << "\n";
-    } else {
-        return 0;
-    }
-
-    //    canvas_setcurrent(ret);
-
-    //    glist_maybevis(x);
-    canvas_vis(ret, 0);
-
-    console->debug("new canvas [{}] ({},{} {}x{}) with font size {}",
-        static_cast<void*>(ret),
-        ret->gl_screenx1,
-        ret->gl_screeny1,
-        ret->gl_screenx2,
-        ret->gl_screeny2,
-        ret->gl_font);
-
-    canvas_setcurrent(0);
-    return ret;
-}
-
 int cpd_is_canvas(t_cpd_object* x)
 {
     if (!x) {
-        console->error("cpd_is_canvas: null pointer given");
+        console()->error("cpd_is_canvas: null pointer given");
         return 0;
     }
 
@@ -159,19 +100,19 @@ void cpd_error(const char* msg, ...)
     va_end(ap);
     strcat(buf, "\n");
 
-    console->error(buf);
+    console()->error(buf);
     error("%s", buf);
 }
 
 void cpd_delete_patch(t_canvas* canvas)
 {
     if (!canvas) {
-        console->error("cpd_closepatch: null pointer given");
+        console()->error("cpd_closepatch: null pointer given");
         return;
     }
 
     canvas_free(canvas);
-    console->debug("free canvas {}", static_cast<void*>(canvas));
+    console()->debug("free canvas {}", static_cast<void*>(canvas));
 }
 
 extern "C" void sys_stopgui(void);
@@ -233,7 +174,7 @@ t_cpd_canvas* cpd_root_canvas_at(size_t n)
 t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_next: NULL given");
+        console()->debug("cpd_root_canvas_next: NULL given");
         return cnv;
     }
 
@@ -243,7 +184,7 @@ t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv)
 const char* cpd_canvas_name(t_cpd_canvas* c)
 {
     if (!c) {
-        console->debug("cpd_canvas_name: NULL given");
+        console()->debug("cpd_canvas_name: NULL given");
         return 0;
     }
 
@@ -253,7 +194,7 @@ const char* cpd_canvas_name(t_cpd_canvas* c)
 int cpd_canvas_free(t_cpd_canvas* c)
 {
     if (!c) {
-        console->debug("cpd_canvas_free: NULL given");
+        console()->debug("cpd_canvas_free: NULL given");
         return 0;
     }
 
@@ -264,7 +205,7 @@ int cpd_canvas_free(t_cpd_canvas* c)
 t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c)
 {
     if (!c) {
-        console->debug("cpd_canvas_root: NULL given");
+        console()->debug("cpd_canvas_root: NULL given");
         return 0;
     }
 
@@ -274,7 +215,7 @@ t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c)
 int cpd_canvas_fontsize(t_cpd_canvas* c)
 {
     if (!c) {
-        console->debug("cpd_canvas_fontsize: NULL given");
+        console()->debug("cpd_canvas_fontsize: NULL given");
         return -1;
     }
 
@@ -298,7 +239,7 @@ t_cpd_canvas* cpd_root_canvas_new()
 int cpd_canvas_is_root(t_cpd_canvas* c)
 {
     if (!c) {
-        console->debug("cpd_canvas_is_root: NULL given");
+        console()->debug("cpd_canvas_is_root: NULL given");
         return 0;
     }
 
@@ -313,21 +254,21 @@ t_cpd_canvas* cpd_canvas_current()
 const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_dir: NULL given");
+        console()->debug("cpd_root_canvas_dir: NULL given");
         return "";
     }
 
     if (cpd_canvas_is_root(cnv) && canvas_getenv(cnv))
         return canvas_getdir(cnv)->s_name;
 
-    console->debug("cpd_root_canvas_dir: non root canvas given");
+    console()->debug("cpd_root_canvas_dir: non root canvas given");
     return "";
 }
 
 int cpd_root_canvas_x(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_x: NULL given");
+        console()->debug("cpd_root_canvas_x: NULL given");
         return 0;
     }
 
@@ -337,7 +278,7 @@ int cpd_root_canvas_x(t_cpd_canvas* cnv)
 int cpd_root_canvas_y(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_y: NULL given");
+        console()->debug("cpd_root_canvas_y: NULL given");
         return 0;
     }
 
@@ -347,7 +288,7 @@ int cpd_root_canvas_y(t_cpd_canvas* cnv)
 int cpd_root_canvas_width(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_width: NULL given");
+        console()->debug("cpd_root_canvas_width: NULL given");
         return 0;
     }
 
@@ -357,7 +298,7 @@ int cpd_root_canvas_width(t_cpd_canvas* cnv)
 int cpd_root_canvas_height(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console->debug("cpd_root_canvas_height: NULL given");
+        console()->debug("cpd_root_canvas_height: NULL given");
         return 0;
     }
 
@@ -366,9 +307,9 @@ int cpd_root_canvas_height(t_cpd_canvas* cnv)
 
 t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* args, int x, int y)
 {
-    console->trace("cpd_object_new {");
+    console()->trace("cpd_object_new {");
 
-    const size_t N = args ? args->n : 0;
+    const size_t N = cpd_atomlist_size(args);
 
     std::vector<t_atom> data(N + 3);
     t_atom* argv = &data.front();
@@ -378,7 +319,8 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* 
     SETSYMBOL(&argv[2], gensym(name));
 
     if (args) {
-        std::copy(args->data, args->data + args->n, argv + 3);
+        //        auto begin = cpd_atomlist_at(args, 0);
+        //        std::copy(begin, begin + N, argv + 3);
     }
 
     pd_typedmess((t_pd*)c, gensym("obj"), N + 3, argv);
@@ -395,102 +337,23 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* 
         return 0;
     }
 
-    console->debug("  cpd_object_new: created [{}] ({})", name, (void*)res);
+    console()->debug("  cpd_object_new: created [{}] ({})", name, (void*)res);
     return res;
-}
-
-t_cpd_atom* cpd_atom_float_new(float f)
-{
-    t_atom* a = new t_atom;
-    SETFLOAT(a, f);
-    return a;
-}
-
-void cpd_atom_free(t_cpd_atom* a)
-{
-    delete a;
-}
-
-t_cpd_atom* cpd_atom_symbol_new(const char* s)
-{
-    t_atom* a = new t_atom;
-    SETSYMBOL(a, gensym(s));
-    return a;
-}
-
-void cpd_atom_set_float(t_cpd_atom* a, float f)
-{
-    SETFLOAT(a, f);
-}
-
-void cpd_atom_set_symbol(t_cpd_atom* a, const char* s)
-{
-    SETSYMBOL(a, gensym(s));
-}
-
-int cpd_atom_is_float(t_cpd_atom* a)
-{
-    return a->a_type == A_DEFFLOAT ? 1 : 0;
-}
-
-int cpd_atom_is_symbol(t_cpd_atom* a)
-{
-    return a->a_type == A_DEFSYMBOL ? 1 : 0;
-}
-
-float cpd_atom_float(t_cpd_atom* a)
-{
-    if (cpd_atom_is_float(a))
-        return a->a_w.w_float;
-
-    return 0;
-}
-
-const char* cpd_atom_symbol(t_cpd_atom* a)
-{
-    if (cpd_atom_is_symbol(a))
-        return a->a_w.w_symbol->s_name;
-
-    return 0;
-}
-
-t_cpd_atomlist* cpd_atomlist_new(size_t n)
-{
-    t_cpd_atomlist* lst = new t_cpd_atomlist;
-    lst->n = n;
-    lst->data = new t_cpd_atom[n];
-
-    for (size_t i = 0; i < n; i++) {
-        SETFLOAT(lst->data + i, 0);
-    }
-
-    return lst;
-}
-
-void cpd_atomlist_free(t_cpd_atomlist* l)
-{
-    if (!l) {
-        console->error("cpd_atomlist_free: NULL pointer given");
-        return;
-    }
-
-    delete[] l->data;
-    delete l;
 }
 
 void cpd_object_free(t_cpd_canvas* cnv, t_cpd_object* obj)
 {
     if (!cnv) {
-        console->error("cpd_object_free: NULL canvas given");
+        console()->error("cpd_object_free: NULL canvas given");
         return;
     }
 
     if (!obj) {
-        console->error("cpd_object_free: NULL object given");
+        console()->error("cpd_object_free: NULL object given");
         return;
     }
 
-    console->debug("  cpd_object_free: [{}]", cpd_object_name(obj));
+    console()->debug("  cpd_object_free: [{}]", cpd_object_name(obj));
 
     glist_delete(cnv, &obj->te_g);
 }

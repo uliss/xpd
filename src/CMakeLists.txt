@@ -1,6 +1,7 @@
 set(SERVER_SRC 
     abstractserver.cpp
     abstractserverprocess.cpp
+    arguments.cpp
     array.cpp
     audiodevice.cpp
     audiodevicemanager.cpp
@@ -20,6 +21,7 @@ set(SERVER_SRC
     objectlist.cpp
     objectproperties.cpp
     observer.cpp
+    pd_arguments.cpp
     pdcanvas.cpp
     pdobject.cpp
     propertyobserver.cpp
@@ -34,6 +36,7 @@ set(SERVER_SRC
 include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
 include_directories(${CMAKE_SOURCE_DIR}/pd/cpd)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
+include_directories(${PROJECT_SOURCE_DIR}/distrib/variant/include)
 
 add_library(xpd_static STATIC ${SERVER_SRC})
 add_library(xpd_shared SHARED ${SERVER_SRC})

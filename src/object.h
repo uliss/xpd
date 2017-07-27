@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include "arguments.h"
 #include "objectproperties.h"
 #include "xlets.h"
 
@@ -53,6 +54,8 @@ public:
 
     const std::string& name() const;
     const Canvas* parent() const;
+
+    virtual const Arguments& arguments() const;
 
     virtual size_t inletCount() const;
     virtual size_t outletCount() const;

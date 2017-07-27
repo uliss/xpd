@@ -27,6 +27,12 @@ const Canvas* Object::parent() const
     return parent_;
 }
 
+const Arguments& Object::arguments() const
+{
+    static Arguments a;
+    return a;
+}
+
 size_t Object::inletCount() const
 {
     return 0;

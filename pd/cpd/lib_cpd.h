@@ -3,35 +3,18 @@
 
 #include <stddef.h>
 
+#include "atom.h"
+#include "atomlist.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct _atom;
 struct _text;
 struct _glist;
 
 typedef struct _glist t_cpd_canvas;
 typedef struct _text t_cpd_object;
-typedef struct _atom t_cpd_atom;
-
-typedef struct _cpd_atomlist {
-    size_t n;
-    t_cpd_atom* data;
-} t_cpd_atomlist;
-
-t_cpd_atom* cpd_atom_float_new(float f);
-t_cpd_atom* cpd_atom_symbol_new(const char* s);
-void cpd_atom_set_float(t_cpd_atom* a, float f);
-void cpd_atom_set_symbol(t_cpd_atom* a, const char* s);
-int cpd_atom_is_float(t_cpd_atom* a);
-int cpd_atom_is_symbol(t_cpd_atom* a);
-float cpd_atom_float(t_cpd_atom* a);
-const char* cpd_atom_symbol(t_cpd_atom* a);
-void cpd_atom_free(t_cpd_atom* a);
-
-t_cpd_atomlist* cpd_atomlist_new(size_t n);
-void cpd_atomlist_free(t_cpd_atomlist* l);
 
 /**
  * Creates new root (top-level) canvas

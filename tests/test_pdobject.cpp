@@ -17,14 +17,14 @@ TEST_CASE("PdObject", "[server]")
     {
         REQUIRE(c->type() == OBJ_TYPE_CANVAS);
 
-        auto o = std::make_shared<PdObject>(c.get(), "mtof", 100, 200);
+        auto o = std::make_shared<PdObject>(c.get(), "mtof", PdArguments(), 100, 200);
         REQUIRE(o->x() == 100);
         REQUIRE(o->y() == 200);
 
         REQUIRE(o->inletCount() == 1);
         REQUIRE(o->outletCount() == 1);
 
-        o = std::make_shared<PdObject>(c.get(), "metro", 10, 20);
+        o = std::make_shared<PdObject>(c.get(), "metro", PdArguments(), 10, 20);
         REQUIRE(o->x() == 10);
         REQUIRE(o->y() == 20);
 
@@ -39,7 +39,7 @@ TEST_CASE("PdObject", "[server]")
 
     SECTION("inlet count")
     {
-        auto o = std::make_shared<PdObject>(c.get(), "metro", 0, 0);
+        auto o = std::make_shared<PdObject>(c.get(), "metro");
         REQUIRE(o->inletCount() == 2);
         REQUIRE(o->outletCount() == 1);
     }
