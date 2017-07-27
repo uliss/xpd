@@ -11,7 +11,7 @@ git:
 
 before_install:
   ## install some dependencies
-  - sudo apt-get install -qq libportaudio-dev libfftw3-dev libasound2-dev libjack-dev 
+  - sudo apt-get install -qq libportaudio19-dev libfftw3-dev libasound2-dev libjack-dev 
 
 matrix:
   include:
