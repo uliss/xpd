@@ -50,4 +50,14 @@ void Arguments::clear()
     args_.clear();
 }
 
+const std::string& Arguments::getStringAt(size_t n) const
+{
+    return args_[n].get<std::string>();
+}
+
+float Arguments::getFloatAt(size_t n) const
+{
+    return get<float>(n);
+}
+
 } // namespace xpd

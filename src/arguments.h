@@ -27,8 +27,17 @@ public:
     void add(const std::string& s);
 
     virtual void parseString(const std::string& s);
-    
+
     virtual void clear();
+
+    template <class T>
+    T get(size_t n) const
+    {
+        return args_[n].get<T>();
+    }
+
+    const std::string& getStringAt(size_t n) const;
+    float getFloatAt(size_t n) const;
 };
 
 } // namespace xpd

@@ -42,5 +42,18 @@ TEST_CASE("PdObject", "[server]")
         auto o = std::make_shared<PdObject>(c.get(), "metro");
         REQUIRE(o->inletCount() == 2);
         REQUIRE(o->outletCount() == 1);
+
+        PdArguments args;
+        args.parseString("f f f 123 s s");
+        o = std::make_shared<PdObject>(c.get(), "pack", args);
+        REQUIRE(o->inletCount() == 6);
+        REQUIRE(o->outletCount() == 1);
+
+        REQUIRE(o->arguments().getStringAt(0) == std::string("f"));
+        REQUIRE(o->arguments().getStringAt(1) == std::string("f"));
+        REQUIRE(o->arguments().getStringAt(2) == std::string("f"));
+        REQUIRE(o->arguments().getFloatAt(3) == 123);
+        REQUIRE(o->arguments().getStringAt(4) == std::string("s"));
+        REQUIRE(o->arguments().getStringAt(5) == std::string("s"));
     }
 }
