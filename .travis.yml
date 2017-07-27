@@ -9,6 +9,10 @@ git:
   submodules: true
   depth: 3
 
+before_install:
+  ## install some dependencies
+  - sudo apt-get install -qq libportaudio-dev libfftw3-dev libasound2-dev libjack-dev 
+
 matrix:
   include:
     - os: linux
