@@ -156,6 +156,7 @@ endif()
 if(WITH_PORTAUDIO)
     list(APPEND PD_SOURCES pure-data/src/s_audio_pa.c)
     list(APPEND PD_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
+    include_directories(PORTAUDIO_INCLUDE_DIRS)
     if(MINGW)
         # this is a link fix when portaudio was build with ASIO support.
         # and it requires C++ linking
