@@ -96,4 +96,67 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         REQUIRE(cpd_atom_symbol(cpd_atomlist_at(lst, 0)) == std::string("$DOLLARS"));
         cpd_atomlist_free(lst);
     }
+
+    SECTION("free")
+    {
+        auto l = cpd_atomlist_new(4);
+        REQUIRE(l);
+        cpd_atomlist_free(0);
+        cpd_atomlist_free(l);
+    }
+
+    SECTION("at")
+    {
+        auto l = cpd_atomlist_new(4);
+        REQUIRE(cpd_atomlist_at(l, 0) != 0);
+        REQUIRE(cpd_atomlist_at(0, 123) == 0);
+        cpd_atomlist_free(l);
+    }
+
+    SECTION("clear")
+    {
+        auto l = cpd_atomlist_new(4);
+        cpd_atomlist_clear(nullptr);
+        REQUIRE(cpd_atomlist_size(l) == 4);
+        cpd_atomlist_clear(l);
+        REQUIRE(cpd_atomlist_size(l) == 0);
+        cpd_atomlist_free(l);
+    }
+
+    SECTION("append")
+    {
+        auto a0 = cpd_atom_float_new(123);
+        auto l = cpd_atomlist_new(0);
+        cpd_atomlist_append(0, 0);
+        cpd_atomlist_append(l, 0);
+        cpd_atomlist_append(0, a0);
+        REQUIRE(cpd_atomlist_size(l) == 0);
+        cpd_atomlist_append(l, a0);
+        REQUIRE(cpd_atomlist_size(l) == 1);
+        cpd_atomlist_append(l, a0);
+        REQUIRE(cpd_atomlist_size(l) == 2);
+        REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 1)) == 123);
+        cpd_atomlist_free(l);
+        cpd_atom_free(a0);
+    }
+
+    SECTION("copy")
+    {
+        auto a0 = cpd_atom_float_new(123);
+        auto l0 = cpd_atomlist_new(0);
+        cpd_atomlist_append(l0, a0);
+        cpd_atomlist_append(l0, a0);
+        cpd_atomlist_append(l0, a0);
+
+        auto l1 = cpd_atomlist_copy(l0);
+        cpd_atomlist_free(l0);
+        cpd_atom_free(a0);
+
+        REQUIRE(cpd_atomlist_size(l1) == 3);
+        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 0)) == 123);
+        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 1)) == 123);
+        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 2)) == 123);
+
+        REQUIRE(cpd_atomlist_copy(0) == 0);
+    }
 }
