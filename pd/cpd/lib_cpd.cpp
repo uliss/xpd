@@ -319,8 +319,8 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, t_cpd_atomlist* 
     SETSYMBOL(&argv[2], gensym(name));
 
     if (args) {
-        //        auto begin = cpd_atomlist_at(args, 0);
-        //        std::copy(begin, begin + N, argv + 3);
+        auto begin = cpd_atomlist_at(args, 0);
+        std::copy(begin, begin + N, argv + 3);
     }
 
     pd_typedmess((t_pd*)c, gensym("obj"), N + 3, argv);

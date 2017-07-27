@@ -21,6 +21,9 @@ public:
     void parseString(const std::string& s);
 
     void clear();
+
+private:
+    void free();
 };
 
 } // namespace xpd
