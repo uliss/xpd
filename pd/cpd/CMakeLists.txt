@@ -7,4 +7,4 @@ if(UNIX)
     set_target_properties(cpd PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-target_link_libraries(cpd)
+target_link_libraries(cpd pd_core_static)
