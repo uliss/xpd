@@ -73,7 +73,11 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
             t_cpd_canvas* c1 = cpd_root_canvas_new();
             REQUIRE(cpd_canvas_is_root(c1));
             REQUIRE(cpd_root_canvas_x(c1) == 0);
+
+#ifdef __APPLE__
             REQUIRE(cpd_root_canvas_y(c1) == 22);
+#endif
+
             REQUIRE(cpd_root_canvas_width(c1) == 450);
             REQUIRE(cpd_root_canvas_height(c1) == 300);
             REQUIRE(cpd_root_canvas_count() == n + 2);
