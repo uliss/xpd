@@ -114,4 +114,9 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         cpd_canvas_free(c0);
         cpd_canvas_free(c1);
     }
+
+    SECTION("first object")
+    {
+        REQUIRE(cpd_canvas_object_first(0) == nullptr);
+    }
 }
