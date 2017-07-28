@@ -25,7 +25,7 @@ TEST_CASE("cpd_atom", "[cpd PureData wrapper]")
 
         cpd_atom_free(a0);
 
-        auto a1 = cpd_atom_symbol_new("XYZ");
+        auto a1 = cpd_atom_string_new("XYZ");
         REQUIRE(cpd_atom_is_symbol(a1));
         REQUIRE(cpd_atom_symbol(a1) == std::string("XYZ"));
         cpd_atom_free(a1);

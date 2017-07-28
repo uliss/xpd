@@ -13,21 +13,28 @@ extern "C" {
  * @param f - atom value
  * @returns pointer to new atom, it should be free via cpd_atom_free 
  */
-CPD_EXTERN t_cpd_atom* cpd_atom_float_new(float f);
+CPD_EXTERN t_cpd_atom* cpd_atom_float_new(t_cpd_float f);
 
 /**
  * Create symbol atom
- * @param s - string value, that is converted to symbol via gensym() call
+ * @param s - symbol value
  * @return  pointer to new atom
  */
-CPD_EXTERN t_cpd_atom* cpd_atom_symbol_new(const char* s);
+CPD_EXTERN t_cpd_atom* cpd_atom_symbol_new(const t_cpd_symbol* s);
+
+/**
+ * Create symbol atom from string
+ * @param s - string value, that is converted to symbol via cpd_symbol_new() call
+ * @return  pointer to new atom
+ */
+CPD_EXTERN t_cpd_atom* cpd_atom_string_new(const char* s);
 
 /**
  * Sets atom float value and set it's type to float
  * @param a - pointer to atom
  * @param f - float value
  */
-CPD_EXTERN void cpd_atom_set_float(t_cpd_atom* a, float f);
+CPD_EXTERN void cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f);
 
 /**
  * Sets atom symbol value and set it's type to symbol
@@ -62,7 +69,7 @@ CPD_EXTERN int cpd_atom_is_symbol(t_cpd_atom* a);
  * @param a - pointer to atom
  * @returns float value or 0 if not float, or NULL
  */
-CPD_EXTERN float cpd_atom_float(t_cpd_atom* a);
+CPD_EXTERN t_cpd_float cpd_atom_float(t_cpd_atom* a);
 
 /**
  * Returns symbol atom value
