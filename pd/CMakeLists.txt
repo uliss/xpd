@@ -92,6 +92,12 @@ source_group(pdextra FILES ${PD_EXTRA_SOURCES})
 include_directories(${PROJECT_SOURCE_DIR}/pd/pure-data/src)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
+
+if(WIN32)
+    include_directories(${PROJECT_SOURCE_DIR}/distrib/thread/pthreadwin)
+    list(APPEND PD_EXTRA_SOURCES ${PROJECT_SOURCE_DIR}/distrib/thread/src/thd.c)
+endif()
+
 find_package(Threads REQUIRED)
 add_definitions(-DPD=1 -DPD_INTERNAL=1 -DTHREAD_LOCKING=0)
 
@@ -198,7 +204,6 @@ include(FindLibDL)
 if(LIBDL_FOUND)
     list(APPEND PD_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
-
 
 add_library(pd_core_shared SHARED ${PD_SOURCES} ${PD_EXTRA_SOURCES})
 add_library(pd_core_static STATIC ${PD_SOURCES} ${PD_EXTRA_SOURCES})

@@ -10,3 +10,6 @@
 [submodule "distrib/variant"]
 	path = distrib/variant
 	url = https://github.com/mapbox/variant
+[submodule "distrib/thread"]
+	path = distrib/thread
+	url = https://github.com/pierreguillot/thread.git
