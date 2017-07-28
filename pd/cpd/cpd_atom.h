@@ -83,7 +83,7 @@ CPD_EXTERN t_cpd_float cpd_atom_get_float(const t_cpd_atom* a);
  * @param a - pointer to atom
  * @return pointer to symbol
  */
-CPD_EXTERN const t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a);
+CPD_EXTERN t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a);
 
 /**
  * Destruct atom, created via cpd_atom_float etc.

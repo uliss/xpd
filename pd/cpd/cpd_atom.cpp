@@ -73,7 +73,7 @@ void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s)
     SETSYMBOL(a, s);
 }
 
-const t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a)
+t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a)
 {
     if (cpd_atom_is_symbol(a))
         return a->a_w.w_symbol;
