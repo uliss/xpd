@@ -194,4 +194,42 @@ TEST_CASE("cpd_list", "[cpd PureData wrapper]")
         cpd_list_free(l);
         cpd_atom_free(a);
     }
+
+    SECTION("equal")
+    {
+        REQUIRE(cpd_list_equal(0, 0));
+
+        auto l0 = cpd_list_new(0);
+        auto l1 = cpd_list_new(0);
+        auto l2 = cpd_list_new(1);
+        auto l3 = cpd_list_new(2);
+        auto l4 = cpd_list_new(2);
+
+        REQUIRE_FALSE(cpd_list_equal(l0, nullptr));
+        REQUIRE_FALSE(cpd_list_equal(nullptr, l0));
+
+        REQUIRE(cpd_list_equal(l0, l0));
+        REQUIRE(cpd_list_equal(l0, l1));
+        REQUIRE(cpd_list_equal(l1, l0));
+
+        REQUIRE_FALSE(cpd_list_equal(l2, l1));
+        REQUIRE_FALSE(cpd_list_equal(l1, l2));
+
+        REQUIRE_FALSE(cpd_list_equal(l2, l3));
+        REQUIRE_FALSE(cpd_list_equal(l3, l2));
+
+        REQUIRE(cpd_list_equal(l3, l4));
+        REQUIRE(cpd_list_equal(l4, l3));
+
+        cpd_list_set_float_at(l3, 1, 100);
+
+        REQUIRE_FALSE(cpd_list_equal(l3, l4));
+        REQUIRE_FALSE(cpd_list_equal(l4, l3));
+
+        cpd_list_free(l0);
+        cpd_list_free(l1);
+        cpd_list_free(l2);
+        cpd_list_free(l3);
+        cpd_list_free(l4);
+    }
 }

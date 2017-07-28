@@ -135,3 +135,24 @@ int cpd_list_set_symbol_at(t_cpd_list* l, size_t idx, t_cpd_symbol* s)
 {
     return cpd_atom_set_symbol(cpd_list_at(l, idx), s);
 }
+
+int cpd_list_equal(t_cpd_list* l0, t_cpd_list* l1)
+{
+    // self compare
+    if (l0 == l1)
+        return 1;
+
+    // NULL check
+    if (!l0 || !l1)
+        return 0;
+
+    if (l0->data.size() != l1->data.size())
+        return 0;
+
+    for (size_t i = 0; i < l0->data.size(); i++) {
+        if (!cpd_atom_equal(&l0->data[i], &l1->data[i]))
+            return 0;
+    }
+
+    return 1;
+}

@@ -118,6 +118,12 @@ CPD_EXTERN int cpd_list_set_symbol_at(t_cpd_list* l, size_t idx, t_cpd_symbol* s
  */
 CPD_EXTERN int cpd_list_set_float_at(t_cpd_list* l, size_t idx, t_cpd_float f);
 
+/**
+ * Checks if given list are equal: consists from equal elements
+ * @return 1 if equal, 0 otherwise
+ */
+CPD_EXTERN int cpd_list_equal(t_cpd_list* l0, t_cpd_list* l1);
+
 #ifdef __cplusplus
 }
 #endif

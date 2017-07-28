@@ -80,10 +80,13 @@ t_cpd_list* cpd_object_arguments(t_cpd_object* obj)
     t_binbuf* b = ((t_text*)(obj))->te_binbuf;
     const t_atom* atoms = binbuf_getvec(b);
     const size_t N = binbuf_getnatom(b);
+
+    // binbuf list contains object name as first argument
+    // we have to skip it
     t_cpd_list* res = cpd_list_new(N - 1);
 
-    for (size_t i = 1; i < N; i++) {
-        cpd_atom_set_atom(cpd_list_at(res, i), &atoms[i]);
+    for (size_t i = 0; i < N - 1; i++) {
+        cpd_atom_set_atom(cpd_list_at(res, i), &atoms[i + 1]);
     }
 
     return res;

@@ -49,20 +49,21 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         {
             auto cnv = cpd_root_canvas_new();
 
-            auto args = cpd_list_new(0);
-            cpd_list_append_float(args, 100);
+            auto in_args = cpd_list_new(0);
+            cpd_list_append_float(in_args, 100);
+            REQUIRE(cpd_list_size(in_args) == 1);
+            REQUIRE(cpd_list_get_float_at(in_args, 0) == 100);
 
-            auto obj1 = cpd_object_new(cnv, "float", args, 0, 0);
-            cpd_list_free(args);
-            args = 0;
+            auto obj1 = cpd_object_new(cnv, "float", in_args, 0, 0);
+            cpd_list_free(in_args);
 
-            args = cpd_object_arguments(obj1);
+            auto out_args = cpd_object_arguments(obj1);
 
-            REQUIRE(args);
-            REQUIRE(cpd_list_size(args) == 1);
-            REQUIRE(cpd_list_get_float_at(args, 0) == 100);
+            REQUIRE(out_args);
+            REQUIRE(cpd_list_size(out_args) == 1);
+            REQUIRE(cpd_list_get_float_at(out_args, 0) == 100);
 
-            cpd_list_free(args);
+            cpd_list_free(out_args);
 
             cpd_object_free(cnv, obj1);
             cpd_canvas_free(cnv);
