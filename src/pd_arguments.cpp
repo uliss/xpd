@@ -24,7 +24,7 @@ PdArguments::PdArguments(const std::string& s)
     : Arguments(s)
     , lst_(cpd_atomlist_new(1))
 {
-    cpd_atom_set_symbol(cpd_atomlist_at(lst_, 0), s.c_str());
+    cpd_atom_set_string(cpd_atomlist_at(lst_, 0), s.c_str());
 }
 
 PdArguments::~PdArguments()
@@ -51,8 +51,10 @@ void PdArguments::parseString(const std::string& s)
         if (cpd_atom_is_float(a))
             args_.push_back(cpd_atom_float(a));
 
-        if (cpd_atom_is_symbol(a))
-            args_.push_back(std::string(cpd_atom_symbol(a)));
+        if (cpd_atom_is_symbol(a)) {
+            auto s = cpd_atom_symbol(a);
+            args_.push_back(std::string(cpd_symbol_name(s)));
+        }
     }
 }
 

@@ -92,6 +92,8 @@ CPD_EXTERN void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s);
  */
 CPD_EXTERN int cpd_atomlist_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a);
 
+CPD_EXTERN int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str);
+
 #ifdef __cplusplus
 }
 #endif

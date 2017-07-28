@@ -140,8 +140,8 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
     {
         t_cpd_canvas* cnv = cpd_root_canvas_new();
         t_cpd_atomlist* args = cpd_atomlist_new(2);
-        cpd_atom_set_symbol(cpd_atomlist_at(args, 0), "f");
-        cpd_atom_set_symbol(cpd_atomlist_at(args, 1), "s");
+        cpd_atomlist_set_string(args, 0, "f");
+        cpd_atomlist_set_string(args, 1, "s");
 
         t_cpd_object* obj0 = cpd_object_new(cnv, "unpack", args, 0, 0);
 

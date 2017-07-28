@@ -41,7 +41,14 @@ CPD_EXTERN void cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f);
  * @param a - pointer to atom
  * @param s - string value
  */
-CPD_EXTERN void cpd_atom_set_symbol(t_cpd_atom* a, const char* s);
+CPD_EXTERN void cpd_atom_set_string(t_cpd_atom* a, const char* s);
+
+/**
+ * Sets atom symbol value and set it's type to symbol
+ * @param a - pointer to atom
+ * @param s - symbol value
+ */
+CPD_EXTERN void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s);
 
 /**
  * Sets atom from other atom
@@ -55,28 +62,28 @@ CPD_EXTERN void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src);
  * @param a - pointer to atom
  * @return 1 if float, otherwise 0
  */
-CPD_EXTERN int cpd_atom_is_float(t_cpd_atom* a);
+CPD_EXTERN int cpd_atom_is_float(const t_cpd_atom* a);
 
 /**
  * Checks if symbol atom
  * @param a - pointer to atom
  * @return 1 if symbol, otherwise 0
  */
-CPD_EXTERN int cpd_atom_is_symbol(t_cpd_atom* a);
+CPD_EXTERN int cpd_atom_is_symbol(const t_cpd_atom* a);
 
 /**
  * Returns float atom value
  * @param a - pointer to atom
  * @returns float value or 0 if not float, or NULL
  */
-CPD_EXTERN t_cpd_float cpd_atom_float(t_cpd_atom* a);
+CPD_EXTERN t_cpd_float cpd_atom_float(const t_cpd_atom* a);
 
 /**
  * Returns symbol atom value
  * @param a - pointer to atom
- * @return C-string value or NULL if not symbol or NULL
+ * @return pointer to symbol
  */
-CPD_EXTERN const char* cpd_atom_symbol(t_cpd_atom* a);
+CPD_EXTERN const t_cpd_symbol* cpd_atom_symbol(const t_cpd_atom* a);
 
 /**
  * Destruct atom, created via cpd_atom_float etc.

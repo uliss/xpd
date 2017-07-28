@@ -27,32 +27,24 @@ void cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f)
     SETFLOAT(a, f);
 }
 
-void cpd_atom_set_symbol(t_cpd_atom* a, const char* s)
+void cpd_atom_set_string(t_cpd_atom* a, const char* s)
 {
     SETSYMBOL(a, gensym(s));
 }
 
-int cpd_atom_is_float(t_cpd_atom* a)
+int cpd_atom_is_float(const t_cpd_atom* a)
 {
     return a->a_type == A_FLOAT ? 1 : 0;
 }
 
-int cpd_atom_is_symbol(t_cpd_atom* a)
+int cpd_atom_is_symbol(const t_cpd_atom* a)
 {
     return a->a_type == A_SYMBOL ? 1 : 0;
 }
 
-t_cpd_float cpd_atom_float(t_cpd_atom* a)
+t_cpd_float cpd_atom_float(const t_cpd_atom* a)
 {
-    return atom_getfloat(a);
-}
-
-const char* cpd_atom_symbol(t_cpd_atom* a)
-{
-    if (cpd_atom_is_symbol(a))
-        return a->a_w.w_symbol->s_name;
-
-    return 0;
+    return atom_getfloat(const_cast<t_cpd_atom*>(a));
 }
 
 void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
@@ -68,4 +60,17 @@ void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
 t_cpd_atom* cpd_atom_string_new(const char* s)
 {
     return cpd_atom_symbol_new(cpd_symbol_new(s));
+}
+
+void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s)
+{
+    SETSYMBOL(a, s);
+}
+
+const t_cpd_symbol* cpd_atom_symbol(const t_cpd_atom* a)
+{
+    if (cpd_atom_is_symbol(a))
+        return a->a_w.w_symbol;
+
+    return 0;
 }
