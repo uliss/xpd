@@ -209,3 +209,29 @@ void cpd_send_symbol(t_cpd_object* obj, t_cpd_symbol* s)
 
     pd_symbol(&obj->te_g.g_pd, s);
 }
+
+void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l)
+{
+    if (!obj || !l) {
+        console()->error("cpd_send_list: NULL pointer given");
+        return;
+    }
+
+    int n = cpd_list_size(l);
+    t_cpd_atom* atoms = cpd_list_at(const_cast<t_cpd_list*>(l), 0);
+
+    pd_list(&obj->te_g.g_pd, &s_list, n, atoms);
+}
+
+void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l)
+{
+    if (!obj || !sel) {
+        console()->error("cpd_send_message: NULL pointer given");
+        return;
+    }
+
+    int n = cpd_list_size(l);
+    t_cpd_atom* atoms = cpd_list_at(const_cast<t_cpd_list*>(l), 0);
+
+    pd_typedmess(&obj->te_g.g_pd, sel, n, atoms);
+}

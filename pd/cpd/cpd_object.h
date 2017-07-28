@@ -99,6 +99,19 @@ CPD_EXTERN void cpd_send_float(t_cpd_object* obj, t_cpd_float f);
  */
 CPD_EXTERN void cpd_send_symbol(t_cpd_object* obj, t_cpd_symbol* s);
 
+/**
+ * Sends list to object
+ */
+CPD_EXTERN void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l);
+
+/**
+ * Sends message to object
+ * @param obj - pointer to object
+ * @param sel - message selector
+ * @param l - message argument list
+ */
+CPD_EXTERN void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l);
+
 #ifdef __cplusplus
 }
 #endif
