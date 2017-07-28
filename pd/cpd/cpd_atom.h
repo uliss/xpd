@@ -34,28 +34,28 @@ CPD_EXTERN t_cpd_atom* cpd_atom_string_new(const char* s);
  * @param a - pointer to atom
  * @param f - float value
  */
-CPD_EXTERN void cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f);
+CPD_EXTERN int cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f);
 
 /**
  * Sets atom symbol value and set it's type to symbol
  * @param a - pointer to atom
  * @param s - string value
  */
-CPD_EXTERN void cpd_atom_set_string(t_cpd_atom* a, const char* s);
+CPD_EXTERN int cpd_atom_set_string(t_cpd_atom* a, const char* s);
 
 /**
  * Sets atom symbol value and set it's type to symbol
  * @param a - pointer to atom
  * @param s - symbol value
  */
-CPD_EXTERN void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s);
+CPD_EXTERN int cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s);
 
 /**
  * Sets atom from other atom
  * @param a - destination atom pointer
  * @param src - source atom pointer
  */
-CPD_EXTERN void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src);
+CPD_EXTERN int cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src);
 
 /**
  * Checks if float atom

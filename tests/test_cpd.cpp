@@ -140,8 +140,8 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
     {
         t_cpd_canvas* cnv = cpd_root_canvas_new();
         t_cpd_list* args = cpd_list_new(2);
-        cpd_list_set_string(args, 0, "f");
-        cpd_list_set_string(args, 1, "s");
+        cpd_list_set_symbol_at(args, 0, cpd_symbol("f"));
+        cpd_list_set_symbol_at(args, 1, cpd_symbol("s"));
 
         t_cpd_object* obj0 = cpd_object_new(cnv, "unpack", args, 0, 0);
 

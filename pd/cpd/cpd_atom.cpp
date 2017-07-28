@@ -22,14 +22,18 @@ t_cpd_atom* cpd_atom_symbol_new(const t_cpd_symbol* s)
     return a;
 }
 
-void cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f)
+int cpd_atom_set_float(t_cpd_atom* a, t_cpd_float f)
 {
+    if (!a)
+        return 0;
+
     SETFLOAT(a, f);
+    return 1;
 }
 
-void cpd_atom_set_string(t_cpd_atom* a, const char* s)
+int cpd_atom_set_string(t_cpd_atom* a, const char* s)
 {
-    SETSYMBOL(a, gensym(s));
+    return cpd_atom_set_symbol(a, cpd_symbol(s));
 }
 
 int cpd_atom_is_float(const t_cpd_atom* a)
@@ -53,14 +57,15 @@ t_cpd_float cpd_atom_get_float(const t_cpd_atom* a)
     return atom_getfloat(const_cast<t_cpd_atom*>(a));
 }
 
-void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
+int cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
 {
     if (!a || !src) {
         console()->error("cpd_atom_set_atom: NULL pointers given");
-        return;
+        return 0;
     }
 
     *a = *src;
+    return 1;
 }
 
 t_cpd_atom* cpd_atom_string_new(const char* s)
@@ -68,9 +73,13 @@ t_cpd_atom* cpd_atom_string_new(const char* s)
     return cpd_atom_symbol_new(cpd_symbol(s));
 }
 
-void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s)
+int cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s)
 {
+    if (!a)
+        return 0;
+
     SETSYMBOL(a, s);
+    return 1;
 }
 
 t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a)

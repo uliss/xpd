@@ -163,15 +163,15 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
     {
         auto l = cpd_list_new(0);
 
-        REQUIRE_FALSE(cpd_list_set_atom(0, 0, 0));
-        REQUIRE_FALSE(cpd_list_set_atom(l, 0, 0));
+        REQUIRE_FALSE(cpd_list_set_atom_at(0, 0, 0));
+        REQUIRE_FALSE(cpd_list_set_atom_at(l, 0, 0));
 
         auto a = cpd_atom_string_new("ABC");
 
-        REQUIRE_FALSE(cpd_list_set_atom(l, 0, a));
+        REQUIRE_FALSE(cpd_list_set_atom_at(l, 0, a));
         cpd_list_append_float(l, 123);
-        REQUIRE(cpd_list_float_at(l, 0) == 123);
-        REQUIRE(cpd_list_set_atom(l, 0, a));
+        REQUIRE(cpd_list_get_float_at(l, 0) == 123);
+        REQUIRE(cpd_list_set_atom_at(l, 0, a));
 
         cpd_list_free(l);
         cpd_atom_free(a);

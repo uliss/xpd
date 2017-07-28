@@ -84,26 +84,10 @@ size_t cpd_list_size(const t_cpd_list* l)
 
 t_cpd_list* cpd_list_copy(const t_cpd_list* l)
 {
-    return l ? new t_cpd_list(*l) : 0;
+    return l ? new t_cpd_list(*l) : nullptr;
 }
 
-int cpd_list_set_atom(t_cpd_list* l, size_t idx, const t_cpd_atom* a)
-{
-    if (!l || !a) {
-        console()->error("cpd_list_set_atom: NULL arguments");
-        return 0;
-    }
-
-    if (idx >= l->data.size()) {
-        console()->error("cpd_list_set_atom: invalid atomlist index {}", idx);
-        return 0;
-    }
-
-    l->data[idx] = *a;
-    return 1;
-}
-
-void cpd_list_append_float(t_cpd_list* l, float f)
+void cpd_list_append_float(t_cpd_list* l, t_cpd_float f)
 {
     if (!l) {
         console()->error("cpd_list_append_float: NULL argument");
@@ -127,28 +111,27 @@ void cpd_list_append_symbol(t_cpd_list* l, t_cpd_symbol* s)
     l->data.push_back(a);
 }
 
-float cpd_list_float_at(t_cpd_list* l, size_t idx)
+t_cpd_float cpd_list_get_float_at(t_cpd_list* l, size_t idx)
 {
     return cpd_atom_get_float(cpd_list_at(l, idx));
 }
 
-int cpd_list_set_string(t_cpd_list* l, size_t idx, const char* str)
-{
-    if (!l || !str) {
-        console()->error("cpd_list_set_string: NULL arguments");
-        return 0;
-    }
-
-    if (idx >= l->data.size()) {
-        console()->error("cpd_list_set_atom: invalid atomlist index {}", idx);
-        return 0;
-    }
-
-    SETSYMBOL(&l->data[idx], gensym(str));
-    return 1;
-}
-
-t_cpd_symbol* cpd_list_symbol_at(t_cpd_list* l, size_t n)
+t_cpd_symbol* cpd_list_get_symbol_at(t_cpd_list* l, size_t n)
 {
     return cpd_atom_get_symbol(cpd_list_at(l, n));
+}
+
+int cpd_list_set_atom_at(t_cpd_list* l, size_t idx, const t_cpd_atom* a)
+{
+    return cpd_atom_set_atom(cpd_list_at(l, idx), a);
+}
+
+int cpd_list_set_float_at(t_cpd_list* l, size_t idx, t_cpd_float f)
+{
+    return cpd_atom_set_float(cpd_list_at(l, idx), f);
+}
+
+int cpd_list_set_symbol_at(t_cpd_list* l, size_t idx, t_cpd_symbol* s)
+{
+    return cpd_atom_set_symbol(cpd_list_at(l, idx), s);
 }
