@@ -84,6 +84,10 @@ TEST_CASE("cpd_atom", "[cpd PureData wrapper]")
         REQUIRE(cpd_atom_equal(a1, a2));
         REQUIRE(cpd_atom_equal(a2, a1));
 
+        // different types
+        REQUIRE_FALSE(cpd_atom_equal(a2, a3));
+        REQUIRE_FALSE(cpd_atom_equal(a3, a2));
+
         REQUIRE(cpd_atom_equal(a3, a4));
         REQUIRE(cpd_atom_equal(a4, a3));
 
