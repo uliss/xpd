@@ -54,4 +54,10 @@ TEST_CASE("cpd_atom", "[cpd PureData wrapper]")
         REQUIRE(cpd_atom_is_symbol(a0));
         cpd_atom_free(a0);
     }
+
+    SECTION("set")
+    {
+        REQUIRE_FALSE(cpd_atom_set_float(0, 123));
+        REQUIRE_FALSE(cpd_atom_set_symbol(0, cpd_symbol("ABC")));
+    }
 }

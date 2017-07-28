@@ -84,7 +84,7 @@ size_t cpd_list_size(const t_cpd_list* l)
 
 t_cpd_list* cpd_list_copy(const t_cpd_list* l)
 {
-    return l ? new t_cpd_list(*l) : nullptr;
+    return l ? (new t_cpd_list(*l)) : NULL;
 }
 
 void cpd_list_append_float(t_cpd_list* l, t_cpd_float f)

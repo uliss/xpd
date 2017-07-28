@@ -4,7 +4,7 @@
 
 static int i = cpd_init();
 
-TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
+TEST_CASE("cpd_list", "[cpd PureData wrapper]")
 {
     SECTION("create")
     {
@@ -135,6 +135,19 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         cpd_list_append(l, a0);
         REQUIRE(cpd_list_size(l) == 2);
         REQUIRE(cpd_atom_get_float(cpd_list_at(l, 1)) == 123);
+
+        // null ptr
+        cpd_list_append_float(0, 1.123f);
+        // ok
+        cpd_list_append_float(l, 1.123f);
+        REQUIRE(cpd_list_get_float_at(l, 2) == 1.123f);
+
+        // null ptr
+        cpd_list_append_symbol(0, cpd_symbol("ABC"));
+        // ok
+        cpd_list_append_symbol(l, cpd_symbol("ABC"));
+        REQUIRE(cpd_list_get_symbol_at(l, 3) == cpd_symbol("ABC"));
+
         cpd_list_free(l);
         cpd_atom_free(a0);
     }
@@ -165,6 +178,10 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
 
         REQUIRE_FALSE(cpd_list_set_atom_at(0, 0, 0));
         REQUIRE_FALSE(cpd_list_set_atom_at(l, 0, 0));
+        REQUIRE_FALSE(cpd_list_set_symbol_at(0, 0, cpd_symbol("TEST")));
+        REQUIRE_FALSE(cpd_list_set_symbol_at(l, 0, cpd_symbol("TEST")));
+        REQUIRE_FALSE(cpd_list_set_float_at(0, 0, 1024));
+        REQUIRE_FALSE(cpd_list_set_float_at(l, 0, 1024));
 
         auto a = cpd_atom_string_new("ABC");
 
@@ -172,6 +189,7 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         cpd_list_append_float(l, 123);
         REQUIRE(cpd_list_get_float_at(l, 0) == 123);
         REQUIRE(cpd_list_set_atom_at(l, 0, a));
+        REQUIRE(cpd_list_set_symbol_at(l, 0, cpd_symbol("TEST")));
 
         cpd_list_free(l);
         cpd_atom_free(a);
