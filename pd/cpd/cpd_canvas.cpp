@@ -204,3 +204,21 @@ size_t cpd_canvas_object_count(t_cpd_canvas* cnv)
 
     return n;
 }
+
+t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console()->debug("cpd_canvas_object_first: NULL given");
+        return 0;
+    }
+
+    t_gobj* l = cnv->gl_list;
+    while (l) {
+        if (l->g_pd->c_patchable)
+            return reinterpret_cast<t_cpd_object*>(l);
+
+        l = l->g_next;
+    }
+
+    return nullptr;
+}

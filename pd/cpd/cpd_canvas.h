@@ -79,6 +79,13 @@ CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* c);
  */
 CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
 
+/**
+ * Returns pointer to first object on canvas
+ * @param cnv - pointer to canvas
+ * @return pointer to object or NULL if not found
+ */
+CPD_EXTERN t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv);
+
 #ifdef __cplusplus
 }
 #endif

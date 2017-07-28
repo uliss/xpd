@@ -245,3 +245,21 @@ void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l)
 
     pd_typedmess(&obj->te_g.g_pd, sel, n, atoms);
 }
+
+t_cpd_object* cpd_object_next(t_cpd_object* obj)
+{
+    if (!obj) {
+        console()->error("cpd_object_next: NULL pointer given");
+        return nullptr;
+    }
+
+    t_gobj* it = obj->te_g.g_next;
+    while (it) {
+        if (it->g_pd->c_patchable)
+            return reinterpret_cast<t_cpd_object*>(it);
+
+        it = it->g_next;
+    }
+
+    return nullptr;
+}
