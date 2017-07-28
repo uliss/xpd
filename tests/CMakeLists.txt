@@ -47,10 +47,11 @@ endmacro()
 
 add_library(test_catch_main_lib STATIC tests_catch_main.cpp)
 
+xpd_add_test(atom cpd_atom)
+xpd_add_test(list cpd_list)
+xpd_add_test(env cpd_env)
+xpd_add_test(cpd cpd)
+
 xpd_add_test(PdObject pdobject)
 xpd_add_test(LocalServer localserver)
-xpd_add_test(atomlist cpd_atomlist)
-xpd_add_test(atom cpd_atom)
-xpd_add_test(enviroment cpd_env)
-xpd_add_test(cpd cpd)
 xpd_add_test(ObjectList objectlist)
