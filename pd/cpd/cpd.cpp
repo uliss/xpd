@@ -313,7 +313,7 @@ int cpd_root_canvas_height(t_cpd_canvas* cnv)
     return cnv->gl_screeny2 - cnv->gl_screeny1;
 }
 
-t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atomlist* args, int x, int y)
+t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list* args, int x, int y)
 {
     console()->trace("cpd_object_new {");
 
@@ -327,7 +327,7 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atom
     SETSYMBOL(&argv[2], gensym(name));
 
     if (args) {
-        auto begin = cpd_list_at(const_cast<t_cpd_atomlist*>(args), 0);
+        auto begin = cpd_list_at(const_cast<t_cpd_list*>(args), 0);
         std::copy(begin, begin + N, argv + 3);
     }
 
@@ -458,7 +458,7 @@ void cpd_send_float(t_cpd_object* obj, float f)
     pd_float(&obj->te_g.g_pd, f);
 }
 
-t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj)
+t_cpd_list* cpd_object_arguments(t_cpd_object* obj)
 {
     if (!obj) {
         console()->error("cpd_object_text: NULL pointer given");
@@ -468,7 +468,7 @@ t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj)
     t_binbuf* b = ((t_text*)(obj))->te_binbuf;
     const t_atom* atoms = binbuf_getvec(b);
     const size_t N = binbuf_getnatom(b);
-    t_cpd_atomlist* res = cpd_list_new(N - 1);
+    t_cpd_list* res = cpd_list_new(N - 1);
 
     for (size_t i = 1; i < N; i++) {
         cpd_atom_set_atom(cpd_list_at(res, i), &atoms[i]);

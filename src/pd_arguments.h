@@ -7,7 +7,7 @@
 namespace xpd {
 
 class PdArguments : public Arguments {
-    t_cpd_atomlist* lst_;
+    t_cpd_list* lst_;
 
 public:
     PdArguments();
@@ -22,7 +22,7 @@ public:
 
     void clear();
 
-    const t_cpd_atomlist* atomList() const;
+    const t_cpd_list* atomList() const;
 
 private:
     void free();

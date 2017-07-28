@@ -139,13 +139,13 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
     SECTION("arguments")
     {
         t_cpd_canvas* cnv = cpd_root_canvas_new();
-        t_cpd_atomlist* args = cpd_list_new(2);
+        t_cpd_list* args = cpd_list_new(2);
         cpd_list_set_string(args, 0, "f");
         cpd_list_set_string(args, 1, "s");
 
         t_cpd_object* obj0 = cpd_object_new(cnv, "unpack", args, 0, 0);
 
-        t_cpd_atomlist* args1 = cpd_object_arguments(obj0);
+        t_cpd_list* args1 = cpd_object_arguments(obj0);
         REQUIRE(args1 != 0);
         REQUIRE(cpd_list_size(args1) == 2);
 
@@ -158,7 +158,7 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
     SECTION("text")
     {
         t_cpd_canvas* cnv = cpd_root_canvas_new();
-        t_cpd_atomlist* args = cpd_list_new_from_string("123    send");
+        t_cpd_list* args = cpd_list_new_from_string("123    send");
         t_cpd_object* obj0 = cpd_object_new(cnv, "route", args, 0, 0);
 
         const char* txt = cpd_object_text(obj0);

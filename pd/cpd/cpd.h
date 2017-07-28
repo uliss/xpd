@@ -92,7 +92,7 @@ CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* c);
  * @param y - Y-position on canvas
  * @return pointer to new object or NULL
  */
-CPD_EXTERN t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atomlist* args, int x, int y);
+CPD_EXTERN t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list* args, int x, int y);
 
 /**
  * @brief Removed object from canvas and frees it
@@ -112,7 +112,7 @@ CPD_EXTERN const char* cpd_object_name(t_cpd_object* obj);
  * Returns object arguments. Caller should free result
  * @param obj - pointer to object
  */
-CPD_EXTERN t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj);
+CPD_EXTERN t_cpd_list* cpd_object_arguments(t_cpd_object* obj);
 
 CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
 

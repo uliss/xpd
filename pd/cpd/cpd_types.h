@@ -16,7 +16,7 @@ struct _symbol;
 typedef struct _symbol t_cpd_symbol;
 
 struct _cpd_list;
-typedef struct _cpd_list t_cpd_atomlist;
+typedef struct _cpd_list t_cpd_list;
 
 /**
  * Creates new symbol from given string. Caller should NOT free result pointer
