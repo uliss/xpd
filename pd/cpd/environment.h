@@ -13,6 +13,11 @@ CPD_EXTERN int cpd_version_major();
 CPD_EXTERN int cpd_version_minor();
 CPD_EXTERN int cpd_version_bugfix();
 
+CPD_EXTERN void cpd_searchpath_append(const char* path);
+CPD_EXTERN size_t cpd_searchpath_num();
+CPD_EXTERN const char* cpd_searchpath_at(size_t idx);
+CPD_EXTERN void cpd_searchpath_clear();
+
 #ifdef __cplusplus
 }
 #endif
