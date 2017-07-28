@@ -51,7 +51,14 @@ CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
  * @param obj - pointer to object
  * @return path or empty string on error
  */
-CPD_EXTERN const char* cpd_object_help_path(t_cpd_object* obj);
+CPD_EXTERN const char* cpd_object_help_name(t_cpd_object* obj);
+
+/**
+ * Returns object external directory
+ * @param obj - pointer to object
+ * @return path or empty string on error
+ */
+CPD_EXTERN const char* cpd_object_help_dir(t_cpd_object* obj);
 
 /**
  * Object x-coord within toplevel

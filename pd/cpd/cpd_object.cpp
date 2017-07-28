@@ -264,12 +264,22 @@ t_cpd_object* cpd_object_next(t_cpd_object* obj)
     return nullptr;
 }
 
-const char* cpd_object_help_path(t_cpd_object* obj)
+const char* cpd_object_help_name(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_help_path: NULL pointer given");
+        console()->error("cpd_object_help_name: NULL pointer given");
         return "";
     }
 
-    return obj->te_g.g_pd->c_helpname->s_name;
+    return class_gethelpname(obj->te_g.g_pd);
+}
+
+const char* cpd_object_help_dir(t_cpd_object* obj)
+{
+    if (!obj) {
+        console()->error("cpd_object_help_dir: NULL pointer given");
+        return "";
+    }
+
+    return class_gethelpdir(obj->te_g.g_pd);
 }

@@ -20,18 +20,37 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
     SECTION("help path")
     {
-        REQUIRE(cpd_object_help_path(nullptr) == std::string());
+        REQUIRE(cpd_object_help_name(nullptr) == std::string());
 
         auto cnv = cpd_root_canvas_new();
 
         // [+]
         auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
-        REQUIRE(cpd_object_help_path(obj1) == std::string("operators"));
+        REQUIRE(cpd_object_help_name(obj1) == std::string("operators"));
         cpd_object_free(cnv, obj1);
 
         // [metro]
         auto obj2 = cpd_object_new(cnv, "metro", 0, 0, 0);
-        REQUIRE(cpd_object_help_path(obj2) == std::string("metro"));
+        REQUIRE(cpd_object_help_name(obj2) == std::string("metro"));
+        cpd_object_free(cnv, obj2);
+
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("help dir")
+    {
+        REQUIRE(cpd_object_help_dir(nullptr) == std::string());
+
+        auto cnv = cpd_root_canvas_new();
+
+        // [+]
+        auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
+        REQUIRE(cpd_object_help_dir(obj1) == std::string(""));
+        cpd_object_free(cnv, obj1);
+
+        // [metro]
+        auto obj2 = cpd_object_new(cnv, "metro", 0, 0, 0);
+        REQUIRE(cpd_object_help_dir(obj2) == std::string(""));
         cpd_object_free(cnv, obj2);
 
         cpd_canvas_free(cnv);
