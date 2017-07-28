@@ -6,8 +6,8 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 
 if(WITH_COVERAGE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
     
@@ -50,6 +50,7 @@ add_library(test_catch_main_lib STATIC tests_catch_main.cpp)
 xpd_add_test(atom cpd_atom)
 xpd_add_test(list cpd_list)
 xpd_add_test(env cpd_env)
+xpd_add_test(canvas cpd_canvas)
 xpd_add_test(cpd cpd)
 
 xpd_add_test(PdObject pdobject)

@@ -15,6 +15,12 @@ typedef struct _atom t_cpd_atom;
 struct _symbol;
 typedef struct _symbol t_cpd_symbol;
 
+struct _text;
+typedef struct _text t_cpd_object;
+
+struct _glist;
+typedef struct _glist t_cpd_canvas;
+
 struct _cpd_list;
 typedef struct _cpd_list t_cpd_list;
 
