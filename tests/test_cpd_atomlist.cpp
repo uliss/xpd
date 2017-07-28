@@ -159,4 +159,20 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
 
         REQUIRE(cpd_atomlist_copy(0) == 0);
     }
+
+    SECTION("set")
+    {
+        auto l = cpd_atomlist_new(0);
+
+        REQUIRE_FALSE(cpd_atomlist_set_atom(0, 0, 0));
+        REQUIRE_FALSE(cpd_atomlist_set_atom(l, 0, 0));
+
+        auto a = cpd_atom_symbol_new("ABC");
+
+        REQUIRE_FALSE(cpd_atomlist_set_atom(l, 0, a));
+        cpd_atomlist_append_float();
+
+        cpd_atomlist_free(l);
+        cpd_atom_free(a);
+    }
 }

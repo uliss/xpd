@@ -65,6 +65,29 @@ CPD_EXTERN t_cpd_atom* cpd_atomlist_at(t_cpd_atomlist* l, size_t n);
  */
 CPD_EXTERN void cpd_atomlist_append(t_cpd_atomlist* l, const t_cpd_atom* a);
 
+/**
+ * Appends float value to list
+ * @param l - pointer to list
+ * @param f - float value
+ */
+CPD_EXTERN void cpd_atomlist_append_float(t_cpd_atomlist* l, float f);
+
+/**
+ * Appends symbol value to list
+ * @param l - pointer to list
+ * @param f - float value
+ */
+CPD_EXTERN void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* f);
+
+/**
+ * Set atomlist element at specified position
+ * @param l - pointer to list
+ * @param idx - element position
+ * @param a - pointer to source atom
+ * @return 1 on success and 0 on error
+ */
+CPD_EXTERN int cpd_atomlist_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a);
+
 #ifdef __cplusplus
 }
 #endif

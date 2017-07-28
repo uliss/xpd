@@ -86,3 +86,35 @@ t_cpd_atomlist* cpd_atomlist_copy(const t_cpd_atomlist* l)
 {
     return l ? new t_cpd_atomlist(*l) : 0;
 }
+
+int cpd_atomlist_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a)
+{
+    if (!l || !a) {
+        console()->error("cpd_atomlist_set_atom: NULL arguments");
+        return 0;
+    }
+
+    if (idx >= l->data.size()) {
+        console()->error("cpd_atomlist_set_atom: invalid atomlist index {}", idx);
+        return 0;
+    }
+
+    l->data[idx] = *a;
+    return 1;
+}
+
+void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
+{
+    if (!l) {
+        console()->error("cpd_atomlist_append_float: NULL argument");
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, f);
+    l->data.push_back(a);
+}
+
+void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* f)
+{
+}
