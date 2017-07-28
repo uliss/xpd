@@ -62,6 +62,17 @@ static int catcher_last_bang(t_catcher* x)
         && cpd_list_get_symbol_at(msg, 0) == &s_bang;
 }
 
+static int catcher_last_float(t_catcher* x, t_cpd_float f)
+{
+    if (x->lst->empty())
+        return 0;
+
+    auto msg = x->lst->back();
+    return cpd_list_size(msg) == 2
+        && cpd_list_get_symbol_at(msg, 0) == &s_float
+        && cpd_list_get_float_at(msg, 1) == f;
+}
+
 static void catcher_pop(t_catcher* x)
 {
     if (x->lst->size() < 1)
@@ -196,4 +207,14 @@ int cpd_catcher_last_bang(t_cpd_object* c)
     }
 
     return catcher_last_bang((t_catcher*)c);
+}
+
+int cpd_catcher_last_float(t_cpd_object* c, t_cpd_float f)
+{
+    if (!cpd_is_catcher(c)) {
+        console()->error("cpd_catcher_empty: not a catcher object");
+        return 0;
+    }
+
+    return catcher_last_float((t_catcher*)c, f);
 }

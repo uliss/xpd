@@ -13,12 +13,13 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
     {
         REQUIRE_FALSE(cpd_is_catcher(0));
 
+        auto cnv = cpd_root_canvas_new();
+        REQUIRE_FALSE(cpd_catcher_new(cnv));
+
         cpd_catcher_init();
         cpd_catcher_init();
 
         REQUIRE_FALSE(cpd_is_catcher(0));
-
-        auto cnv = cpd_root_canvas_new();
 
         // non-catcher
         auto non_catcher = cpd_object_new(cnv, "+", 0, 0, 0);
@@ -64,6 +65,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         auto cnv = cpd_root_canvas_new();
         auto catcher = cpd_catcher_new(cnv);
 
+        cpd_send_bang(nullptr);
         cpd_send_bang(catcher);
         REQUIRE_FALSE(cpd_catcher_empty(catcher));
         REQUIRE(cpd_catcher_count(catcher) == 1);
@@ -76,6 +78,36 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         REQUIRE(cpd_catcher_empty(catcher));
         cpd_catcher_pop(catcher);
         REQUIRE(cpd_catcher_empty(catcher));
+
+        cpd_object_free(cnv, catcher);
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("float")
+    {
+        auto cnv = cpd_root_canvas_new();
+        auto catcher = cpd_catcher_new(cnv);
+
+        cpd_send_float(nullptr, 1000);
+
+        cpd_send_float(catcher, 1000);
+        REQUIRE(cpd_catcher_last_float(catcher, 1000));
+        REQUIRE_FALSE(cpd_catcher_last_float(nullptr, 1000));
+
+        cpd_catcher_clear(catcher);
+        REQUIRE(cpd_catcher_empty(catcher));
+        cpd_catcher_clear(catcher);
+        REQUIRE(cpd_catcher_empty(catcher));
+
+        cpd_send_float(catcher, 2000);
+        REQUIRE(cpd_catcher_last_float(catcher, 2000));
+
+        cpd_send_float(catcher, 3000);
+        REQUIRE(cpd_catcher_last_float(catcher, 3000));
+
+        cpd_catcher_pop(catcher);
+        cpd_catcher_pop(nullptr);
+        REQUIRE(cpd_catcher_last_float(catcher, 2000));
 
         cpd_object_free(cnv, catcher);
         cpd_canvas_free(cnv);
