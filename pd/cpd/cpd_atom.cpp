@@ -89,3 +89,23 @@ t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a)
 
     return 0;
 }
+
+int cpd_atom_equal(const t_cpd_atom* a0, const t_cpd_atom* a1)
+{
+    if (a0 == a1)
+        return 1;
+
+    if (!a0 || !a1)
+        return 0;
+
+    if (a0->a_type != a1->a_type)
+        return 0;
+
+    if (cpd_atom_is_float(a0))
+        return (a0->a_w.w_float == a1->a_w.w_float) ? 1 : 0;
+
+    if (cpd_atom_is_symbol(a0))
+        return (a0->a_w.w_symbol == a1->a_w.w_symbol) ? 1 : 0;
+
+    return 0;
+}

@@ -91,6 +91,12 @@ CPD_EXTERN t_cpd_symbol* cpd_atom_get_symbol(const t_cpd_atom* a);
  */
 CPD_EXTERN void cpd_atom_free(t_cpd_atom* a);
 
+/**
+ * Checks if atoms are equal
+ * @return 1 if atoms are equal, otherwise 0
+ */
+CPD_EXTERN int cpd_atom_equal(const t_cpd_atom* a0, const t_cpd_atom* a1);
+
 #ifdef __cplusplus
 }
 #endif
