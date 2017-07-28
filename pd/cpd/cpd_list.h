@@ -96,11 +96,26 @@ CPD_EXTERN void cpd_list_append_symbol(t_cpd_list* l, t_cpd_symbol* s);
  * @param l - pointer to list
  * @param idx - element position
  * @param a - pointer to source atom
- * @return 1 on success and 0 on error
+ * @return 1 on success or 0 on error
  */
 CPD_EXTERN int cpd_list_set_atom_at(t_cpd_list* l, size_t idx, const t_cpd_atom* a);
 
-CPD_EXTERN int cpd_list_set_symbol_at(t_cpd_list* l, size_t idx, t_cpd_symbol* str);
+/**
+ * Sets element in list to symbol
+ * @param l - pointer to list
+ * @param idx - element position
+ * @param s - symbol
+ * @return 1 on success or 0 on error
+ */
+CPD_EXTERN int cpd_list_set_symbol_at(t_cpd_list* l, size_t idx, t_cpd_symbol* s);
+
+/**
+ * Sets element in list to float at specified position
+ * @param l - pointer to list
+ * @param idx - element position
+ * @param f - float value
+ * @return 1 on success or 0 on error
+ */
 CPD_EXTERN int cpd_list_set_float_at(t_cpd_list* l, size_t idx, t_cpd_float f);
 
 #ifdef __cplusplus
