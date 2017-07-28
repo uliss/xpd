@@ -1,5 +1,5 @@
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
-set(CMP_SOURCES lib_cpd.cpp lib_cpd.h atom.cpp atomlist.cpp pr_log.cpp)
+set(CMP_SOURCES lib_cpd.cpp lib_cpd.h atom.cpp atomlist.cpp environment.cpp pr_log.cpp)
 
 if(WIN32)
     add_definitions(-DCPD_INTERNAL)
