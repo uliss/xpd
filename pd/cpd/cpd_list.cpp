@@ -129,17 +129,7 @@ void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s)
 
 float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t idx)
 {
-    if (!l) {
-        console()->error("cpd_atomlist_append_float: NULL argument");
-        return 0;
-    }
-
-    if (idx >= l->data.size()) {
-        console()->error("cpd_atomlist_set_atom: invalid atomlist index {}", idx);
-        return 0;
-    }
-
-    return atom_getfloat(&l->data[idx]);
+    return cpd_atom_get_float(cpd_atomlist_at(l, idx));
 }
 
 int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
@@ -156,4 +146,9 @@ int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
 
     SETSYMBOL(&l->data[idx], gensym(str));
     return 1;
+}
+
+t_cpd_symbol* cpd_atomlist_symbol_at(t_cpd_atomlist* l, size_t n)
+{
+    return const_cast<t_cpd_symbol*>(cpd_atom_symbol(cpd_atomlist_at(l, n)));
 }

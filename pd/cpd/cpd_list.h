@@ -63,6 +63,14 @@ CPD_EXTERN t_cpd_atom* cpd_atomlist_at(t_cpd_atomlist* l, size_t n);
 CPD_EXTERN float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t n);
 
 /**
+ * Returns symbol at specified position in list
+ * @param l - pointer to list
+ * @param n - list position
+ * @return on error or type mismatch returns NULL
+ */
+CPD_EXTERN t_cpd_symbol* cpd_atomlist_symbol_at(t_cpd_atomlist* l, size_t n);
+
+/**
  * Appends copy of given atom to the end of atomlist
  * @param l - pointer to list
  * @param a - pointer to attom

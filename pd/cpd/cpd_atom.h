@@ -76,7 +76,7 @@ CPD_EXTERN int cpd_atom_is_symbol(const t_cpd_atom* a);
  * @param a - pointer to atom
  * @returns float value or 0 if not float, or NULL
  */
-CPD_EXTERN t_cpd_float cpd_atom_float(const t_cpd_atom* a);
+CPD_EXTERN t_cpd_float cpd_atom_get_float(const t_cpd_atom* a);
 
 /**
  * Returns symbol atom value

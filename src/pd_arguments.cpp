@@ -49,7 +49,7 @@ void PdArguments::parseString(const std::string& s)
         auto a = cpd_atomlist_at(lst_, i);
 
         if (cpd_atom_is_float(a))
-            args_.push_back(cpd_atom_float(a));
+            args_.push_back(cpd_atom_get_float(a));
 
         if (cpd_atom_is_symbol(a)) {
             auto s = cpd_atom_symbol(a);

@@ -27,10 +27,10 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
             REQUIRE(cpd_atom_is_float(cpd_atomlist_at(l, 2)));
             REQUIRE(cpd_atom_is_float(cpd_atomlist_at(l, 3)));
 
-            REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 0)) == 0);
-            REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 1)) == 0);
-            REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 2)) == 0);
-            REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 3)) == 0);
+            REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l, 0)) == 0);
+            REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l, 1)) == 0);
+            REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l, 2)) == 0);
+            REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l, 3)) == 0);
         }
     }
 
@@ -52,16 +52,16 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         REQUIRE(cpd_atomlist_size(lst) == 6);
 
         REQUIRE(cpd_atom_is_float(cpd_atomlist_at(lst, 0)));
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(lst, 0)) == 1);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(lst, 0)) == 1);
 
         REQUIRE(cpd_atom_is_float(cpd_atomlist_at(lst, 1)));
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(lst, 1)) == 2.35f);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(lst, 1)) == 2.35f);
 
         REQUIRE_FALSE(cpd_atom_is_symbol(cpd_atomlist_at(lst, 2)));
         REQUIRE_FALSE(cpd_atom_is_float(cpd_atomlist_at(lst, 2)));
 
         REQUIRE(cpd_atom_is_float(cpd_atomlist_at(lst, 3)));
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(lst, 3)) == 2);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(lst, 3)) == 2);
 
         REQUIRE_FALSE(cpd_atom_is_symbol(cpd_atomlist_at(lst, 4)));
         REQUIRE_FALSE(cpd_atom_is_float(cpd_atomlist_at(lst, 4)));
@@ -134,7 +134,7 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         REQUIRE(cpd_atomlist_size(l) == 1);
         cpd_atomlist_append(l, a0);
         REQUIRE(cpd_atomlist_size(l) == 2);
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(l, 1)) == 123);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l, 1)) == 123);
         cpd_atomlist_free(l);
         cpd_atom_free(a0);
     }
@@ -152,9 +152,9 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         cpd_atom_free(a0);
 
         REQUIRE(cpd_atomlist_size(l1) == 3);
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 0)) == 123);
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 1)) == 123);
-        REQUIRE(cpd_atom_float(cpd_atomlist_at(l1, 2)) == 123);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l1, 0)) == 123);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l1, 1)) == 123);
+        REQUIRE(cpd_atom_get_float(cpd_atomlist_at(l1, 2)) == 123);
 
         REQUIRE(cpd_atomlist_copy(0) == 0);
     }

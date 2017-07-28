@@ -34,15 +34,21 @@ void cpd_atom_set_string(t_cpd_atom* a, const char* s)
 
 int cpd_atom_is_float(const t_cpd_atom* a)
 {
+    if (!a)
+        return 0;
+
     return a->a_type == A_FLOAT ? 1 : 0;
 }
 
 int cpd_atom_is_symbol(const t_cpd_atom* a)
 {
+    if (!a)
+        return 0;
+
     return a->a_type == A_SYMBOL ? 1 : 0;
 }
 
-t_cpd_float cpd_atom_float(const t_cpd_atom* a)
+t_cpd_float cpd_atom_get_float(const t_cpd_atom* a)
 {
     return atom_getfloat(const_cast<t_cpd_atom*>(a));
 }
