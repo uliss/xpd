@@ -245,7 +245,7 @@ void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l)
 
 void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l)
 {
-    if (!obj || !sel) {
+    if (!obj || !sel || !l) {
         console()->error("cpd_send_message: NULL pointer given");
         return;
     }

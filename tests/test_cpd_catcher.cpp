@@ -90,6 +90,9 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
         cpd_send_float(nullptr, 1000);
 
+        // catcher empty
+        REQUIRE_FALSE(cpd_catcher_last_float(catcher, 1000));
+
         cpd_send_float(catcher, 1000);
         REQUIRE(cpd_catcher_last_float(catcher, 1000));
         REQUIRE_FALSE(cpd_catcher_last_float(nullptr, 1000));
@@ -123,6 +126,9 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         cpd_send_symbol(nullptr, nullptr);
         cpd_send_symbol(catcher, nullptr);
 
+        // catcher empty
+        REQUIRE_FALSE(cpd_catcher_last_symbol(catcher, "ABC"));
+
         // valid
         cpd_send_symbol(catcher, cpd_symbol("ABC"));
         REQUIRE(cpd_catcher_count(catcher) == 1);
@@ -151,12 +157,53 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         cpd_send_list(nullptr, nullptr);
         cpd_send_list(catcher, nullptr);
 
+        // catcher empty
+        REQUIRE_FALSE(cpd_catcher_last_list(catcher, l0));
+
         // valid
         cpd_send_list(catcher, l0);
         REQUIRE(cpd_catcher_count(catcher) == 1);
         REQUIRE(cpd_catcher_last_list(catcher, l0));
         REQUIRE_FALSE(cpd_catcher_last_list(catcher, l1));
         REQUIRE_FALSE(cpd_catcher_last_list(catcher, l2));
+
+        cpd_list_free(l0);
+        cpd_list_free(l1);
+        cpd_list_free(l2);
+        cpd_list_free(l3);
+        cpd_object_free(cnv, catcher);
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("message")
+    {
+        auto cnv = cpd_root_canvas_new();
+        auto catcher = cpd_catcher_new(cnv);
+
+        auto l0 = cpd_list_new_from_string("1 2 3");
+        auto l1 = cpd_list_new_from_string("A B C");
+        auto l2 = cpd_list_new_from_string("1.234");
+        auto l3 = cpd_list_new(0);
+
+        // invalid
+        cpd_send_message(nullptr, cpd_symbol("test"), l0);
+        cpd_send_message(catcher, nullptr, l0);
+        cpd_send_message(catcher, cpd_symbol("test"), nullptr);
+        cpd_send_message(nullptr, nullptr, l0);
+        cpd_send_message(nullptr, cpd_symbol("test"), nullptr);
+        cpd_send_message(catcher, nullptr, nullptr);
+        cpd_send_message(nullptr, nullptr, nullptr);
+
+        // catcher empty
+        REQUIRE(cpd_catcher_count(catcher) == 0);
+        REQUIRE_FALSE(cpd_catcher_last_message(catcher, "test", l0));
+
+        // valid
+        cpd_send_message(catcher, cpd_symbol("test"), l0);
+        REQUIRE(cpd_catcher_count(catcher) == 1);
+        REQUIRE(cpd_catcher_last_message(catcher, "test", l0));
+        REQUIRE_FALSE(cpd_catcher_last_message(catcher, "test", l1));
+        REQUIRE_FALSE(cpd_catcher_last_message(catcher, "test", l2));
 
         cpd_list_free(l0);
         cpd_list_free(l1);

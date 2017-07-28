@@ -21,6 +21,7 @@ CPD_EXTERN int cpd_catcher_last_bang(t_cpd_object* c);
 CPD_EXTERN int cpd_catcher_last_float(t_cpd_object* c, t_cpd_float f);
 CPD_EXTERN int cpd_catcher_last_symbol(t_cpd_object* c, const char* s);
 CPD_EXTERN int cpd_catcher_last_list(t_cpd_object* c, t_cpd_list* l);
+CPD_EXTERN int cpd_catcher_last_message(t_cpd_object* c, const char* sel, t_cpd_list* l);
 
 #ifdef __cplusplus
 }
