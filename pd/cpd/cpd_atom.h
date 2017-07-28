@@ -1,5 +1,5 @@
-#ifndef ATOM_H
-#define ATOM_H
+#ifndef CPD_ATOM_H
+#define CPD_ATOM_H
 
 #include "cpd_def.h"
 #include "cpd_types.h"
@@ -95,4 +95,4 @@ CPD_EXTERN void cpd_atom_free(t_cpd_atom* a);
 }
 #endif
 
-#endif // ATOM_H
+#endif // CPD_ATOM_H

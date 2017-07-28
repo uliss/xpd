@@ -1,5 +1,5 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#ifndef CPD_ENV_H
+#define CPD_ENV_H
 
 #include "cpd_def.h"
 #include "cpd_types.h"
@@ -21,4 +21,4 @@ CPD_EXTERN void cpd_searchpath_clear();
 }
 #endif
 
-#endif // ENVIRONMENT_H
+#endif // CPD_ENV_H
