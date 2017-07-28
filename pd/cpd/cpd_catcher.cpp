@@ -73,6 +73,17 @@ static int catcher_last_float(t_catcher* x, t_cpd_float f)
         && cpd_list_get_float_at(msg, 1) == f;
 }
 
+static int catcher_last_symbol(t_catcher* x, t_cpd_symbol* s)
+{
+    if (x->lst->empty())
+        return 0;
+
+    auto msg = x->lst->back();
+    return cpd_list_size(msg) == 2
+        && cpd_list_get_symbol_at(msg, 0) == &s_symbol
+        && cpd_list_get_symbol_at(msg, 1) == s;
+}
+
 static void catcher_pop(t_catcher* x)
 {
     if (x->lst->size() < 1)
@@ -181,7 +192,7 @@ t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
     }
 
     if (!catcher_class) {
-        console()->error("cpd_is_catcher: catcher class is not initialized! "
+        console()->error("cpd_catcher_new: catcher class is not initialized! "
                          "You should call cpd_catcher_init() first.");
         return nullptr;
     }
@@ -192,7 +203,7 @@ t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
 void cpd_catcher_pop(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
+        console()->error("cpd_catcher_pop: not a catcher object");
         return;
     }
 
@@ -202,7 +213,7 @@ void cpd_catcher_pop(t_cpd_object* c)
 int cpd_catcher_last_bang(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
+        console()->error("cpd_catcher_last_bang: not a catcher object");
         return 0;
     }
 
@@ -212,9 +223,19 @@ int cpd_catcher_last_bang(t_cpd_object* c)
 int cpd_catcher_last_float(t_cpd_object* c, t_cpd_float f)
 {
     if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
+        console()->error("cpd_catcher_last_float: not a catcher object");
         return 0;
     }
 
     return catcher_last_float((t_catcher*)c, f);
+}
+
+int cpd_catcher_last_symbol(t_cpd_object* c, const char* s)
+{
+    if (!cpd_is_catcher(c)) {
+        console()->error("cpd_catcher_last_symbol: not a catcher object");
+        return 0;
+    }
+
+    return catcher_last_symbol((t_catcher*)c, gensym(s));
 }
