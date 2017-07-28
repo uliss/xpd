@@ -3,8 +3,9 @@
 
 #include <stddef.h>
 
-#include "atom.h"
-#include "atomlist.h"
+#include "cpd_atom.h"
+#include "cpd_env.h"
+#include "cpd_list.h"
 
 #ifdef __cplusplus
 extern "C" {

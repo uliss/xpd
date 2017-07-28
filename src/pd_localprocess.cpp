@@ -1,5 +1,5 @@
 #include "pd_localprocess.h"
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 #include "pd_canvas.h"
 
 namespace xpd {

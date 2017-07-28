@@ -2,7 +2,7 @@
 #define PDCANVAS_H
 
 #include "canvas.h"
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 
 namespace xpd {
 

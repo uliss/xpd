@@ -1,7 +1,6 @@
 #include "catch.hpp"
 
-#include "atomlist.h"
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 
 static int i = cpd_init();
 
@@ -170,7 +169,9 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         auto a = cpd_atom_symbol_new("ABC");
 
         REQUIRE_FALSE(cpd_atomlist_set_atom(l, 0, a));
-        cpd_atomlist_append_float();
+        cpd_atomlist_append_float(l, 123);
+        REQUIRE(cpd_atomlist_float_at(l, 0) == 123);
+        REQUIRE(cpd_atomlist_set_atom(l, 0, a));
 
         cpd_atomlist_free(l);
         cpd_atom_free(a);

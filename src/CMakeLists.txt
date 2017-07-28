@@ -41,7 +41,7 @@ if(WITH_COVERAGE)
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
-include_directories(${CMAKE_SOURCE_DIR}/pd/cpd)
+include_directories(${CMAKE_SOURCE_DIR}/pd)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/variant/include)
 

@@ -1,9 +1,10 @@
 #ifndef PDOBJECT_H
 #define PDOBJECT_H
 
-#include "lib_cpd.h"
 #include "object.h"
 #include "pd_arguments.h"
+
+#include "cpd/cpd.h"
 
 namespace xpd {
 

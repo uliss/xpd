@@ -1,7 +1,6 @@
 #include "catch.hpp"
 
-#include "atom.h"
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 
 #include <string>
 

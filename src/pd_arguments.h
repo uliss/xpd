@@ -2,7 +2,7 @@
 #define PD_ARGUMENTS_H
 
 #include "arguments.h"
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 
 namespace xpd {
 
@@ -21,7 +21,7 @@ public:
     void parseString(const std::string& s);
 
     void clear();
-    
+
     const t_cpd_atomlist* atomList() const;
 
 private:

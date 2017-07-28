@@ -1,6 +1,6 @@
 include_directories(Catch/single_include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
-include_directories(${PROJECT_SOURCE_DIR}/pd/cpd)
+include_directories(${PROJECT_SOURCE_DIR}/pd)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/variant/include)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")

@@ -1,4 +1,4 @@
-#include "atomlist.h"
+#include "cpd_list.h"
 
 #include "m_pd.h"
 #include "pr_log.h"
@@ -117,4 +117,19 @@ void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
 
 void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* f)
 {
+}
+
+float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t idx)
+{
+    if (!l) {
+        console()->error("cpd_atomlist_append_float: NULL argument");
+        return 0;
+    }
+
+    if (idx >= l->data.size()) {
+        console()->error("cpd_atomlist_set_atom: invalid atomlist index {}", idx);
+        return 0;
+    }
+
+    return atom_getfloat(&l->data[idx]);
 }

@@ -1,7 +1,7 @@
 #ifndef ATOMLIST_H
 #define ATOMLIST_H
 
-#include "atom.h"
+#include "cpd_atom.h"
 #include "cpd_def.h"
 
 #include <stddef.h>
@@ -57,6 +57,14 @@ CPD_EXTERN size_t cpd_atomlist_size(const t_cpd_atomlist* l);
  * @return pointer to element or NULL on error
  */
 CPD_EXTERN t_cpd_atom* cpd_atomlist_at(t_cpd_atomlist* l, size_t n);
+
+/**
+ * Returns float at specified position in list
+ * @param l - pointer to list
+ * @param n - list position
+ * @return on error or type mismatch returns 0
+ */
+CPD_EXTERN float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t n);
 
 /**
  * Appends copy of given atom to the end of atomlist

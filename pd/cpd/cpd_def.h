@@ -18,7 +18,7 @@
 #define CPD_EXTERN __declspec(dllimport) extern
 #endif
 #else
-#define CPD_EXTERN extern
+#define CPD_EXTERN 
 #endif
 
 #if defined(_MSC_VER) && !defined(_LANGUAGE_C_PLUS_PLUS) && !defined(__cplusplus)

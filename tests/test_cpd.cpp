@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "lib_cpd.h"
+#include "cpd/cpd.h"
 #include <stdlib.h>
 
 TEST_CASE("cpd", "[cpd PureData wrapper]")
