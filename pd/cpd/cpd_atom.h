@@ -2,13 +2,11 @@
 #define ATOM_H
 
 #include "cpd_def.h"
+#include "cpd_types.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-struct _atom;
-typedef struct _atom t_cpd_atom;
 
 /**
  * Create float atom

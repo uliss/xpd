@@ -3,15 +3,11 @@
 
 #include "cpd_atom.h"
 #include "cpd_def.h"
-
-#include <stddef.h>
+#include "cpd_types.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-struct _cpd_atomlist;
-typedef struct _cpd_atomlist t_cpd_atomlist;
 
 /**
  * Creates new atomlist of given size initialized with zeroes.

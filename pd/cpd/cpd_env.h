@@ -2,8 +2,7 @@
 #define ENVIRONMENT_H
 
 #include "cpd_def.h"
-
-#include <stddef.h>
+#include "cpd_types.h"
 
 #ifdef __cplusplus
 extern "C" {

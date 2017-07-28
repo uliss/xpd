@@ -5,7 +5,7 @@
 
 #include <vector>
 
-struct _cpd_atomlist {
+struct _cpd_list {
     std::vector<t_cpd_atom> data;
 };
 
