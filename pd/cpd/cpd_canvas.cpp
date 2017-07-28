@@ -186,3 +186,21 @@ int cpd_root_canvas_height(t_cpd_canvas* cnv)
 
     return cnv->gl_screeny2 - cnv->gl_screeny1;
 }
+
+size_t cpd_canvas_object_count(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console()->debug("cpd_canvas_object_count: NULL given");
+        return 0;
+    }
+
+    t_gobj* l = cnv->gl_list;
+    size_t n = 0;
+
+    while (l) {
+        l = l->g_next;
+        n++;
+    }
+
+    return n;
+}

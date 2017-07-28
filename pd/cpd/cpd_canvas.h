@@ -15,7 +15,7 @@ extern "C" {
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_new();
 
 /** 
- * \return pointer to last root (top) canvas or 0 if not found
+ * @return pointer to last root (top) canvas or 0 if not found
  */
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_last();
 
@@ -73,6 +73,11 @@ CPD_EXTERN int cpd_canvas_free(t_cpd_canvas* c);
  * Checks if canvas is root (top-level)
  */
 CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* c);
+
+/**
+ * Returns number of child element on canvas 
+ */
+CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
 
 #ifdef __cplusplus
 }

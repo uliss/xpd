@@ -21,6 +21,7 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         REQUIRE(cpd_root_canvas_at(0) == c0);
         REQUIRE(cpd_canvas_current() == c0);
         REQUIRE(cpd_canvas_name(c0) == std::string("Untitled-1"));
+        REQUIRE(cpd_canvas_object_count(c0) == 0);
 
         cpd_canvas_free(c0);
         REQUIRE(cpd_root_canvas_count() == 3);
@@ -83,5 +84,26 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
             REQUIRE(cpd_root_canvas_width(0) == 0);
             REQUIRE(cpd_root_canvas_height(0) == 0);
         }
+    }
+
+    SECTION("objects")
+    {
+        REQUIRE(cpd_canvas_object_count(nullptr) == 0);
+
+        auto c0 = cpd_root_canvas_new();
+        auto c1 = cpd_root_canvas_new();
+
+        REQUIRE(cpd_canvas_object_count(c0) == 0);
+        auto obj0 = cpd_object_new(c0, "float", 0, 100, 200);
+        REQUIRE(cpd_canvas_object_count(c0) == 1);
+
+        REQUIRE(cpd_canvas_object_count(c1) == 0);
+        auto obj1 = cpd_object_new(c1, "float", 0, 100, 200);
+        REQUIRE(cpd_canvas_object_count(c1) == 1);
+        auto obj2 = cpd_object_new(c1, "float", 0, 100, 200);
+        REQUIRE(cpd_canvas_object_count(c1) == 2);
+
+        cpd_canvas_free(c0);
+        cpd_canvas_free(c1);
     }
 }
