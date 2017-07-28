@@ -110,6 +110,8 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
     SECTION("text")
     {
+        REQUIRE_FALSE(cpd_object_text(nullptr));
+
         SECTION("no args")
         {
             auto cnv = cpd_root_canvas_new();
@@ -140,5 +142,28 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
             cpd_object_free(cnv, obj);
             cpd_canvas_free(cnv);
         }
+    }
+
+    SECTION("position")
+    {
+        REQUIRE(cpd_object_xpos(nullptr) == -1);
+        REQUIRE(cpd_object_ypos(nullptr) == -1);
+        cpd_object_set_xpos(nullptr, 0);
+        cpd_object_set_ypos(nullptr, 0);
+
+        auto cnv = cpd_root_canvas_new();
+        auto obj = cpd_object_new(cnv, "+", 0, 10, 20);
+
+        REQUIRE(cpd_object_xpos(obj) == 10);
+        REQUIRE(cpd_object_ypos(obj) == 20);
+
+        cpd_object_set_xpos(obj, 100);
+        cpd_object_set_ypos(obj, 200);
+
+        REQUIRE(cpd_object_xpos(obj) == 100);
+        REQUIRE(cpd_object_ypos(obj) == 200);
+
+        cpd_object_free(cnv, obj);
+        cpd_canvas_free(cnv);
     }
 }

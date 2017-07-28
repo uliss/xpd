@@ -2,6 +2,8 @@
 #include "cpd.h"
 #include "pr_log.h"
 
+#include <cstring>
+
 #include "m_pd.h"
 extern "C" {
 #include "g_canvas.h"
@@ -96,22 +98,19 @@ const char* cpd_object_text(t_cpd_object* obj)
 {
     if (!obj) {
         console()->error("cpd_object_text: NULL pointer given");
-        return "";
+        return nullptr;
     }
 
     int size = 0;
     char* txt = 0;
 
+    // txt - not null-terminated string
     binbuf_gettext(((t_text*)(obj))->te_binbuf, &txt, &size);
 
-    // remove trailing space
-    size_t slen = strlen(txt);
-    if (slen > 1) {
-        if (txt[slen - 1] == ' ')
-            txt[slen - 1] = '\0';
-    }
+    char* res = (char*)malloc(size + 1);
+    memcpy(res, txt, size);
+    res[size] = '\0';
 
-    const char* res = strdup(txt);
     t_freebytes(txt, size);
 
     return res;

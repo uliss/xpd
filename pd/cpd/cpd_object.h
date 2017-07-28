@@ -42,7 +42,7 @@ CPD_EXTERN t_cpd_list* cpd_object_arguments(t_cpd_object* obj);
 /**
  * Returns object string representation. 
  * @note Caller should free result string
- * @return empty string on error
+ * @return NULL pointer on error
  */
 CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
 
@@ -62,33 +62,41 @@ CPD_EXTERN const char* cpd_object_help_dir(t_cpd_object* obj);
 
 /**
  * Object x-coord within toplevel
+ * @return -1 on error
+ * @see cpd_object_ypos(), cpd_object_set_xpos()
  */
 CPD_EXTERN int cpd_object_xpos(t_cpd_object* obj);
 
 /**
  * Object y-coord within toplevel
+ * @return -1 on error
+ * @see cpd_object_xpos(), cpd_object_set_ypos()
  */
 CPD_EXTERN int cpd_object_ypos(t_cpd_object* obj);
 
 /**
  * Set object x-coord within toplevel
+ * @see cpd_object_xpos()
  */
 CPD_EXTERN void cpd_object_set_xpos(t_cpd_object* obj, int x);
 
 /**
  * Set object x-coord within toplevel
+ * @see cpd_object_ypos()
  */
 CPD_EXTERN void cpd_object_set_ypos(t_cpd_object* obj, int y);
 
 /**
  * Number of inlets in object
  * @param obj - pointer to object
+ * @see cpd_object_outlet_count()
  */
 CPD_EXTERN size_t cpd_object_inlet_count(t_cpd_object* obj);
 
 /**
  * Number of outlets in object
  * @param obj - pointer to object
+ * @see cpd_object_inlet_count()
  */
 CPD_EXTERN size_t cpd_object_outlet_count(t_cpd_object* obj);
 
@@ -114,21 +122,25 @@ CPD_EXTERN int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2,
 
 /**
  * Sends bang to object
+ * @see cpd_send_float(), cpd_send_symbol(), cpd_send_list(), cpd_send_message()
  */
 CPD_EXTERN void cpd_send_bang(t_cpd_object* obj);
 
 /**
  * Sends float to object
+ * @see cpd_send_bang(), cpd_send_symbol(), cpd_send_list(), cpd_send_message()
  */
 CPD_EXTERN void cpd_send_float(t_cpd_object* obj, t_cpd_float f);
 
 /**
  * Sends symbol to object
+ * @see cpd_send_bang(), cpd_send_float(), cpd_send_list(), cpd_send_message()
  */
 CPD_EXTERN void cpd_send_symbol(t_cpd_object* obj, t_cpd_symbol* s);
 
 /**
  * Sends list to object
+ * @see cpd_send_bang(), cpd_send_float(), cpd_send_symbol(), cpd_send_message()
  */
 CPD_EXTERN void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l);
 
@@ -137,6 +149,7 @@ CPD_EXTERN void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l);
  * @param obj - pointer to object
  * @param sel - message selector
  * @param l - message argument list
+ * @see cpd_send_bang(), cpd_send_float(), cpd_send_symbol(), cpd_send_list()
  */
 CPD_EXTERN void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l);
 

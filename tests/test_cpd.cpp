@@ -162,7 +162,7 @@ TEST_CASE("cpd", "[cpd PureData wrapper]")
         t_cpd_object* obj0 = cpd_object_new(cnv, "route", args, 0, 0);
 
         const char* txt = cpd_object_text(obj0);
-        REQUIRE(txt == std::string("route 123 send "));
+        REQUIRE(txt == std::string("route 123 send"));
         free((void*)txt);
 
         cpd_list_free(args);
