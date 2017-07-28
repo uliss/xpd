@@ -166,4 +166,56 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         cpd_object_free(cnv, obj);
         cpd_canvas_free(cnv);
     }
+
+    SECTION("xlets")
+    {
+        REQUIRE(cpd_object_inlet_count(nullptr) == 0);
+        REQUIRE(cpd_object_outlet_count(nullptr) == 0);
+
+        auto cnv = cpd_root_canvas_new();
+        auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
+        auto obj2 = cpd_object_new_from_string(cnv, "route", "a b c", 0, 0);
+
+        REQUIRE(cpd_object_inlet_count(obj1) == 2);
+        REQUIRE(cpd_object_outlet_count(obj1) == 1);
+
+        REQUIRE(cpd_object_inlet_count(obj2) == 1);
+        REQUIRE(cpd_object_outlet_count(obj2) == 4);
+
+        cpd_object_free(cnv, obj1);
+        cpd_object_free(cnv, obj2);
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("connect")
+    {
+        auto cnv = cpd_root_canvas_new();
+        auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
+        auto obj2 = cpd_object_new_from_string(cnv, "route", "a b c", 0, 0);
+
+        REQUIRE(cpd_object_inlet_count(obj1) == 2);
+        REQUIRE(cpd_object_outlet_count(obj1) == 1);
+
+        // self-connection
+        REQUIRE_FALSE(cpd_connect(obj1, 0, obj1, 0));
+        // NULL
+        REQUIRE_FALSE(cpd_connect(obj1, 0, nullptr, 0));
+        REQUIRE_FALSE(cpd_connect(nullptr, 0, obj1, 0));
+        REQUIRE_FALSE(cpd_connect(nullptr, 0, nullptr, 0));
+
+        // invalid outlet
+        REQUIRE_FALSE(cpd_connect(obj1, 1, obj2, 0));
+        // invalid inlet
+        REQUIRE_FALSE(cpd_connect(obj1, 0, obj2, 1));
+
+        REQUIRE(cpd_connect(obj1, 0, obj2, 0));
+        REQUIRE(cpd_connect(obj2, 3, obj1, 0));
+
+        REQUIRE(cpd_object_inlet_count(obj2) == 1);
+        REQUIRE(cpd_object_outlet_count(obj2) == 4);
+
+        cpd_object_free(cnv, obj1);
+        cpd_object_free(cnv, obj2);
+        cpd_canvas_free(cnv);
+    }
 }

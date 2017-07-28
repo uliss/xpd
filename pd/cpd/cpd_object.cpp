@@ -293,3 +293,11 @@ const char* cpd_object_help_dir(t_cpd_object* obj)
 
     return class_gethelpdir(obj->te_g.g_pd);
 }
+
+t_cpd_object* cpd_object_new_from_string(t_cpd_canvas* c, const char* name, const char* args, int x, int y)
+{
+    t_cpd_list* alist = cpd_list_new_from_string(args);
+    t_cpd_object* obj = cpd_object_new(c, name, alist, x, y);
+    cpd_list_free(alist);
+    return obj;
+}

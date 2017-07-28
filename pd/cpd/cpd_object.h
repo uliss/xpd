@@ -20,6 +20,17 @@ extern "C" {
 CPD_EXTERN t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list* args, int x, int y);
 
 /**
+ * Creates new object on specified canvas with arguments parsed from string
+ * @param c - parent canvas
+ * @param name - object name
+ * @param args - arguments as string
+ * @param x - X-position on canvas
+ * @param y - Y-position on canvas
+ * @return pointer to new object or NULL
+ */
+CPD_EXTERN t_cpd_object* cpd_object_new_from_string(t_cpd_canvas* c, const char* name, const char* args, int x, int y);
+
+/**
  * @brief Removed object from canvas and frees it
  * @param cnv - object canvas
  * @param obj - obj pointer
