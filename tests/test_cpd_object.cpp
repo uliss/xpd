@@ -107,4 +107,38 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv);
     }
+
+    SECTION("text")
+    {
+        SECTION("no args")
+        {
+            auto cnv = cpd_root_canvas_new();
+            auto obj1 = cpd_object_new(cnv, "float", 0, 0, 0);
+
+            const char* txt = cpd_object_text(obj1);
+            REQUIRE(txt == std::string("float"));
+            free((void*)txt);
+
+            cpd_object_free(cnv, obj1);
+            cpd_canvas_free(cnv);
+        }
+
+        SECTION("non-empty")
+        {
+            auto cnv = cpd_root_canvas_new();
+            auto args = cpd_list_new_from_string("100.12 A,Z");
+            REQUIRE(cpd_list_size(args) == 4);
+
+            auto obj = cpd_object_new(cnv, "float", args, 0, 0);
+            cpd_list_free(args);
+
+            const char* txt = cpd_object_text(obj);
+            REQUIRE(txt);
+            REQUIRE(txt == std::string("float 100.12 A, Z"));
+            free((void*)txt);
+
+            cpd_object_free(cnv, obj);
+            cpd_canvas_free(cnv);
+        }
+    }
 }

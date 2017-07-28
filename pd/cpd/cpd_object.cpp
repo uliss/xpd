@@ -103,6 +103,14 @@ const char* cpd_object_text(t_cpd_object* obj)
     char* txt = 0;
 
     binbuf_gettext(((t_text*)(obj))->te_binbuf, &txt, &size);
+
+    // remove trailing space
+    size_t slen = strlen(txt);
+    if (slen > 1) {
+        if (txt[slen - 1] == ' ')
+            txt[slen - 1] = '\0';
+    }
+
     const char* res = strdup(txt);
     t_freebytes(txt, size);
 
