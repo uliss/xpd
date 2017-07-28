@@ -84,6 +84,29 @@ static int catcher_last_symbol(t_catcher* x, t_cpd_symbol* s)
         && cpd_list_get_symbol_at(msg, 1) == s;
 }
 
+static int catcher_last_list(t_catcher* x, t_cpd_list* l)
+{
+    if (x->lst->empty())
+        return 0;
+
+    auto msg = x->lst->back();
+    const size_t N = cpd_list_size(l);
+    if (cpd_list_size(msg) != (N + 1))
+        return 0;
+
+    if (cpd_list_get_symbol_at(msg, 0) != &s_list)
+        return 0;
+
+    for (size_t i = 0; i < N; i++) {
+        auto a0 = cpd_list_at(msg, i + 1);
+        auto a1 = cpd_list_at(l, i);
+        if (!cpd_atom_equal(a0, a1))
+            return 0;
+    }
+
+    return 1;
+}
+
 static void catcher_pop(t_catcher* x)
 {
     if (x->lst->size() < 1)
@@ -238,4 +261,14 @@ int cpd_catcher_last_symbol(t_cpd_object* c, const char* s)
     }
 
     return catcher_last_symbol((t_catcher*)c, gensym(s));
+}
+
+int cpd_catcher_last_list(t_cpd_object* c, t_cpd_list* l)
+{
+    if (!cpd_is_catcher(c)) {
+        console()->error("cpd_catcher_last_list: not a catcher object");
+        return 0;
+    }
+
+    return catcher_last_list((t_catcher*)c, l);
 }

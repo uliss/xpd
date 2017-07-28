@@ -135,4 +135,34 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         cpd_object_free(cnv, catcher);
         cpd_canvas_free(cnv);
     }
+
+    SECTION("list")
+    {
+        auto cnv = cpd_root_canvas_new();
+        auto catcher = cpd_catcher_new(cnv);
+
+        auto l0 = cpd_list_new_from_string("1 2 3");
+        auto l1 = cpd_list_new_from_string("A B C");
+        auto l2 = cpd_list_new_from_string("1.234");
+        auto l3 = cpd_list_new(0);
+
+        // invalid
+        cpd_send_list(nullptr, l0);
+        cpd_send_list(nullptr, nullptr);
+        cpd_send_list(catcher, nullptr);
+
+        // valid
+        cpd_send_list(catcher, l0);
+        REQUIRE(cpd_catcher_count(catcher) == 1);
+        REQUIRE(cpd_catcher_last_list(catcher, l0));
+        REQUIRE_FALSE(cpd_catcher_last_list(catcher, l1));
+        REQUIRE_FALSE(cpd_catcher_last_list(catcher, l2));
+
+        cpd_list_free(l0);
+        cpd_list_free(l1);
+        cpd_list_free(l2);
+        cpd_list_free(l3);
+        cpd_object_free(cnv, catcher);
+        cpd_canvas_free(cnv);
+    }
 }
