@@ -317,7 +317,7 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atom
 {
     console()->trace("cpd_object_new {");
 
-    const size_t N = cpd_atomlist_size(args);
+    const size_t N = cpd_list_size(args);
 
     std::vector<t_atom> data(N + 3);
     t_atom* argv = &data.front();
@@ -327,7 +327,7 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_atom
     SETSYMBOL(&argv[2], gensym(name));
 
     if (args) {
-        auto begin = cpd_atomlist_at(const_cast<t_cpd_atomlist*>(args), 0);
+        auto begin = cpd_list_at(const_cast<t_cpd_atomlist*>(args), 0);
         std::copy(begin, begin + N, argv + 3);
     }
 
@@ -468,10 +468,10 @@ t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj)
     t_binbuf* b = ((t_text*)(obj))->te_binbuf;
     const t_atom* atoms = binbuf_getvec(b);
     const size_t N = binbuf_getnatom(b);
-    t_cpd_atomlist* res = cpd_atomlist_new(N - 1);
+    t_cpd_atomlist* res = cpd_list_new(N - 1);
 
     for (size_t i = 1; i < N; i++) {
-        cpd_atom_set_atom(cpd_atomlist_at(res, i), &atoms[i]);
+        cpd_atom_set_atom(cpd_list_at(res, i), &atoms[i]);
     }
 
     return res;

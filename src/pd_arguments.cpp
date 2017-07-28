@@ -3,28 +3,28 @@
 namespace xpd {
 
 PdArguments::PdArguments()
-    : lst_(cpd_atomlist_new(0))
+    : lst_(cpd_list_new(0))
 {
 }
 
 PdArguments::PdArguments(const PdArguments& a)
     : Arguments(a)
-    , lst_(cpd_atomlist_copy(a.lst_))
+    , lst_(cpd_list_copy(a.lst_))
 {
 }
 
 PdArguments::PdArguments(float v)
     : Arguments(v)
-    , lst_(cpd_atomlist_new(1))
+    , lst_(cpd_list_new(1))
 {
-    cpd_atom_set_float(cpd_atomlist_at(lst_, 0), v);
+    cpd_atom_set_float(cpd_list_at(lst_, 0), v);
 }
 
 PdArguments::PdArguments(const std::string& s)
     : Arguments(s)
-    , lst_(cpd_atomlist_new(1))
+    , lst_(cpd_list_new(1))
 {
-    cpd_atom_set_string(cpd_atomlist_at(lst_, 0), s.c_str());
+    cpd_atom_set_string(cpd_list_at(lst_, 0), s.c_str());
 }
 
 PdArguments::~PdArguments()
@@ -35,18 +35,18 @@ PdArguments::~PdArguments()
 void PdArguments::operator=(const PdArguments& a)
 {
     args_ = a.args_;
-    cpd_atomlist_free(lst_);
-    lst_ = cpd_atomlist_copy(a.lst_);
+    cpd_list_free(lst_);
+    lst_ = cpd_list_copy(a.lst_);
 }
 
 void PdArguments::parseString(const std::string& s)
 {
     free();
-    lst_ = cpd_atomlist_new_from_string(s.c_str());
-    const size_t N = cpd_atomlist_size(lst_);
+    lst_ = cpd_list_new_from_string(s.c_str());
+    const size_t N = cpd_list_size(lst_);
 
     for (size_t i = 0; i < N; i++) {
-        auto a = cpd_atomlist_at(lst_, i);
+        auto a = cpd_list_at(lst_, i);
 
         if (cpd_atom_is_float(a))
             args_.push_back(cpd_atom_get_float(a));
@@ -61,7 +61,7 @@ void PdArguments::parseString(const std::string& s)
 void PdArguments::clear()
 {
     args_.clear();
-    cpd_atomlist_clear(lst_);
+    cpd_list_clear(lst_);
 }
 
 const t_cpd_atomlist* PdArguments::atomList() const
@@ -72,7 +72,7 @@ const t_cpd_atomlist* PdArguments::atomList() const
 void PdArguments::free()
 {
     args_.clear();
-    cpd_atomlist_free(lst_);
+    cpd_list_free(lst_);
     lst_ = 0;
 }
 

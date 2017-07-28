@@ -28,7 +28,7 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
         return ObjectId(-1);
     }
 
-    //    t_cpd_atomlist* lst = cpd_atomlist_new();
+    //    t_cpd_atomlist* lst = cpd_list_new();
     //    lst.n = 0;
     //    lst.data = 0;
 

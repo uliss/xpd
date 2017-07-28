@@ -9,7 +9,7 @@ struct _cpd_list {
     std::vector<t_cpd_atom> data;
 };
 
-t_cpd_atomlist* cpd_atomlist_new(size_t n)
+t_cpd_atomlist* cpd_list_new(size_t n)
 {
     t_cpd_atomlist* lst = new t_cpd_atomlist;
     if (n) {
@@ -23,17 +23,17 @@ t_cpd_atomlist* cpd_atomlist_new(size_t n)
     return lst;
 }
 
-void cpd_atomlist_free(t_cpd_atomlist* l)
+void cpd_list_free(t_cpd_atomlist* l)
 {
     if (!l) {
-        console()->error("cpd_atomlist_free: NULL pointer given");
+        console()->error("cpd_list_free: NULL pointer given");
         return;
     }
 
     delete l;
 }
 
-t_cpd_atomlist* cpd_atomlist_new_from_string(const char* s)
+t_cpd_atomlist* cpd_list_new_from_string(const char* s)
 {
     t_binbuf* b = binbuf_new();
     binbuf_text(b, s, strlen(s));
@@ -50,7 +50,7 @@ t_cpd_atomlist* cpd_atomlist_new_from_string(const char* s)
     return ret;
 }
 
-t_cpd_atom* cpd_atomlist_at(t_cpd_atomlist* l, size_t n)
+t_cpd_atom* cpd_list_at(t_cpd_atomlist* l, size_t n)
 {
     if (!l)
         return 0;
@@ -61,7 +61,7 @@ t_cpd_atom* cpd_atomlist_at(t_cpd_atomlist* l, size_t n)
     return &l->data[n];
 }
 
-void cpd_atomlist_clear(t_cpd_atomlist* l)
+void cpd_list_clear(t_cpd_atomlist* l)
 {
     if (!l)
         return;
@@ -69,7 +69,7 @@ void cpd_atomlist_clear(t_cpd_atomlist* l)
     l->data.clear();
 }
 
-void cpd_atomlist_append(t_cpd_atomlist* l, const t_cpd_atom* a)
+void cpd_list_append(t_cpd_atomlist* l, const t_cpd_atom* a)
 {
     if (!l || !a)
         return;
@@ -77,25 +77,25 @@ void cpd_atomlist_append(t_cpd_atomlist* l, const t_cpd_atom* a)
     l->data.push_back(*a);
 }
 
-size_t cpd_atomlist_size(const t_cpd_atomlist* l)
+size_t cpd_list_size(const t_cpd_atomlist* l)
 {
     return l ? l->data.size() : 0;
 }
 
-t_cpd_atomlist* cpd_atomlist_copy(const t_cpd_atomlist* l)
+t_cpd_atomlist* cpd_list_copy(const t_cpd_atomlist* l)
 {
     return l ? new t_cpd_atomlist(*l) : 0;
 }
 
-int cpd_atomlist_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a)
+int cpd_list_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a)
 {
     if (!l || !a) {
-        console()->error("cpd_atomlist_set_atom: NULL arguments");
+        console()->error("cpd_list_set_atom: NULL arguments");
         return 0;
     }
 
     if (idx >= l->data.size()) {
-        console()->error("cpd_atomlist_set_atom: invalid atomlist index {}", idx);
+        console()->error("cpd_list_set_atom: invalid atomlist index {}", idx);
         return 0;
     }
 
@@ -103,10 +103,10 @@ int cpd_atomlist_set_atom(t_cpd_atomlist* l, size_t idx, const t_cpd_atom* a)
     return 1;
 }
 
-void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
+void cpd_list_append_float(t_cpd_atomlist* l, float f)
 {
     if (!l) {
-        console()->error("cpd_atomlist_append_float: NULL argument");
+        console()->error("cpd_list_append_float: NULL argument");
         return;
     }
 
@@ -115,10 +115,10 @@ void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
     l->data.push_back(a);
 }
 
-void cpd_atomlist_append_symbol(t_cpd_atomlist* l, t_cpd_symbol* s)
+void cpd_list_append_symbol(t_cpd_atomlist* l, t_cpd_symbol* s)
 {
     if (!l) {
-        console()->error("cpd_atomlist_append_float: NULL argument");
+        console()->error("cpd_list_append_float: NULL argument");
         return;
     }
 
@@ -127,20 +127,20 @@ void cpd_atomlist_append_symbol(t_cpd_atomlist* l, t_cpd_symbol* s)
     l->data.push_back(a);
 }
 
-float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t idx)
+float cpd_list_float_at(t_cpd_atomlist* l, size_t idx)
 {
-    return cpd_atom_get_float(cpd_atomlist_at(l, idx));
+    return cpd_atom_get_float(cpd_list_at(l, idx));
 }
 
-int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
+int cpd_list_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
 {
     if (!l || !str) {
-        console()->error("cpd_atomlist_set_string: NULL arguments");
+        console()->error("cpd_list_set_string: NULL arguments");
         return 0;
     }
 
     if (idx >= l->data.size()) {
-        console()->error("cpd_atomlist_set_atom: invalid atomlist index {}", idx);
+        console()->error("cpd_list_set_atom: invalid atomlist index {}", idx);
         return 0;
     }
 
@@ -148,7 +148,7 @@ int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
     return 1;
 }
 
-t_cpd_symbol* cpd_atomlist_symbol_at(t_cpd_atomlist* l, size_t n)
+t_cpd_symbol* cpd_list_symbol_at(t_cpd_atomlist* l, size_t n)
 {
-    return cpd_atom_get_symbol(cpd_atomlist_at(l, n));
+    return cpd_atom_get_symbol(cpd_list_at(l, n));
 }
