@@ -115,8 +115,16 @@ void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
     l->data.push_back(a);
 }
 
-void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* f)
+void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s)
 {
+    if (!l) {
+        console()->error("cpd_atomlist_append_float: NULL argument");
+        return;
+    }
+
+    t_atom a;
+    SETSYMBOL(&a, gensym(s));
+    l->data.push_back(a);
 }
 
 float cpd_atomlist_float_at(t_cpd_atomlist* l, size_t idx)
