@@ -1,7 +1,7 @@
 #include "cpd_types.h"
 #include "m_pd.h"
 
-t_cpd_symbol* cpd_symbol_new(const char* str)
+t_cpd_symbol* cpd_symbol(const char* str)
 {
     return gensym(str);
 }

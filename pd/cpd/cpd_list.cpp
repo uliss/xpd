@@ -115,7 +115,7 @@ void cpd_atomlist_append_float(t_cpd_atomlist* l, float f)
     l->data.push_back(a);
 }
 
-void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s)
+void cpd_atomlist_append_symbol(t_cpd_atomlist* l, t_cpd_symbol* s)
 {
     if (!l) {
         console()->error("cpd_atomlist_append_float: NULL argument");
@@ -123,7 +123,7 @@ void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s)
     }
 
     t_atom a;
-    SETSYMBOL(&a, gensym(s));
+    SETSYMBOL(&a, s);
     l->data.push_back(a);
 }
 
@@ -150,5 +150,5 @@ int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
 
 t_cpd_symbol* cpd_atomlist_symbol_at(t_cpd_atomlist* l, size_t n)
 {
-    return const_cast<t_cpd_symbol*>(cpd_atom_get_symbol(cpd_atomlist_at(l, n)));
+    return cpd_atom_get_symbol(cpd_atomlist_at(l, n));
 }

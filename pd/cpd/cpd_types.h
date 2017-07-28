@@ -23,7 +23,7 @@ typedef struct _cpd_list t_cpd_atomlist;
  * @param str - symbol string
  * @return pointer to internal PureData hash table
  */
-t_cpd_symbol* cpd_symbol_new(const char* str);
+t_cpd_symbol* cpd_symbol(const char* str);
 
 /**
  * Returns symbol name. Caller should NOT free result pointer

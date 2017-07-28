@@ -89,7 +89,7 @@ CPD_EXTERN void cpd_atomlist_append_float(t_cpd_atomlist* l, float f);
  * @param l - pointer to list
  * @param s - symbol value
  */
-CPD_EXTERN void cpd_atomlist_append_symbol(t_cpd_atomlist* l, const char* s);
+CPD_EXTERN void cpd_atomlist_append_symbol(t_cpd_atomlist* l, t_cpd_symbol* s);
 
 /**
  * Set atomlist element at specified position

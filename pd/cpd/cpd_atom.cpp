@@ -65,7 +65,7 @@ void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
 
 t_cpd_atom* cpd_atom_string_new(const char* s)
 {
-    return cpd_atom_symbol_new(cpd_symbol_new(s));
+    return cpd_atom_symbol_new(cpd_symbol(s));
 }
 
 void cpd_atom_set_symbol(t_cpd_atom* a, t_cpd_symbol* s)

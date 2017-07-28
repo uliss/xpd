@@ -24,7 +24,7 @@ CPD_EXTERN t_cpd_atom* cpd_atom_symbol_new(const t_cpd_symbol* s);
 
 /**
  * Create symbol atom from string
- * @param s - string value, that is converted to symbol via cpd_symbol_new() call
+ * @param s - string value, that is converted to symbol via cpd_symbol() call
  * @return  pointer to new atom
  */
 CPD_EXTERN t_cpd_atom* cpd_atom_string_new(const char* s);
