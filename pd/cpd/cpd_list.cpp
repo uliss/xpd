@@ -150,5 +150,5 @@ int cpd_atomlist_set_string(t_cpd_atomlist* l, size_t idx, const char* str)
 
 t_cpd_symbol* cpd_atomlist_symbol_at(t_cpd_atomlist* l, size_t n)
 {
-    return const_cast<t_cpd_symbol*>(cpd_atom_symbol(cpd_atomlist_at(l, n)));
+    return const_cast<t_cpd_symbol*>(cpd_atom_get_symbol(cpd_atomlist_at(l, n)));
 }

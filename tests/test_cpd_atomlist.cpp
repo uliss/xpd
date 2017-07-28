@@ -67,7 +67,7 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         REQUIRE_FALSE(cpd_atom_is_float(cpd_atomlist_at(lst, 4)));
 
         REQUIRE(cpd_atom_is_symbol(cpd_atomlist_at(lst, 5)));
-        REQUIRE(cpd_symbol_name(cpd_atom_symbol(cpd_atomlist_at(lst, 5))) == std::string("A"));
+        REQUIRE(cpd_symbol_name(cpd_atom_get_symbol(cpd_atomlist_at(lst, 5))) == std::string("A"));
 
         cpd_atomlist_free(lst);
 
@@ -85,14 +85,14 @@ TEST_CASE("cpd_atomlist", "[cpd PureData wrapper]")
         lst = cpd_atomlist_new_from_string("$ 1");
         REQUIRE(cpd_atomlist_size(lst) == 2);
         REQUIRE(cpd_atom_is_symbol(cpd_atomlist_at(lst, 0)));
-        REQUIRE(cpd_symbol_name(cpd_atom_symbol(cpd_atomlist_at(lst, 0))) == std::string("$"));
+        REQUIRE(cpd_symbol_name(cpd_atom_get_symbol(cpd_atomlist_at(lst, 0))) == std::string("$"));
         REQUIRE(cpd_atom_is_float(cpd_atomlist_at(lst, 1)));
         cpd_atomlist_free(lst);
 
         lst = cpd_atomlist_new_from_string("$DOLLARS");
         REQUIRE(cpd_atomlist_size(lst) == 1);
         REQUIRE(cpd_atom_is_symbol(cpd_atomlist_at(lst, 0)));
-        REQUIRE(cpd_symbol_name(cpd_atom_symbol(cpd_atomlist_at(lst, 0))) == std::string("$DOLLARS"));
+        REQUIRE(cpd_symbol_name(cpd_atom_get_symbol(cpd_atomlist_at(lst, 0))) == std::string("$DOLLARS"));
         cpd_atomlist_free(lst);
     }
 
