@@ -263,3 +263,13 @@ t_cpd_object* cpd_object_next(t_cpd_object* obj)
 
     return nullptr;
 }
+
+const char* cpd_object_help_path(t_cpd_object* obj)
+{
+    if (!obj) {
+        console()->error("cpd_object_help_path: NULL pointer given");
+        return "";
+    }
+
+    return obj->te_g.g_pd->c_helpname->s_name;
+}

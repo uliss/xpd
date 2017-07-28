@@ -52,6 +52,7 @@ xpd_add_test(list cpd_list)
 xpd_add_test(env cpd_env)
 xpd_add_test(canvas cpd_canvas)
 xpd_add_test(cpd cpd)
+xpd_add_test(object cpd_object)
 
 xpd_add_test(PdObject pdobject)
 xpd_add_test(LocalServer localserver)

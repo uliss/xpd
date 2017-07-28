@@ -47,6 +47,13 @@ CPD_EXTERN t_cpd_list* cpd_object_arguments(t_cpd_object* obj);
 CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
 
 /**
+ * Returns object help filename
+ * @param obj - pointer to object
+ * @return path or empty string on error
+ */
+CPD_EXTERN const char* cpd_object_help_path(t_cpd_object* obj);
+
+/**
  * Object x-coord within toplevel
  */
 CPD_EXTERN int cpd_object_xpos(t_cpd_object* obj);
