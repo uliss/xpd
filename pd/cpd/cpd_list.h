@@ -1,5 +1,5 @@
-#ifndef ATOMLIST_H
-#define ATOMLIST_H
+#ifndef CPD_LIST_H
+#define CPD_LIST_H
 
 #include "cpd_atom.h"
 #include "cpd_def.h"
@@ -122,4 +122,4 @@ CPD_EXTERN int cpd_list_set_float_at(t_cpd_list* l, size_t idx, t_cpd_float f);
 }
 #endif
 
-#endif // ATOMLIST_H
+#endif // CPD_LIST_H
