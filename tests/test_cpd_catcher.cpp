@@ -212,4 +212,26 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
         cpd_object_free(cnv, catcher);
         cpd_canvas_free(cnv);
     }
+
+    SECTION("text")
+    {
+        auto cnv = cpd_root_canvas_new();
+        auto catcher = cpd_catcher_new(cnv);
+
+        // empty catcher
+        REQUIRE_FALSE(cpd_catcher_last_string(catcher, "test"));
+        REQUIRE_FALSE(cpd_catcher_last_string(nullptr, "test"));
+
+        cpd_send_bang(catcher);
+        REQUIRE(cpd_catcher_last_string(catcher, "bang"));
+
+        cpd_send_float(catcher, 1000);
+        REQUIRE(cpd_catcher_last_string(catcher, "float 1000"));
+
+        cpd_send_symbol(catcher, cpd_symbol("ABC"));
+        REQUIRE(cpd_catcher_last_string(catcher, "symbol ABC"));
+
+        cpd_object_free(cnv, catcher);
+        cpd_canvas_free(cnv);
+    }
 }

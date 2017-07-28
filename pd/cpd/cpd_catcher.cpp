@@ -130,6 +130,27 @@ static int catcher_last_message(t_catcher* x, t_symbol* sel, t_cpd_list* l)
     return 1;
 }
 
+static int catcher_last_string(t_catcher* x, const char* str)
+{
+    if (x->lst->empty())
+        return 0;
+
+    auto msg = x->lst->back();
+
+    char* txt = 0;
+    int size = 0;
+    t_binbuf* b = binbuf_new();
+    binbuf_add(b, cpd_list_size(msg), cpd_list_at(msg, 0));
+    binbuf_gettext(b, &txt, &size);
+    binbuf_free(b);
+
+    // txt - not null-terminated string
+    std::string res(txt, size);
+    t_freebytes(txt, size);
+
+    return res == str;
+}
+
 static void catcher_pop(t_catcher* x)
 {
     if (x->lst->size() < 1)
@@ -309,4 +330,14 @@ int cpd_catcher_last_message(t_cpd_object* c, const char* sel, t_cpd_list* l)
     }
 
     return catcher_last_message((t_catcher*)c, gensym(sel), l);
+}
+
+int cpd_catcher_last_string(t_cpd_object* c, const char* str)
+{
+    if (!cpd_is_catcher(c)) {
+        console()->error("cpd_catcher_last_string: not a catcher object");
+        return 0;
+    }
+
+    return catcher_last_string((t_catcher*)c, str);
 }
