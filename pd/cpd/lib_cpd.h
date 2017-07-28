@@ -107,6 +107,14 @@ CPD_EXTERN void cpd_object_free(t_cpd_canvas* cnv, t_cpd_object* obj);
  */
 CPD_EXTERN const char* cpd_object_name(t_cpd_object* obj);
 
+/**
+ * Returns object arguments. Caller should free result
+ * @param obj - pointer to object
+ */
+CPD_EXTERN t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj);
+
+CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
+
 CPD_EXTERN int cpd_object_xpos(t_cpd_object* obj);
 CPD_EXTERN int cpd_object_ypos(t_cpd_object* obj);
 CPD_EXTERN void cpd_object_set_xpos(t_cpd_object* obj, int x);

@@ -39,6 +39,13 @@ CPD_EXTERN void cpd_atom_set_float(t_cpd_atom* a, float f);
 CPD_EXTERN void cpd_atom_set_symbol(t_cpd_atom* a, const char* s);
 
 /**
+ * Sets atom from other atom
+ * @param a - destination atom pointer
+ * @param src - source atom pointer
+ */
+CPD_EXTERN void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src);
+
+/**
  * Checks if float atom
  * @param a - pointer to atom
  * @return 1 if float, otherwise 0

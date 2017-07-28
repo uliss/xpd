@@ -1,4 +1,5 @@
 #include "atom.h"
+#include "pr_log.h"
 
 #include "m_pd.h"
 
@@ -55,4 +56,14 @@ const char* cpd_atom_symbol(t_cpd_atom* a)
         return a->a_w.w_symbol->s_name;
 
     return 0;
+}
+
+void cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
+{
+    if (!a || !src) {
+        console()->error("cpd_atom_set_atom: NULL pointers given");
+        return;
+    }
+
+    *a = *src;
 }

@@ -457,3 +457,39 @@ void cpd_send_float(t_cpd_object* obj, float f)
 {
     pd_float(&obj->te_g.g_pd, f);
 }
+
+t_cpd_atomlist* cpd_object_arguments(t_cpd_object* obj)
+{
+    if (!obj) {
+        console()->error("cpd_object_text: NULL pointer given");
+        return 0;
+    }
+
+    t_binbuf* b = ((t_text*)(obj))->te_binbuf;
+    const t_atom* atoms = binbuf_getvec(b);
+    const size_t N = binbuf_getnatom(b);
+    t_cpd_atomlist* res = cpd_atomlist_new(N - 1);
+
+    for (size_t i = 1; i < N; i++) {
+        cpd_atom_set_atom(cpd_atomlist_at(res, i), &atoms[i]);
+    }
+
+    return res;
+}
+
+const char* cpd_object_text(t_cpd_object* obj)
+{
+    if (!obj) {
+        console()->error("cpd_object_text: NULL pointer given");
+        return "";
+    }
+
+    int size = 0;
+    char* txt = 0;
+
+    binbuf_gettext(((t_text*)(obj))->te_binbuf, &txt, &size);
+    const char* res = strdup(txt);
+    t_freebytes(txt, size);
+
+    return res;
+}
