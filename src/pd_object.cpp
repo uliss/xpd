@@ -2,6 +2,8 @@
 #include "logger.h"
 #include "pd_canvas.h"
 
+#include "cpd/cpd_object.h"
+
 namespace xpd {
 
 PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArguments& args, int x, int y)

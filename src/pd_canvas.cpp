@@ -2,6 +2,8 @@
 #include "logger.h"
 #include "pd_object.h"
 
+#include "cpd/cpd_object.h"
+
 using namespace xpd;
 
 PdCanvas::PdCanvas(const Canvas* parent, const CanvasSettings& s)

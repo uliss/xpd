@@ -222,3 +222,13 @@ t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv)
 
     return nullptr;
 }
+
+void cpd_canvas_set_current(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console()->debug("cpd_canvas_set_current: NULL given");
+        return;
+    }
+
+    canvas_setcurrent(cnv);
+}

@@ -4,7 +4,7 @@
 #include "object.h"
 #include "pd_arguments.h"
 
-#include "cpd/cpd.h"
+#include "cpd/cpd_canvas.h"
 
 namespace xpd {
 

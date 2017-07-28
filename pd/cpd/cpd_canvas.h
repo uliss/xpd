@@ -11,11 +11,13 @@ extern "C" {
 /**
  * Creates new root (top-level) canvas
  * @return pointer to new canvas or NULL on error
+ * @see cpd_canvas_free()
  */
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_new();
 
 /** 
  * @return pointer to last root (top) canvas or 0 if not found
+ * @see cpd_root_canvas_next(), cpd_root_canvas_count()
  */
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_last();
 
@@ -26,6 +28,7 @@ CPD_EXTERN size_t cpd_root_canvas_count();
 
 /**
   * Returns pointer to next canvas in list
+  * @see cpd_root_canvas_last()
   */
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv);
 
@@ -56,26 +59,40 @@ CPD_EXTERN int cpd_canvas_fontsize(t_cpd_canvas* c);
 
 /**
  * Returns pointer to root (top level) parent canvas or 0 if already top
+ * @see cpd_canvas_is_root()
  */
 CPD_EXTERN t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c);
 
 /**
  * Returns pointer to current canvas
+ * @see cpd_canvas_set_current()
  */
 CPD_EXTERN t_cpd_canvas* cpd_canvas_current();
 
 /**
+ * Sets current canvas
+ * @param cnv - pointer to canvas
+ * @see cpd_canvas_current()
+ */
+CPD_EXTERN void cpd_canvas_set_current(t_cpd_canvas* cnv);
+
+/**
   * Removes canvas
+  * @param c - pointer to canvas
+  * @see cpd_canvas_new
   */
 CPD_EXTERN int cpd_canvas_free(t_cpd_canvas* c);
 
 /**
  * Checks if canvas is root (top-level)
+ * @return 1 if given canvas is root, 0 otherwise
+ * @see cpd_canvas_root()
  */
 CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* c);
 
 /**
  * Returns number of child element on canvas 
+ * @see cpd_canvas_object_first()
  */
 CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
 
@@ -83,6 +100,7 @@ CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
  * Returns pointer to first object on canvas
  * @param cnv - pointer to canvas
  * @return pointer to object or NULL if not found
+ * @see cpd_canvas_object_count()
  */
 CPD_EXTERN t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv);
 
