@@ -89,16 +89,6 @@ int cpd_init()
     return 1;
 }
 
-int cpd_is_canvas(t_cpd_object* x)
-{
-    if (!x) {
-        console()->error("cpd_is_canvas: null pointer given");
-        return 0;
-    }
-
-    return (pd_class(&x->te_pd) == canvas_class);
-}
-
 void cpd_error(const char* msg, ...)
 {
     char buf[MAXPDSTRING];
@@ -121,9 +111,4 @@ int cpd_stop()
         canvas_vis(x, 0);
 
     return 1;
-}
-
-void cpd_setprinthook(t_printhook h)
-{
-    sys_printhook = h;
 }

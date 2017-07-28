@@ -21,24 +21,6 @@ CPD_EXTERN int cpd_init();
 
 CPD_EXTERN int cpd_stop();
 
-/** 
- * standard pd hook for print function
- */
-typedef void (*t_printhook)(const char* s);
-
-/**
- * @brief connects to print hook function
- * @param h - pointer to function
- */
-CPD_EXTERN void cpd_setprinthook(t_printhook h);
-
-/**
- * @brief check if canvas given
- * @param x - pointer to object
- * @return 1 is given object is canvas, otherwise 0
-*/
-CPD_EXTERN int cpd_is_canvas(t_cpd_object* x);
-
 /**
  * Print Pd error message to console
  * @param msg - formatted messages

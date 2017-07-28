@@ -53,3 +53,8 @@ void cpd_searchpath_clear()
     namelist_free(STUFF->st_searchpath);
     STUFF->st_searchpath = 0;
 }
+
+void cpd_setprinthook(t_printhook h)
+{
+    sys_printhook = h;
+}

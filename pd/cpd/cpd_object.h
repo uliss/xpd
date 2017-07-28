@@ -79,6 +79,13 @@ CPD_EXTERN size_t cpd_object_inlet_count(t_cpd_object* obj);
 CPD_EXTERN size_t cpd_object_outlet_count(t_cpd_object* obj);
 
 /**
+ * @brief check if canvas given
+ * @param x - pointer to object
+ * @return 1 is given object is canvas, otherwise 0
+*/
+CPD_EXTERN int cpd_is_canvas(t_cpd_object* x);
+
+/**
  * Connects two objects
  * @return 1 on success, 0 on error
  */

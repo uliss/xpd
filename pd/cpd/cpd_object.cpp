@@ -180,6 +180,16 @@ int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inn
     return 1;
 }
 
+int cpd_is_canvas(t_cpd_object* x)
+{
+    if (!x) {
+        console()->error("cpd_is_canvas: null pointer given");
+        return 0;
+    }
+
+    return (pd_class(&x->te_pd) == canvas_class);
+}
+
 void cpd_send_bang(t_cpd_object* obj)
 {
     if (!obj) {

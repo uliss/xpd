@@ -17,6 +17,17 @@ CPD_EXTERN size_t cpd_searchpath_num();
 CPD_EXTERN const char* cpd_searchpath_at(size_t idx);
 CPD_EXTERN void cpd_searchpath_clear();
 
+/** 
+ * standard pd hook for print function
+ */
+typedef void (*t_printhook)(const char* s);
+
+/**
+ * @brief connects to print hook function
+ * @param h - pointer to function
+ */
+CPD_EXTERN void cpd_setprinthook(t_printhook h);
+
 #ifdef __cplusplus
 }
 #endif
