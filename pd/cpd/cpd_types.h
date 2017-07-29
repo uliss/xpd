@@ -24,6 +24,9 @@ typedef struct _glist t_cpd_canvas;
 struct _cpd_list;
 typedef struct _cpd_list t_cpd_list;
 
+struct _cpd_connection;
+typedef struct _cpd_connection t_cpd_connection;
+
 /**
  * Creates new symbol from given string. Caller should NOT free result pointer
  * @param str - symbol string

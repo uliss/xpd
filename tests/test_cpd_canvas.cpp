@@ -8,6 +8,8 @@
 #define TEST_DATA_DIR "."
 #endif
 
+#define TEST_PD_DIR TEST_DATA_DIR "/pd"
+
 static int init = cpd_init();
 
 TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
@@ -131,19 +133,53 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         c0 = cpd_root_canvas_load("not-exists", "some/dir");
         REQUIRE_FALSE(c0);
 
-        c0 = cpd_root_canvas_load("test_empty_patch.pd", TEST_DATA_DIR "/pd");
+        c0 = cpd_root_canvas_load("test_empty_patch.pd", TEST_PD_DIR);
         REQUIRE(c0);
         REQUIRE(cpd_canvas_is_root(c0));
         REQUIRE(cpd_canvas_name(c0) == std::string("test_empty_patch.pd"));
-        REQUIRE(cpd_root_canvas_dir(c0) == std::string(TEST_DATA_DIR "/pd"));
+        REQUIRE(cpd_root_canvas_dir(c0) == std::string(TEST_PD_DIR));
         REQUIRE(cpd_canvas_fontsize(c0) == 12);
         REQUIRE(cpd_root_canvas_width(c0) == 700);
         REQUIRE(cpd_root_canvas_height(c0) == 500);
         REQUIRE(cpd_root_canvas_x(c0) == 0);
+        REQUIRE(cpd_canvas_object_count(c0) == 0);
 
 #ifdef __APPLE__
         REQUIRE(cpd_root_canvas_y(c0) == 23);
 #endif
+
+        cpd_canvas_free(c0);
+    }
+
+    SECTION("load simple core")
+    {
+        auto c0 = cpd_root_canvas_load("test_patch_core_objects.pd", TEST_PD_DIR);
+
+        REQUIRE(c0);
+        REQUIRE(cpd_canvas_object_count(c0) == 7);
+
+        auto obj = cpd_canvas_object_first(c0);
+
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("+"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("message"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("sqrt"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("gatom"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("message"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("text"));
+        obj = cpd_object_next(obj);
+        REQUIRE(obj);
+        REQUIRE(cpd_object_name(obj) == std::string("gatom"));
 
         cpd_canvas_free(c0);
     }
