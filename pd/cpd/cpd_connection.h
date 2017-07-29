@@ -8,11 +8,6 @@
 extern "C" {
 #endif
 
-typedef enum _cpd_conn_type {
-    CPD_CONNECTION_CONTROL = 0,
-    CPD_CONNECTION_SIGNAL = 1
-} t_cpd_conn_type;
-
 CPD_EXTERN t_cpd_connection* cpd_canvas_connections(t_cpd_canvas* cnv);
 CPD_EXTERN t_cpd_connection* cpd_object_out_connections(t_cpd_object* obj);
 CPD_EXTERN void cpd_connection_list_free(t_cpd_connection* lst);

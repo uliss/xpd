@@ -301,3 +301,23 @@ t_cpd_object* cpd_object_new_from_string(t_cpd_canvas* c, const char* name, cons
     cpd_list_free(alist);
     return obj;
 }
+
+t_cpd_conn_type cpd_object_inlet_type(t_cpd_object* obj, size_t n)
+{
+    if (!obj) {
+        console()->error("{}: NULL pointer given", __FUNCTION_NAME__);
+        return CPD_CONNECTION_CONTROL;
+    }
+
+    return obj_issignalinlet(obj, n) ? CPD_CONNECTION_SIGNAL : CPD_CONNECTION_CONTROL;
+}
+
+t_cpd_conn_type cpd_object_outlet_type(t_cpd_object* obj, size_t n)
+{
+    if (!obj) {
+        console()->error("{}: NULL pointer given", __FUNCTION_NAME__);
+        return CPD_CONNECTION_CONTROL;
+    }
+
+    return obj_issignaloutlet(obj, n) ? CPD_CONNECTION_SIGNAL : CPD_CONNECTION_CONTROL;
+}

@@ -5,6 +5,7 @@
 
 #include "cpd_atom.h"
 #include "cpd_canvas.h"
+#include "cpd_connection.h"
 #include "cpd_env.h"
 #include "cpd_list.h"
 #include "cpd_object.h"

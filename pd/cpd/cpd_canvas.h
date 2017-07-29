@@ -119,6 +119,13 @@ CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
  */
 CPD_EXTERN t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv);
 
+/**
+ * Converts pointer to canvas to pointer to object
+ * @param cnv - pointer to canvas
+ * @return pointer to object or NULL on error
+ */
+CPD_EXTERN t_cpd_object* cpd_canvas_to_object(t_cpd_canvas* cnv);
+
 #ifdef __cplusplus
 }
 #endif

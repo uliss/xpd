@@ -105,11 +105,29 @@ CPD_EXTERN void cpd_object_set_ypos(t_cpd_object* obj, int y);
 CPD_EXTERN size_t cpd_object_inlet_count(t_cpd_object* obj);
 
 /**
+ * Returns inlet type
+ * @param obj - pointer to object
+ * @param n - inlet number
+ * @return inlet type or CPD_CONNECTION_CONTROL
+ * @see cpd_object_inlet_count();
+ */
+CPD_EXTERN t_cpd_conn_type cpd_object_inlet_type(t_cpd_object* obj, size_t n);
+
+/**
  * Number of outlets in object
  * @param obj - pointer to object
  * @see cpd_object_inlet_count()
  */
 CPD_EXTERN size_t cpd_object_outlet_count(t_cpd_object* obj);
+
+/**
+ * Returns outlet type
+ * @param obj - pointer to object
+ * @param n - outlet number
+ * @return inlet type or CPD_CONNECTION_CONTROL
+ * @see cpd_object_outlet_count();
+ */
+CPD_EXTERN t_cpd_conn_type cpd_object_outlet_type(t_cpd_object* obj, size_t n);
 
 /**
  * @brief check if canvas given

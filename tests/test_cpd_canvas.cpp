@@ -205,4 +205,30 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         cpd_canvas_free(c1);
         cpd_canvas_free(c0);
     }
+
+    SECTION("to_object")
+    {
+        REQUIRE(cpd_canvas_to_object(nullptr) == nullptr);
+
+        auto c = cpd_root_canvas_load("simple_abstraction_1.pd", TEST_PD_DIR);
+        REQUIRE(c);
+
+        auto obj = cpd_canvas_to_object(c);
+        REQUIRE(obj);
+
+        REQUIRE(cpd_object_inlet_count(obj) == 3);
+        REQUIRE(cpd_object_inlet_type(obj, 0) == CPD_CONNECTION_SIGNAL);
+        REQUIRE(cpd_object_inlet_type(obj, 1) == CPD_CONNECTION_CONTROL);
+        REQUIRE(cpd_object_inlet_type(obj, 2) == CPD_CONNECTION_CONTROL);
+        // invalid
+        REQUIRE(cpd_object_inlet_type(obj, 3) == CPD_CONNECTION_CONTROL);
+
+        REQUIRE(cpd_object_outlet_count(obj) == 2);
+        REQUIRE(cpd_object_outlet_type(obj, 0) == CPD_CONNECTION_SIGNAL);
+        REQUIRE(cpd_object_outlet_type(obj, 1) == CPD_CONNECTION_CONTROL);
+        // invalid
+        REQUIRE(cpd_object_outlet_type(obj, 2) == CPD_CONNECTION_CONTROL);
+
+        cpd_canvas_free(c);
+    }
 }

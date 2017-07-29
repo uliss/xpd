@@ -274,3 +274,13 @@ void cpd_canvas_unset_current(t_cpd_canvas* cnv)
 
     canvas_unsetcurrent(cnv);
 }
+
+t_cpd_object* cpd_canvas_to_object(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console()->error("cpd_canvas_to_object: NULL given");
+        return nullptr;
+    }
+
+    return &cnv->gl_obj;
+}

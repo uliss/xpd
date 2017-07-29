@@ -27,6 +27,11 @@ typedef struct _cpd_list t_cpd_list;
 struct _cpd_connection;
 typedef struct _cpd_connection t_cpd_connection;
 
+typedef enum _cpd_conn_type {
+    CPD_CONNECTION_CONTROL = 0,
+    CPD_CONNECTION_SIGNAL = 1
+} t_cpd_conn_type;
+
 /**
  * Creates new symbol from given string. Caller should NOT free result pointer
  * @param str - symbol string

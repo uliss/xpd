@@ -18,13 +18,22 @@
 #define CPD_EXTERN __declspec(dllimport) extern
 #endif
 #else
-#define CPD_EXTERN 
+#define CPD_EXTERN
 #endif
 
 #if defined(_MSC_VER) && !defined(_LANGUAGE_C_PLUS_PLUS) && !defined(__cplusplus)
 #define CPD_EXTERN_STRUCT extern struct
 #else
 #define CPD_EXTERN_STRUCT struct
+#endif
+
+#ifndef __FUNCTION_NAME__
+#ifdef WIN32 //WINDOWS
+#define __FUNCTION_NAME__ __FUNCTION__
+#else //*NIX
+#define __FUNCTION_NAME__ __func__
+#endif
+
 #endif
 
 #endif // CPD_DEF_H
