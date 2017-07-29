@@ -60,7 +60,7 @@ t_cpd_float cpd_atom_get_float(const t_cpd_atom* a)
 int cpd_atom_set_atom(t_cpd_atom* a, const t_cpd_atom* src)
 {
     if (!a || !src) {
-        console()->error("cpd_atom_set_atom: NULL pointers given");
+        console()->debug("{}: NULL pointers given", __FUNCTION_NAME__);
         return 0;
     }
 

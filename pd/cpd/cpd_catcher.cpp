@@ -8,6 +8,12 @@ extern "C" {
 #include "m_imp.h"
 }
 
+#define IS_CATCHER(obj)                                                  \
+    if (!cpd_is_catcher(obj)) {                                          \
+        console()->debug("{}: not a catcher object", __FUNCTION_NAME__); \
+        return 0;                                                        \
+    }
+
 static const char* CATCHER_CLASS_NAME = "@catcher object@";
 
 #include <vector>
@@ -188,13 +194,14 @@ void cpd_catcher_init()
 int cpd_is_catcher(t_cpd_object* c)
 {
     if (!catcher_class) {
-        console()->error("cpd_is_catcher: catcher class is not initialized! "
-                         "You should call cpd_catcher_init() first.");
+        console()->debug("{}: catcher class is not initialized! "
+                         "You should call cpd_catcher_init() first.",
+            __FUNCTION_NAME__);
         return 0;
     }
 
     if (!c) {
-        console()->error("cpd_is_catcher: NULL given");
+        console()->debug("{}: NULL given", __FUNCTION_NAME__);
         return 0;
     }
 
@@ -203,20 +210,14 @@ int cpd_is_catcher(t_cpd_object* c)
 
 size_t cpd_catcher_count(t_cpd_object* c)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_count: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return ((t_catcher*)c)->lst->size();
 }
 
 int cpd_catcher_empty(t_cpd_object* c)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return ((t_catcher*)c)->lst->empty() ? 1 : 0;
 }
@@ -224,7 +225,7 @@ int cpd_catcher_empty(t_cpd_object* c)
 void cpd_catcher_clear(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
+        console()->debug("{}: not a catcher object", __FUNCTION_NAME__);
         return;
     }
 
@@ -233,20 +234,14 @@ void cpd_catcher_clear(t_cpd_object* c)
 
 t_cpd_list* cpd_catcher_at(t_cpd_object* c, size_t n)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
-        return nullptr;
-    }
+    IS_CATCHER(c);
 
     return catcher_at((t_catcher*)c, n);
 }
 
 t_cpd_list* cpd_catcher_last(t_cpd_object* c)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_empty: not a catcher object");
-        return nullptr;
-    }
+    IS_CATCHER(c);
 
     return catcher_last((t_catcher*)c);
 }
@@ -254,13 +249,14 @@ t_cpd_list* cpd_catcher_last(t_cpd_object* c)
 t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console()->error("cpd_catcher_new: NULL canvas");
+        console()->debug("{}: NULL canvas", __FUNCTION_NAME__);
         return nullptr;
     }
 
     if (!catcher_class) {
-        console()->error("cpd_catcher_new: catcher class is not initialized! "
-                         "You should call cpd_catcher_init() first.");
+        console()->debug("{}: catcher class is not initialized! "
+                         "You should call cpd_catcher_init() first.",
+            __FUNCTION_NAME__);
         return nullptr;
     }
 
@@ -270,7 +266,7 @@ t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
 void cpd_catcher_pop(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_pop: not a catcher object");
+        console()->debug("{}: not a catcher object", __FUNCTION_NAME__);
         return;
     }
 
@@ -279,40 +275,28 @@ void cpd_catcher_pop(t_cpd_object* c)
 
 int cpd_catcher_last_bang(t_cpd_object* c)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_bang: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_bang((t_catcher*)c);
 }
 
 int cpd_catcher_last_float(t_cpd_object* c, t_cpd_float f)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_float: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_float((t_catcher*)c, f);
 }
 
 int cpd_catcher_last_symbol(t_cpd_object* c, const char* s)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_symbol: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_symbol((t_catcher*)c, gensym(s));
 }
 
 int cpd_catcher_last_list(t_cpd_object* c, t_cpd_list* l)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_list: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_list((t_catcher*)c, l);
 }
@@ -320,24 +304,18 @@ int cpd_catcher_last_list(t_cpd_object* c, t_cpd_list* l)
 int cpd_catcher_last_message(t_cpd_object* c, const char* sel, t_cpd_list* l)
 {
     if (!sel || !l) {
-        console()->error("cpd_catcher_last_message: NULL arguements");
+        console()->debug("{}: NULL arguments", __FUNCTION_NAME__);
         return 0;
     }
 
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_message: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_message((t_catcher*)c, gensym(sel), l);
 }
 
 int cpd_catcher_last_string(t_cpd_object* c, const char* str)
 {
-    if (!cpd_is_catcher(c)) {
-        console()->error("cpd_catcher_last_string: not a catcher object");
-        return 0;
-    }
+    IS_CATCHER(c);
 
     return catcher_last_string((t_catcher*)c, str);
 }
