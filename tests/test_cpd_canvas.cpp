@@ -231,4 +231,10 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
         cpd_canvas_free(c);
     }
+
+    SECTION("types")
+    {
+        REQUIRE(cpd_object_inlet_type(nullptr, 0) == CPD_CONNECTION_CONTROL);
+        REQUIRE(cpd_object_outlet_type(nullptr, 0) == CPD_CONNECTION_CONTROL);
+    }
 }

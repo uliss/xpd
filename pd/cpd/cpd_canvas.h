@@ -58,18 +58,18 @@ CPD_EXTERN int cpd_root_canvas_height(t_cpd_canvas* cnv);
 /**
  * Returns canvas name
  */
-CPD_EXTERN const char* cpd_canvas_name(t_cpd_canvas* c);
+CPD_EXTERN const char* cpd_canvas_name(t_cpd_canvas* cnv);
 
 /**
  * Returns canvas font size or -1 on error
  */
-CPD_EXTERN int cpd_canvas_fontsize(t_cpd_canvas* c);
+CPD_EXTERN int cpd_canvas_fontsize(t_cpd_canvas* cnv);
 
 /**
  * Returns pointer to root (top level) parent canvas or 0 if already top
  * @see cpd_canvas_is_root()
  */
-CPD_EXTERN t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c);
+CPD_EXTERN t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* cnv);
 
 /**
  * Returns pointer to current canvas
@@ -96,14 +96,14 @@ CPD_EXTERN void cpd_canvas_unset_current(t_cpd_canvas* cnv);
   * @param c - pointer to canvas
   * @see cpd_canvas_new
   */
-CPD_EXTERN int cpd_canvas_free(t_cpd_canvas* c);
+CPD_EXTERN int cpd_canvas_free(t_cpd_canvas* cnv);
 
 /**
  * Checks if canvas is root (top-level)
  * @return 1 if given canvas is root, 0 otherwise
  * @see cpd_canvas_root()
  */
-CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* c);
+CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* cnv);
 
 /**
  * Returns number of child element on canvas 
