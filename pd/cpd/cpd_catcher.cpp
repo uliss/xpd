@@ -8,10 +8,10 @@ extern "C" {
 #include "m_imp.h"
 }
 
-#define IS_CATCHER(obj)                                                  \
-    if (!cpd_is_catcher(obj)) {                                          \
-        console()->debug("{}: not a catcher object", __FUNCTION_NAME__); \
-        return 0;                                                        \
+#define IS_CATCHER(obj)                \
+    if (!cpd_is_catcher(obj)) {        \
+        DEBUG("not a catcher object"); \
+        return 0;                      \
     }
 
 static const char* CATCHER_CLASS_NAME = "@catcher object@";
@@ -194,14 +194,12 @@ void cpd_catcher_init()
 int cpd_is_catcher(t_cpd_object* c)
 {
     if (!catcher_class) {
-        console()->debug("{}: catcher class is not initialized! "
-                         "You should call cpd_catcher_init() first.",
-            __FUNCTION_NAME__);
+        DEBUG("catcher class is not initialized! You should call cpd_catcher_init() first.");
         return 0;
     }
 
     if (!c) {
-        console()->debug("{}: NULL given", __FUNCTION_NAME__);
+        DEBUG("NULL given");
         return 0;
     }
 
@@ -225,7 +223,7 @@ int cpd_catcher_empty(t_cpd_object* c)
 void cpd_catcher_clear(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->debug("{}: not a catcher object", __FUNCTION_NAME__);
+        DEBUG("not a catcher object");
         return;
     }
 
@@ -249,14 +247,13 @@ t_cpd_list* cpd_catcher_last(t_cpd_object* c)
 t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console()->debug("{}: NULL canvas", __FUNCTION_NAME__);
+        DEBUG("NULL canvas");
         return nullptr;
     }
 
     if (!catcher_class) {
-        console()->debug("{}: catcher class is not initialized! "
-                         "You should call cpd_catcher_init() first.",
-            __FUNCTION_NAME__);
+        DEBUG("catcher class is not initialized! "
+              "You should call cpd_catcher_init() first.");
         return nullptr;
     }
 
@@ -266,7 +263,7 @@ t_cpd_object* cpd_catcher_new(t_cpd_canvas* cnv)
 void cpd_catcher_pop(t_cpd_object* c)
 {
     if (!cpd_is_catcher(c)) {
-        console()->debug("{}: not a catcher object", __FUNCTION_NAME__);
+        DEBUG("not a catcher object");
         return;
     }
 
@@ -304,7 +301,7 @@ int cpd_catcher_last_list(t_cpd_object* c, t_cpd_list* l)
 int cpd_catcher_last_message(t_cpd_object* c, const char* sel, t_cpd_list* l)
 {
     if (!sel || !l) {
-        console()->debug("{}: NULL arguments", __FUNCTION_NAME__);
+        DEBUG("NULL arguments");
         return 0;
     }
 

@@ -26,7 +26,7 @@ t_cpd_list* cpd_list_new(size_t n)
 void cpd_list_free(t_cpd_list* l)
 {
     if (!l) {
-        console()->error("cpd_list_free: NULL pointer given");
+        ERROR("NULL pointer given");
         return;
     }
 
@@ -90,7 +90,7 @@ t_cpd_list* cpd_list_copy(const t_cpd_list* l)
 void cpd_list_append_float(t_cpd_list* l, t_cpd_float f)
 {
     if (!l) {
-        console()->error("cpd_list_append_float: NULL argument");
+        DEBUG("NULL argument");
         return;
     }
 
@@ -102,7 +102,7 @@ void cpd_list_append_float(t_cpd_list* l, t_cpd_float f)
 void cpd_list_append_symbol(t_cpd_list* l, t_cpd_symbol* s)
 {
     if (!l) {
-        console()->error("cpd_list_append_float: NULL argument");
+        DEBUG("NULL argument");
         return;
     }
 

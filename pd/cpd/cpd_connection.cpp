@@ -78,7 +78,7 @@ size_t cpd_connection_destination_inlet(t_cpd_connection* c)
 t_cpd_connection* cpd_canvas_connections(t_cpd_canvas* cnv)
 {
     if (!cnv) {
-        console()->error("cpd_canvas_connections: NULL given");
+        DEBUG("NULL given");
         return nullptr;
     }
 

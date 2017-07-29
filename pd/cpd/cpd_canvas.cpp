@@ -8,16 +8,16 @@ extern "C" {
 #include "s_stuff.h"
 }
 
-#define NULL_CHECK(obj)                                           \
-    if (obj == nullptr) {                                         \
-        console()->debug("{}: NULL argument", __FUNCTION_NAME__); \
-        return;                                                   \
+#define NULL_CHECK(obj)         \
+    if (obj == nullptr) {       \
+        DEBUG("NULL argument"); \
+        return;                 \
     }
 
-#define NULL_CHECK_RETURN(obj, ret)                               \
-    if (obj == nullptr) {                                         \
-        console()->debug("{}: NULL argument", __FUNCTION_NAME__); \
-        return ret;                                               \
+#define NULL_CHECK_RETURN(obj, ret) \
+    if (obj == nullptr) {           \
+        DEBUG("NULL argument");     \
+        return ret;                 \
     }
 
 t_cpd_canvas* cpd_root_canvas_last()
@@ -134,7 +134,7 @@ const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
     if (cpd_canvas_is_root(cnv) && canvas_getenv(cnv))
         return canvas_getdir(cnv)->s_name;
 
-    console()->debug("{}: non root canvas given", __FUNCTION_NAME__);
+    DEBUG("non root canvas given");
     return "";
 }
 
@@ -209,7 +209,7 @@ t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path)
         t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(glob_evalfile(NULL, gensym(name), gensym(path)));
 
         if (cnv) {
-            console()->debug("{}: loaded \"{}/{}\"", __FUNCTION_NAME__, path, name);
+            DEBUG("loaded \"{}/{}\"", path, name);
             return cnv;
         }
 
@@ -224,7 +224,7 @@ t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path)
 
             t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(glob_evalfile(NULL, gensym(name), gensym(rpath)));
             if (cnv) {
-                console()->debug("{}: loaded \"{}/{}\"", __FUNCTION_NAME__, rpath, name);
+                DEBUG("loaded \"{}/{}\"", rpath, name);
                 return cnv;
             }
 

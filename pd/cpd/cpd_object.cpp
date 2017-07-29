@@ -13,7 +13,7 @@ extern "C" {
 
 t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list* args, int x, int y)
 {
-    console()->trace("cpd_object_new {");
+    TRACE("-");
 
     const size_t N = cpd_list_size(args);
 
@@ -43,23 +43,23 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list
         return 0;
     }
 
-    console()->debug("  cpd_object_new: created [{}] ({})", name, (void*)res);
+    DEBUG("created [{}] ({})", name, (void*)res);
     return res;
 }
 
 void cpd_object_free(t_cpd_canvas* cnv, t_cpd_object* obj)
 {
     if (!cnv) {
-        console()->error("cpd_object_free: NULL canvas given");
+        ERROR("NULL canvas given");
         return;
     }
 
     if (!obj) {
-        console()->error("cpd_object_free: NULL object given");
+        ERROR("NULL object given");
         return;
     }
 
-    console()->debug("  cpd_object_free: [{}]", cpd_object_name(obj));
+    DEBUG("[{}]", cpd_object_name(obj));
 
     glist_delete(cnv, &obj->te_g);
 }
@@ -75,7 +75,7 @@ const char* cpd_object_name(t_cpd_object* obj)
 t_cpd_list* cpd_object_arguments(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_text: NULL pointer given");
+        ERROR("NULL pointer given");
         return 0;
     }
 
@@ -97,7 +97,7 @@ t_cpd_list* cpd_object_arguments(t_cpd_object* obj)
 const char* cpd_object_text(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_text: NULL pointer given");
+        ERROR("NULL pointer given");
         return nullptr;
     }
 
@@ -167,22 +167,22 @@ size_t cpd_object_outlet_count(t_cpd_object* obj)
 int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno)
 {
     if (!obj1 || !obj2) {
-        console()->error("cpd_connect: NULL objects are given");
+        DEBUG("NULL objects are given");
         return 0;
     }
 
     if (obj1 == obj2) {
-        console()->error("cpd_connect: self-connection");
+        DEBUG("self-connection");
         return 0;
     }
 
     if (outno >= cpd_object_outlet_count(obj1)) {
-        console()->error("cpd_connect: invalid source outlet {}", outno);
+        ERROR("invalid source outlet {}", outno);
         return 0;
     }
 
     if (inno >= cpd_object_inlet_count(obj2)) {
-        console()->error("cpd_connect: invalid destination inlet {}", inno);
+        ERROR("invalid destination inlet {}", inno);
         return 0;
     }
 
@@ -193,7 +193,7 @@ int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inn
 int cpd_is_canvas(t_cpd_object* x)
 {
     if (!x) {
-        console()->error("cpd_is_canvas: null pointer given");
+        ERROR("null pointer given");
         return 0;
     }
 
@@ -203,7 +203,7 @@ int cpd_is_canvas(t_cpd_object* x)
 void cpd_send_bang(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_send_bang: NULL pointer given");
+        DEBUG("NULL pointer given");
         return;
     }
 
@@ -213,7 +213,7 @@ void cpd_send_bang(t_cpd_object* obj)
 void cpd_send_float(t_cpd_object* obj, t_cpd_float f)
 {
     if (!obj) {
-        console()->error("cpd_send_float: NULL pointer given");
+        DEBUG("NULL pointer given");
         return;
     }
 
@@ -223,7 +223,7 @@ void cpd_send_float(t_cpd_object* obj, t_cpd_float f)
 void cpd_send_symbol(t_cpd_object* obj, t_cpd_symbol* s)
 {
     if (!obj || !s) {
-        console()->error("cpd_send_symbol: NULL pointer given");
+        DEBUG("NULL pointer given");
         return;
     }
 
@@ -233,7 +233,7 @@ void cpd_send_symbol(t_cpd_object* obj, t_cpd_symbol* s)
 void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l)
 {
     if (!obj || !l) {
-        console()->error("cpd_send_list: NULL pointer given");
+        DEBUG("NULL pointer given");
         return;
     }
 
@@ -246,7 +246,7 @@ void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l)
 void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l)
 {
     if (!obj || !sel || !l) {
-        console()->error("cpd_send_message: NULL pointer given");
+        DEBUG("NULL pointer given");
         return;
     }
 
@@ -259,7 +259,7 @@ void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l)
 t_cpd_object* cpd_object_next(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_next: NULL pointer given");
+        DEBUG("NULL pointer given");
         return nullptr;
     }
 
@@ -277,7 +277,7 @@ t_cpd_object* cpd_object_next(t_cpd_object* obj)
 const char* cpd_object_help_name(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_help_name: NULL pointer given");
+        DEBUG("NULL pointer given");
         return "";
     }
 
@@ -287,7 +287,7 @@ const char* cpd_object_help_name(t_cpd_object* obj)
 const char* cpd_object_help_dir(t_cpd_object* obj)
 {
     if (!obj) {
-        console()->error("cpd_object_help_dir: NULL pointer given");
+        DEBUG("NULL pointer given");
         return "";
     }
 
@@ -305,7 +305,7 @@ t_cpd_object* cpd_object_new_from_string(t_cpd_canvas* c, const char* name, cons
 t_cpd_conn_type cpd_object_inlet_type(t_cpd_object* obj, size_t n)
 {
     if (!obj) {
-        console()->error("{}: NULL pointer given", __FUNCTION_NAME__);
+        DEBUG("NULL pointer given");
         return CPD_CONNECTION_CONTROL;
     }
 
@@ -315,7 +315,7 @@ t_cpd_conn_type cpd_object_inlet_type(t_cpd_object* obj, size_t n)
 t_cpd_conn_type cpd_object_outlet_type(t_cpd_object* obj, size_t n)
 {
     if (!obj) {
-        console()->error("{}: NULL pointer given", __FUNCTION_NAME__);
+        DEBUG("NULL pointer given");
         return CPD_CONNECTION_CONTROL;
     }
 
