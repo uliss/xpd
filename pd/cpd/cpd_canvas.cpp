@@ -264,3 +264,13 @@ t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path)
 
     return nullptr;
 }
+
+void cpd_canvas_unset_current(t_cpd_canvas* cnv)
+{
+    if (!cnv) {
+        console()->error("cpd_canvas_unset_current: NULL given");
+        return;
+    }
+
+    canvas_unsetcurrent(cnv);
+}

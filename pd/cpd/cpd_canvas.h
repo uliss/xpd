@@ -78,11 +78,18 @@ CPD_EXTERN t_cpd_canvas* cpd_canvas_root(t_cpd_canvas* c);
 CPD_EXTERN t_cpd_canvas* cpd_canvas_current();
 
 /**
- * Sets current canvas
+ * Push current canvas to current canvas stack
  * @param cnv - pointer to canvas
  * @see cpd_canvas_current()
  */
 CPD_EXTERN void cpd_canvas_set_current(t_cpd_canvas* cnv);
+
+/**
+ * Pops current canvas from canvas stack
+ * @param cnv - pointer to canvas
+ * @see cpd_canvas_current()
+ */
+CPD_EXTERN void cpd_canvas_unset_current(t_cpd_canvas* cnv);
 
 /**
   * Removes canvas

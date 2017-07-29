@@ -183,4 +183,26 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
         cpd_canvas_free(c0);
     }
+
+    SECTION("current")
+    {
+        REQUIRE(cpd_canvas_current() != 0);
+
+        auto c0 = cpd_root_canvas_new();
+        auto c1 = cpd_root_canvas_new();
+
+        REQUIRE(c0);
+        REQUIRE(cpd_canvas_current() == c1);
+        cpd_canvas_set_current(c0);
+        REQUIRE(cpd_canvas_current() == c0);
+        cpd_canvas_set_current(0);
+        REQUIRE(cpd_canvas_current() == c0);
+        cpd_canvas_unset_current(0);
+        REQUIRE(cpd_canvas_current() == c0);
+        cpd_canvas_unset_current(c0);
+        REQUIRE(cpd_canvas_current() == c1);
+
+        cpd_canvas_free(c1);
+        cpd_canvas_free(c0);
+    }
 }
