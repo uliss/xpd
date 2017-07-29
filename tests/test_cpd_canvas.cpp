@@ -4,6 +4,10 @@
 
 #include <string>
 
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
+
 static int init = cpd_init();
 
 TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
@@ -118,5 +122,29 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
     SECTION("first object")
     {
         REQUIRE(cpd_canvas_object_first(0) == nullptr);
+    }
+
+    SECTION("load patch")
+    {
+        auto c0 = cpd_root_canvas_load("not-exists", 0);
+        REQUIRE_FALSE(c0);
+        c0 = cpd_root_canvas_load("not-exists", "some/dir");
+        REQUIRE_FALSE(c0);
+
+        c0 = cpd_root_canvas_load("test_empty_patch.pd", TEST_DATA_DIR "/pd");
+        REQUIRE(c0);
+        REQUIRE(cpd_canvas_is_root(c0));
+        REQUIRE(cpd_canvas_name(c0) == std::string("test_empty_patch.pd"));
+        REQUIRE(cpd_root_canvas_dir(c0) == std::string(TEST_DATA_DIR "/pd"));
+        REQUIRE(cpd_canvas_fontsize(c0) == 12);
+        REQUIRE(cpd_root_canvas_width(c0) == 700);
+        REQUIRE(cpd_root_canvas_height(c0) == 500);
+        REQUIRE(cpd_root_canvas_x(c0) == 0);
+
+#ifdef __APPLE__
+        REQUIRE(cpd_root_canvas_y(c0) == 23);
+#endif
+
+        cpd_canvas_free(c0);
     }
 }

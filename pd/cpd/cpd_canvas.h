@@ -15,6 +15,14 @@ extern "C" {
  */
 CPD_EXTERN t_cpd_canvas* cpd_root_canvas_new();
 
+/**
+ * Loads patch from filesystem
+ * @param name - name of file
+ * @param path - patch directory (if NULL given search file in strandart search paths)
+ * @return pointer to root canvas or NULL on error
+ */
+CPD_EXTERN t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path);
+
 /** 
  * @return pointer to last root (top) canvas or 0 if not found
  * @see cpd_root_canvas_next(), cpd_root_canvas_count()

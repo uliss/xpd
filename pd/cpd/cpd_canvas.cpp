@@ -232,3 +232,35 @@ void cpd_canvas_set_current(t_cpd_canvas* cnv)
 
     canvas_setcurrent(cnv);
 }
+
+t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path)
+{
+    if (name && path) {
+        t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(glob_evalfile(NULL, gensym(name), gensym(path)));
+
+        if (cnv) {
+            console()->debug("cpd_root_canvas_load: loaded \"{}/{}\"", path, name);
+            return cnv;
+        }
+
+        return nullptr;
+    }
+
+    if (name) {
+        t_namelist* dir_entry = STUFF->st_searchpath;
+
+        while (dir_entry) {
+            const char* rpath = dir_entry->nl_string;
+
+            t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(glob_evalfile(NULL, gensym(name), gensym(rpath)));
+            if (cnv) {
+                console()->debug("cpd_root_canvas_load: loaded \"{}/{}\"", rpath, name);
+                return cnv;
+            }
+
+            dir_entry = dir_entry->nl_next;
+        }
+    }
+
+    return nullptr;
+}
