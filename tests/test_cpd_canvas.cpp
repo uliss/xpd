@@ -184,6 +184,18 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         cpd_canvas_free(c0);
     }
 
+    SECTION("load in search paths")
+    {
+        auto c0 = cpd_root_canvas_load("test_patch_core_objects.pd", NULL);
+        REQUIRE_FALSE(c0);
+
+        cpd_searchpath_append("..");
+        cpd_searchpath_append(TEST_PD_DIR);
+        c0 = cpd_root_canvas_load("test_patch_core_objects.pd", NULL);
+        REQUIRE(c0);
+        cpd_canvas_free(c0);
+    }
+
     SECTION("current")
     {
         REQUIRE(cpd_canvas_current() != 0);
@@ -246,6 +258,7 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         REQUIRE(s0);
         REQUIRE(cpd_is_canvas(cpd_canvas_to_object(s0)));
         REQUIRE_FALSE(cpd_canvas_is_root(s0));
+        REQUIRE(cpd_root_canvas_dir(s0) == std::string());
 
         // ???? FIX?
         REQUIRE(cpd_canvas_current() == c0);
