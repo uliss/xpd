@@ -156,3 +156,27 @@ int cpd_list_equal(t_cpd_list* l0, t_cpd_list* l1)
 
     return 1;
 }
+
+void cpd_list_prepend_symbol(t_cpd_list* l, t_cpd_symbol* s)
+{
+    if (!l) {
+        DEBUG("NULL argument");
+        return;
+    }
+
+    t_atom a;
+    SETSYMBOL(&a, s);
+    l->data.insert(l->data.begin(), a);
+}
+
+void cpd_list_prepend_float(t_cpd_list* l, t_cpd_float f)
+{
+    if (!l) {
+        DEBUG("NULL argument");
+        return;
+    }
+
+    t_atom a;
+    SETFLOAT(&a, f);
+    l->data.insert(l->data.begin(), a);
+}

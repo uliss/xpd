@@ -92,6 +92,20 @@ CPD_EXTERN void cpd_list_append_float(t_cpd_list* l, t_cpd_float f);
 CPD_EXTERN void cpd_list_append_symbol(t_cpd_list* l, t_cpd_symbol* s);
 
 /**
+ * Prepends float value to list
+ * @param l - pointer to list
+ * @param f - float value
+ */
+CPD_EXTERN void cpd_list_prepend_float(t_cpd_list* l, t_cpd_float f);
+
+/**
+ * Prepends symbol value to list
+ * @param l - pointer to list
+ * @param s - symbol value
+ */
+CPD_EXTERN void cpd_list_prepend_symbol(t_cpd_list* l, t_cpd_symbol* s);
+
+/**
  * Set list element at specified position
  * @param l - pointer to list
  * @param idx - element position

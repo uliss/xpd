@@ -237,4 +237,35 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         REQUIRE(cpd_object_inlet_type(nullptr, 0) == CPD_CONNECTION_CONTROL);
         REQUIRE(cpd_object_outlet_type(nullptr, 0) == CPD_CONNECTION_CONTROL);
     }
+
+    SECTION("subpatch")
+    {
+        auto c0 = cpd_root_canvas_new();
+
+        auto s0 = cpd_subpatch_new(c0, "test", 0, 20, 40);
+        REQUIRE(s0);
+        REQUIRE(cpd_is_canvas(cpd_canvas_to_object(s0)));
+        REQUIRE_FALSE(cpd_canvas_is_root(s0));
+
+        // ???? FIX?
+        REQUIRE(cpd_canvas_current() == c0);
+
+        REQUIRE(cpd_object_inlet_count(cpd_canvas_to_object(s0)) == 0);
+        REQUIRE(cpd_object_outlet_count(cpd_canvas_to_object(s0)) == 0);
+
+        auto obj0 = cpd_object_new_from_string(s0, "inlet", "", 20, 20);
+
+        REQUIRE(cpd_object_inlet_count(cpd_canvas_to_object(s0)) == 1);
+        REQUIRE(cpd_object_outlet_count(cpd_canvas_to_object(s0)) == 0);
+
+        auto obj1 = cpd_object_new_from_string(s0, "outlet", "", 20, 200);
+
+        REQUIRE(cpd_canvas_object_count(s0) == 2);
+
+        cpd_object_free(s0, obj0);
+        cpd_object_free(s0, obj1);
+
+        cpd_object_free(c0, cpd_canvas_to_object(s0));
+        cpd_canvas_free(c0);
+    }
 }

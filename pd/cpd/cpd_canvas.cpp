@@ -1,4 +1,6 @@
 #include "cpd_canvas.h"
+#include "cpd_list.h"
+#include "cpd_object.h"
 #include "pr_log.h"
 
 #include "m_pd.h"
@@ -247,4 +249,33 @@ t_cpd_object* cpd_canvas_to_object(t_cpd_canvas* cnv)
     NULL_CHECK_RETURN(cnv, nullptr);
 
     return &cnv->gl_obj;
+}
+
+t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent, const char* name, t_cpd_list* args, int x, int y)
+{
+    NULL_CHECK_RETURN(parent, nullptr);
+
+    bool free_arg_list = false;
+    t_cpd_list* subpatch_args = 0;
+
+    if (args) {
+        // put name first
+        subpatch_args = args;
+        cpd_list_prepend_symbol(subpatch_args, cpd_symbol(name));
+    } else {
+        free_arg_list = true;
+        subpatch_args = cpd_list_new(0);
+        cpd_list_append_symbol(subpatch_args, cpd_symbol(name));
+    }
+
+    t_cpd_object* sub = cpd_object_new(parent, "pd", subpatch_args, x, y);
+    if (!sub) {
+        DEBUG("can't create subpatch");
+        return nullptr;
+    }
+
+    if (free_arg_list)
+        cpd_list_free(subpatch_args);
+
+    return reinterpret_cast<t_cpd_canvas*>(sub);
 }

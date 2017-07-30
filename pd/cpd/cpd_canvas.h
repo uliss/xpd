@@ -55,6 +55,9 @@ CPD_EXTERN int cpd_root_canvas_y(t_cpd_canvas* cnv);
 CPD_EXTERN int cpd_root_canvas_width(t_cpd_canvas* cnv);
 CPD_EXTERN int cpd_root_canvas_height(t_cpd_canvas* cnv);
 
+CPD_EXTERN t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent,
+    const char* name, t_cpd_list* args, int x, int y);
+
 /**
  * Returns canvas name
  */
