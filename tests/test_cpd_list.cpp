@@ -232,4 +232,31 @@ TEST_CASE("cpd_list", "[cpd PureData wrapper]")
         cpd_list_free(l3);
         cpd_list_free(l4);
     }
+
+    SECTION("prepend")
+    {
+        cpd_list_prepend_float(nullptr, 100);
+        cpd_list_prepend_symbol(nullptr, cpd_symbol("ABC"));
+
+        auto l0 = cpd_list_new(0);
+        cpd_list_prepend_float(l0, 100);
+
+        REQUIRE(cpd_list_size(l0) == 1);
+        REQUIRE(cpd_list_get_float_at(l0, 0) == 100);
+
+        cpd_list_prepend_float(l0, 200);
+
+        REQUIRE(cpd_list_size(l0) == 2);
+        REQUIRE(cpd_list_get_float_at(l0, 0) == 200);
+        REQUIRE(cpd_list_get_float_at(l0, 1) == 100);
+
+        cpd_list_prepend_symbol(l0, cpd_symbol("A"));
+
+        REQUIRE(cpd_list_size(l0) == 3);
+        REQUIRE(cpd_list_get_symbol_at(l0, 0) == cpd_symbol("A"));
+        REQUIRE(cpd_list_get_float_at(l0, 1) == 200);
+        REQUIRE(cpd_list_get_float_at(l0, 2) == 100);
+
+        cpd_list_free(l0);
+    }
 }
