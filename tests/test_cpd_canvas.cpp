@@ -292,6 +292,7 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
         auto args = cpd_list_new_from_string(" a b c 100");
         auto s0 = cpd_subpatch_new(c0, "test", args, 20, 40);
+        REQUIRE(cpd_canvas_root(s0) == c0);
 
         const char* txt = cpd_object_text(cpd_canvas_to_object(s0));
         REQUIRE(txt == std::string("pd test a b c 100"));
