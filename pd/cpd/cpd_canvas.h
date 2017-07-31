@@ -9,65 +9,65 @@ extern "C" {
 #endif
 
 /**
- * Creates new root (top-level) canvas
- * @return pointer to new canvas or NULL on error
+ * Creates new patch
+ * @return pointer to new top-level canvas or NULL on error
  * @see cpd_canvas_free()
  */
-CPD_EXTERN t_cpd_canvas* cpd_root_canvas_new();
+CPD_EXTERN t_cpd_canvas* cpd_patch_new();
 
 /**
  * Loads patch from filesystem
  * @param name - name of file
  * @param path - patch directory (if NULL given search file in strandart search paths)
- * @return pointer to root canvas or NULL on error
+ * @return pointer to loaded canvas or NULL on error
  */
-CPD_EXTERN t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path);
+CPD_EXTERN t_cpd_canvas* cpd_patch_load(const char* name, const char* path);
 
 /** 
- * @return pointer to last root (top) canvas or 0 if not found
- * @see cpd_root_canvas_next(), cpd_root_canvas_count()
+ * @return pointer to last opened patch or NULL if not found
+ * @see cpd_patchlist_next(), cpd_patchlist_count()
  */
-CPD_EXTERN t_cpd_canvas* cpd_root_canvas_last();
+CPD_EXTERN t_cpd_canvas* cpd_patchlist_last();
 
 /**
- * Returns number of root (top) canvases
+ * Returns number of opened patches
  */
-CPD_EXTERN size_t cpd_root_canvas_count();
+CPD_EXTERN size_t cpd_patchlist_count();
 
 /**
-  * Returns pointer to next canvas in list
-  * @see cpd_root_canvas_last()
+  * Returns pointer to next opened patch in list
+  * @see cpd_patchlist_last()
   */
-CPD_EXTERN t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv);
+CPD_EXTERN t_cpd_canvas* cpd_patchlist_next(t_cpd_canvas* cnv);
 
 /**
- * Returns pointer to root canvas at given position
+ * Returns pointer to opened patch by specified number
  */
-CPD_EXTERN t_cpd_canvas* cpd_root_canvas_at(size_t n);
+CPD_EXTERN t_cpd_canvas* cpd_patchlist_at(size_t n);
 
 /**
   * Returns root canvas directory path or "" on error
   */
-CPD_EXTERN const char* cpd_root_canvas_dir(t_cpd_canvas* cnv);
+CPD_EXTERN const char* cpd_patch_dir(t_cpd_canvas* cnv);
 
-CPD_EXTERN int cpd_root_canvas_x(t_cpd_canvas* cnv);
-CPD_EXTERN int cpd_root_canvas_y(t_cpd_canvas* cnv);
+CPD_EXTERN int cpd_patch_xpos(t_cpd_canvas* cnv);
+CPD_EXTERN int cpd_patch_ypos(t_cpd_canvas* cnv);
 
 /**
  * Returns root canvas width
  * @param cnv - pointer to canvas
  * @return width or 0 on error
- * @see cpd_root_canvas_height()
+ * @see cpd_patch_height()
  */
-CPD_EXTERN int cpd_root_canvas_width(t_cpd_canvas* cnv);
+CPD_EXTERN int cpd_patch_width(t_cpd_canvas* cnv);
 
 /**
  * Returns root canvas height
  * @param cnv - pointer to canvas
  * @return height or 0 on error
- * @see cpd_root_canvas_width()
+ * @see cpd_patch_width()
  */
-CPD_EXTERN int cpd_root_canvas_height(t_cpd_canvas* cnv);
+CPD_EXTERN int cpd_patch_height(t_cpd_canvas* cnv);
 
 CPD_EXTERN t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent,
     const char* name, t_cpd_list* args, int x, int y);

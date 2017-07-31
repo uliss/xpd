@@ -9,7 +9,7 @@ static int init = cpd_init();
 
 TEST_CASE("cpd_connection", "[cpd PureData wrapper]")
 {
-    auto cnv = cpd_root_canvas_new();
+    auto cnv = cpd_patch_new();
 
     SECTION("base")
     {

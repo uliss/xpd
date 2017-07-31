@@ -13,7 +13,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
     {
         REQUIRE_FALSE(cpd_is_catcher(0));
 
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         REQUIRE_FALSE(cpd_catcher_new(cnv));
 
         cpd_catcher_init();
@@ -62,7 +62,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("bang")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         cpd_send_bang(nullptr);
@@ -85,7 +85,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("float")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         cpd_send_float(nullptr, 1000);
@@ -118,7 +118,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("symbol")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         // invalid
@@ -144,7 +144,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("list")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         auto l0 = cpd_list_new_from_string("1 2 3");
@@ -177,7 +177,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("message")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         auto l0 = cpd_list_new_from_string("1 2 3");
@@ -215,7 +215,7 @@ TEST_CASE("cpd_catcher", "[cpd PureData wrapper]")
 
     SECTION("text")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto catcher = cpd_catcher_new(cnv);
 
         // empty catcher

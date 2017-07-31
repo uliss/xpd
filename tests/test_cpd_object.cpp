@@ -10,7 +10,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 {
     SECTION("init")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto obj1 = cpd_object_new(cnv, "float", 0, 0, 0);
         cpd_object_free(cnv, obj1);
         cpd_canvas_free(cnv);
@@ -31,7 +31,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         SECTION("empty")
         {
-            auto cnv = cpd_root_canvas_new();
+            auto cnv = cpd_patch_new();
             auto obj1 = cpd_object_new(cnv, "float", 0, 0, 0);
 
             auto args = cpd_object_arguments(obj1);
@@ -47,7 +47,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         SECTION("non-empty")
         {
-            auto cnv = cpd_root_canvas_new();
+            auto cnv = cpd_patch_new();
 
             auto in_args = cpd_list_new(0);
             cpd_list_append_float(in_args, 100);
@@ -74,7 +74,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
     {
         REQUIRE(cpd_object_help_name(nullptr) == std::string());
 
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
 
         // [+]
         auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
@@ -93,7 +93,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
     {
         REQUIRE(cpd_object_help_dir(nullptr) == std::string());
 
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
 
         // [+]
         auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
@@ -114,7 +114,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         SECTION("no args")
         {
-            auto cnv = cpd_root_canvas_new();
+            auto cnv = cpd_patch_new();
             auto obj1 = cpd_object_new(cnv, "float", 0, 0, 0);
 
             const char* txt = cpd_object_text(obj1);
@@ -127,7 +127,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         SECTION("non-empty")
         {
-            auto cnv = cpd_root_canvas_new();
+            auto cnv = cpd_patch_new();
             auto args = cpd_list_new_from_string("100.12 A,Z");
             REQUIRE(cpd_list_size(args) == 4);
 
@@ -151,7 +151,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         cpd_object_set_xpos(nullptr, 0);
         cpd_object_set_ypos(nullptr, 0);
 
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto obj = cpd_object_new(cnv, "+", 0, 10, 20);
 
         REQUIRE(cpd_object_xpos(obj) == 10);
@@ -172,7 +172,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         REQUIRE(cpd_object_inlet_count(nullptr) == 0);
         REQUIRE(cpd_object_outlet_count(nullptr) == 0);
 
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
         auto obj2 = cpd_object_new_from_string(cnv, "route", "a b c", 0, 0);
 
@@ -189,7 +189,7 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
     SECTION("connect")
     {
-        auto cnv = cpd_root_canvas_new();
+        auto cnv = cpd_patch_new();
         auto obj1 = cpd_object_new(cnv, "+", 0, 0, 0);
         auto obj2 = cpd_object_new_from_string(cnv, "route", "a b c", 0, 0);
 

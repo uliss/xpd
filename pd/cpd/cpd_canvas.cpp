@@ -22,7 +22,7 @@ extern "C" {
         return ret;                 \
     }
 
-t_cpd_canvas* cpd_root_canvas_last()
+t_cpd_canvas* cpd_patchlist_last()
 {
     t_cpd_canvas* cnv = pd_getcanvaslist();
 
@@ -36,7 +36,7 @@ t_cpd_canvas* cpd_root_canvas_last()
     return cnv;
 }
 
-size_t cpd_root_canvas_count()
+size_t cpd_patchlist_count()
 {
     t_cpd_canvas* cnv = pd_getcanvaslist();
 
@@ -50,7 +50,7 @@ size_t cpd_root_canvas_count()
     return n;
 }
 
-t_cpd_canvas* cpd_root_canvas_at(size_t n)
+t_cpd_canvas* cpd_patchlist_at(size_t n)
 {
     t_cpd_canvas* cnv = pd_getcanvaslist();
 
@@ -67,7 +67,7 @@ t_cpd_canvas* cpd_root_canvas_at(size_t n)
     return 0;
 }
 
-t_cpd_canvas* cpd_root_canvas_next(t_cpd_canvas* cnv)
+t_cpd_canvas* cpd_patchlist_next(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, nullptr);
 
@@ -103,7 +103,7 @@ int cpd_canvas_fontsize(t_cpd_canvas* cnv)
     return cnv->gl_font;
 }
 
-t_cpd_canvas* cpd_root_canvas_new()
+t_cpd_canvas* cpd_patch_new()
 {
     static int cnt = 1;
     fmt::MemoryWriter w;
@@ -129,7 +129,7 @@ t_cpd_canvas* cpd_canvas_current()
     return canvas_getcurrent();
 }
 
-const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
+const char* cpd_patch_dir(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, "");
 
@@ -140,28 +140,28 @@ const char* cpd_root_canvas_dir(t_cpd_canvas* cnv)
     return "";
 }
 
-int cpd_root_canvas_x(t_cpd_canvas* cnv)
+int cpd_patch_xpos(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, 0);
 
     return cnv->gl_screenx1;
 }
 
-int cpd_root_canvas_y(t_cpd_canvas* cnv)
+int cpd_patch_ypos(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, 0);
 
     return cnv->gl_screeny1;
 }
 
-int cpd_root_canvas_width(t_cpd_canvas* cnv)
+int cpd_patch_width(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, 0);
 
     return cnv->gl_screenx2 - cnv->gl_screenx1;
 }
 
-int cpd_root_canvas_height(t_cpd_canvas* cnv)
+int cpd_patch_height(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, 0);
 
@@ -205,7 +205,7 @@ void cpd_canvas_set_current(t_cpd_canvas* cnv)
     canvas_setcurrent(cnv);
 }
 
-t_cpd_canvas* cpd_root_canvas_load(const char* name, const char* path)
+t_cpd_canvas* cpd_patch_load(const char* name, const char* path)
 {
     if (name && path) {
         t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(glob_evalfile(NULL, gensym(name), gensym(path)));
