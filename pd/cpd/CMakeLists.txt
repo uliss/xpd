@@ -8,6 +8,7 @@ set(CMP_SOURCES
     cpd_list.h cpd_list.cpp 
     cpd_env.h cpd_env.cpp 
     cpd_object.h cpd_object.cpp
+    cpd_patch.h cpd_patch.cpp
     cpd_types.h cpd_types.cpp 
     pr_log.cpp)
 

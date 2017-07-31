@@ -2,7 +2,7 @@
 #include "logger.h"
 #include "pd_object.h"
 
-#include "cpd/cpd_object.h"
+#include "cpd/cpd.h"
 
 using namespace xpd;
 
