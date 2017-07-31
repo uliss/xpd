@@ -18,7 +18,7 @@ matrix:
     - os: linux
       compiler: gcc
       env:
-        - COVERAGE
+        - COVERAGE=1
         - DOXYGEN
     - os: linux
       compiler: clang
