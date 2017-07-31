@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir build && cd build
-if [ -z "$COVERAGE" ]
+if [ -n "$COVERAGE" ]
 then
     cmake -DWITH_COVERAGE=On -DCMAKE_BUILD_TYPE=Debug ..
 else
@@ -13,7 +13,7 @@ cmake --build .
 export CTEST_OUTPUT_ON_FAILURE=1
 make test
 
-if [ -z "$COVERAGE" ]
+if [ -n "$COVERAGE" ]
 then
     echo "Coverage...."
     bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
