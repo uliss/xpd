@@ -15,15 +15,45 @@ extern "C" {
  */
 CPD_EXTERN int cpd_dsp_switch(int state);
 
-struct _cpd_audio_devlist;
-typedef struct _cpd_audio_devlist t_cpd_audio_devlist;
-
+/**
+ * Returns list of available devices
+ * @return pointer to device list or NULL
+ * @note caller should free returned result with cpd_audio_devlist_free()
+ */
 CPD_EXTERN t_cpd_audio_devlist* cpd_audio_devlist_new();
+
+/**
+ * Free device list
+ * @param l - pointer to list
+ */
 CPD_EXTERN void cpd_audio_devlist_free(t_cpd_audio_devlist* l);
 
+/**
+ * Returns number of input devices or 0
+ * @param devl - pointer to device list
+ */
 CPD_EXTERN size_t cpd_audio_input_devices_num(t_cpd_audio_devlist* devl);
+
+/**
+ * Returns number of output devices or 0
+ * @param devl - pointer to device list
+ */
 CPD_EXTERN size_t cpd_audio_output_devices_num(t_cpd_audio_devlist* devl);
+
+/**
+ * Returns intput device name at specified position in list
+ * @param devl - device list pointer
+ * @param n - device index
+ * @return input device name or empty string on error
+ */
 CPD_EXTERN const char* cpd_audio_input_device_name(t_cpd_audio_devlist* devl, size_t n);
+
+/**
+ * Returns output device name at specified position in list
+ * @param devl - device list pointer
+ * @param n - device index
+ * @return output device name or empty string on error
+ */
 CPD_EXTERN const char* cpd_audio_output_device_name(t_cpd_audio_devlist* devl, size_t n);
 
 /**

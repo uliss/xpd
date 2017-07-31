@@ -121,7 +121,7 @@ const char* cpd_audio_input_device_name(t_cpd_audio_devlist* devl, size_t n)
 {
     if (!devl) {
         DEBUG("NULL given");
-        return 0;
+        return "";
     }
 
     if (n < devl->in_devices.size())
@@ -135,7 +135,7 @@ const char* cpd_audio_output_device_name(t_cpd_audio_devlist* devl, size_t n)
 {
     if (!devl) {
         DEBUG("NULL given");
-        return 0;
+        return "";
     }
 
     if (n < devl->out_devices.size())
@@ -147,10 +147,6 @@ const char* cpd_audio_output_device_name(t_cpd_audio_devlist* devl, size_t n)
 
 extern "C" int m_mainloop(void);
 extern "C" void sys_exit(void);
-
-struct _cpd_dsp_thread {
-    std::thread* thread;
-};
 
 static std::thread* dsp_thread = 0;
 static std::mutex dsp_thread_mutex;

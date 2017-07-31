@@ -29,6 +29,9 @@ typedef struct _cpd_list t_cpd_list;
 struct _cpd_connection;
 typedef struct _cpd_connection t_cpd_connection;
 
+struct _cpd_audio_devlist;
+typedef struct _cpd_audio_devlist t_cpd_audio_devlist;
+
 typedef enum _cpd_conn_type {
     CPD_CONNECTION_CONTROL = 0,
     CPD_CONNECTION_SIGNAL = 1

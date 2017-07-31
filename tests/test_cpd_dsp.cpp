@@ -27,6 +27,11 @@ TEST_CASE("cpd_dsp", "[cpd PureData wrapper]")
         REQUIRE(cpd_audio_output_device_name(alist, 0xFFFF) == std::string());
 
         cpd_audio_devlist_free(alist);
+
+        REQUIRE(cpd_audio_input_devices_num(nullptr) == 0);
+        REQUIRE(cpd_audio_output_devices_num(nullptr) == 0);
+        REQUIRE(cpd_audio_output_device_name(nullptr, 0) == std::string());
+        REQUIRE(cpd_audio_input_device_name(nullptr, 0) == std::string());
     }
 
     SECTION("dsp test")
