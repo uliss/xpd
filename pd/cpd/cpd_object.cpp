@@ -1,5 +1,6 @@
 #include "cpd_object.h"
 #include "cpd.h"
+#include "cpd_globals.h"
 #include "pr_log.h"
 
 #include <cstring>
@@ -29,7 +30,7 @@ t_cpd_object* cpd_object_new(t_cpd_canvas* c, const char* name, const t_cpd_list
         std::copy(begin, begin + N, argv + 3);
     }
 
-    pd_typedmess((t_pd*)c, gensym("obj"), N + 3, argv);
+    pd_typedmess((t_pd*)c, CPD_SYMBOL_OBJ, N + 3, argv);
 
     t_pd* ptr = pd_newest();
     if (!ptr) {

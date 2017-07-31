@@ -1,6 +1,8 @@
 #ifndef CPD_TYPES_H
 #define CPD_TYPES_H
 
+#include "cpd_def.h"
+
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -37,13 +39,13 @@ typedef enum _cpd_conn_type {
  * @param str - symbol string
  * @return pointer to internal PureData hash table
  */
-t_cpd_symbol* cpd_symbol(const char* str);
+CPD_EXTERN t_cpd_symbol* cpd_symbol(const char* str);
 
 /**
  * Returns symbol name. Caller should NOT free result pointer
  * @return pointer to internal PureData string
  */
-const char* cpd_symbol_name(const t_cpd_symbol* s);
+CPD_EXTERN const char* cpd_symbol_name(const t_cpd_symbol* s);
 
 #ifdef __cplusplus
 }

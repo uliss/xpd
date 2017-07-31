@@ -5,6 +5,8 @@ set(CMP_SOURCES
     cpd_canvas.h cpd_canvas.cpp
     cpd_catcher.h cpd_catcher.cpp
     cpd_connection.h cpd_connection.cpp
+    cpd_dsp.h cpd_dsp.cpp
+    cpd_globals.h cpd_globals.cpp
     cpd_list.h cpd_list.cpp 
     cpd_env.h cpd_env.cpp 
     cpd_object.h cpd_object.cpp

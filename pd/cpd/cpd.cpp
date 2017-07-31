@@ -9,11 +9,10 @@ extern "C" {
 #include "s_stuff.h"
 }
 
-#include <algorithm>
 #include <csignal>
 #include <cstring>
-#include <iostream>
-#include <iterator>
+
+#include "cpd_globals.h"
 
 extern "C" void pd_init();
 
@@ -85,6 +84,7 @@ int cpd_init()
     initialized = true;
 
     cpd_setprinthook(cpd_log_print);
+    cpd_globals_init();
 
     return 1;
 }
