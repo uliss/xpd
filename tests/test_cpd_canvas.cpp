@@ -259,6 +259,10 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         REQUIRE(cpd_is_canvas(cpd_canvas_to_object(s0)));
         REQUIRE_FALSE(cpd_canvas_is_root(s0));
         REQUIRE(cpd_root_canvas_dir(s0) == std::string());
+        REQUIRE(cpd_object_name(cpd_canvas_to_object(s0)) == std::string("canvas"));
+        const char* txt = cpd_object_text(cpd_canvas_to_object(s0));
+        REQUIRE(txt == std::string("pd test"));
+        free((void*)txt);
 
         // ???? FIX?
         REQUIRE(cpd_canvas_current() == c0);
@@ -277,6 +281,21 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
         cpd_object_free(s0, obj0);
         cpd_object_free(s0, obj1);
+
+        cpd_object_free(c0, cpd_canvas_to_object(s0));
+        cpd_canvas_free(c0);
+    }
+
+    SECTION("subpatch with arguments")
+    {
+        auto c0 = cpd_root_canvas_new();
+
+        auto args = cpd_list_new_from_string(" a b c 100");
+        auto s0 = cpd_subpatch_new(c0, "test", args, 20, 40);
+
+        const char* txt = cpd_object_text(cpd_canvas_to_object(s0));
+        REQUIRE(txt == std::string("pd test a b c 100"));
+        free((void*)txt);
 
         cpd_object_free(c0, cpd_canvas_to_object(s0));
         cpd_canvas_free(c0);

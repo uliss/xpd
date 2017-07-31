@@ -52,7 +52,21 @@ CPD_EXTERN const char* cpd_root_canvas_dir(t_cpd_canvas* cnv);
 
 CPD_EXTERN int cpd_root_canvas_x(t_cpd_canvas* cnv);
 CPD_EXTERN int cpd_root_canvas_y(t_cpd_canvas* cnv);
+
+/**
+ * Returns root canvas width
+ * @param cnv - pointer to canvas
+ * @return width or 0 on error
+ * @see cpd_root_canvas_height()
+ */
 CPD_EXTERN int cpd_root_canvas_width(t_cpd_canvas* cnv);
+
+/**
+ * Returns root canvas height
+ * @param cnv - pointer to canvas
+ * @return height or 0 on error
+ * @see cpd_root_canvas_width()
+ */
 CPD_EXTERN int cpd_root_canvas_height(t_cpd_canvas* cnv);
 
 CPD_EXTERN t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent,
