@@ -13,3 +13,6 @@
 [submodule "distrib/thread"]
 	path = distrib/thread
 	url = https://github.com/pierreguillot/thread.git
+[submodule "distrib/rtaudio"]
+	path = distrib/rtaudio
+	url = https://github.com/thestk/rtaudio
