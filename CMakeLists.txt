@@ -26,6 +26,8 @@ if(WIN32)
 	add_definitions("/D_CRT_SECURE_NO_WARNINGS /wd4091 /wd4996")
 endif()
 
+add_subdirectory(distrib/rtaudio)
+
 add_subdirectory(pd)
 add_subdirectory(src)
 
