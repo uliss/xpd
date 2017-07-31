@@ -301,4 +301,38 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         cpd_object_free(c0, cpd_canvas_to_object(s0));
         cpd_canvas_free(c0);
     }
+
+    SECTION("save")
+    {
+        REQUIRE_FALSE(cpd_patch_save(0, "", ""));
+
+        auto c0 = cpd_patch_new();
+
+        REQUIRE_FALSE(cpd_patch_save(c0, 0, 0));
+        REQUIRE_FALSE(cpd_patch_save(c0, "test", 0));
+        REQUIRE_FALSE(cpd_patch_save(c0, 0, "test"));
+
+        auto o0 = cpd_object_new(c0, "loadbang", 0, 40, 50);
+
+        // subpatch begin
+        auto sub = cpd_subpatch_new(c0, "sub", 0, 40, 100);
+        auto o1 = cpd_object_new(sub, "inlet", 0, 100, 20);
+        auto o2 = cpd_object_new_from_string(sub, "f", "200", 20, 70);
+        auto o3 = cpd_object_new(sub, "sqrt", 0, 20, 120);
+        auto o4 = cpd_object_new(sub, "outlet", 0, 20, 170);
+        cpd_connect(o1, 0, o2, 0);
+        cpd_connect(o2, 0, o3, 0);
+        cpd_connect(o3, 0, o4, 0);
+        // subpatch end
+
+        auto o5 = cpd_object_new_from_string(c0, "list", "prepend set", 40, 150);
+        auto o6 = cpd_object_new(c0, "print", 0, 40, 200);
+        cpd_connect(o0, 0, cpd_canvas_to_object(sub), 0);
+        cpd_connect(cpd_canvas_to_object(sub), 0, o5, 0);
+        cpd_connect(o5, 0, o6, 0);
+
+        REQUIRE(cpd_patch_save(c0, "save_test-1.pd", "."));
+
+        cpd_canvas_free(c0);
+    }
 }

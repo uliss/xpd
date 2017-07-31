@@ -18,10 +18,19 @@ CPD_EXTERN t_cpd_canvas* cpd_patch_new();
 /**
  * Loads patch from filesystem
  * @param name - name of file
- * @param path - patch directory (if NULL given search file in strandart search paths)
+ * @param path - patch directory (if NULL given search file in standart search paths)
  * @return pointer to loaded canvas or NULL on error
  */
 CPD_EXTERN t_cpd_canvas* cpd_patch_load(const char* name, const char* path);
+
+/**
+ * Saves patch to filesystem
+ * @param patch - pointer to patch canvas
+ * @param name - name of file
+ * @param dir - patch directory
+ * @return 1 on success, 0 on error
+ */
+CPD_EXTERN int cpd_patch_save(t_cpd_canvas* patch, const char* name, const char* dir);
 
 /** 
  * @return pointer to last opened patch or NULL if not found

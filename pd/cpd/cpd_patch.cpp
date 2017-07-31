@@ -183,3 +183,20 @@ t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent, const char* name, t_cpd_lis
 
     return reinterpret_cast<t_cpd_canvas*>(sub);
 }
+
+int cpd_patch_save(t_cpd_canvas* patch, const char* name, const char* dir)
+{
+    NULL_CHECK_RETURN(patch, 0);
+
+    if (!name || !dir) {
+        DEBUG("name and dir required");
+        return 0;
+    }
+
+    t_cpd_list* args = cpd_list_new(0);
+    cpd_list_append_symbol(args, cpd_symbol(name));
+    cpd_list_append_symbol(args, cpd_symbol(dir));
+
+    pd_typedmess(&patch->gl_obj.te_g.g_pd, gensym("savetofile"), cpd_list_size(args), cpd_list_at(args, 0));
+    return 1;
+}
