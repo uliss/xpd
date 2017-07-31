@@ -2,6 +2,8 @@
 
 #include "cpd/cpd.h"
 
+#include <cstdio>
+#include <fstream>
 #include <string>
 
 #ifndef TEST_DATA_DIR
@@ -331,7 +333,11 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         cpd_connect(cpd_canvas_to_object(sub), 0, o5, 0);
         cpd_connect(o5, 0, o6, 0);
 
+        remove("./save_test-1.pd");
         REQUIRE(cpd_patch_save(c0, "save_test-1.pd", "."));
+
+        std::ifstream file("./save_test-1.pd");
+        REQUIRE(file);
 
         cpd_canvas_free(c0);
     }
