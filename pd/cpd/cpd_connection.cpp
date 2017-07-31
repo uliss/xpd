@@ -82,7 +82,7 @@ t_cpd_connection* cpd_canvas_connections(t_cpd_canvas* cnv)
         return nullptr;
     }
 
-    auto src_object = cpd_canvas_object_first(cnv);
+    auto src_object = cpd_canvas_first_object(cnv);
     if (!src_object)
         return nullptr;
 

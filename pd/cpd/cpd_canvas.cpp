@@ -183,7 +183,7 @@ size_t cpd_canvas_object_count(t_cpd_canvas* cnv)
     return n;
 }
 
-t_cpd_object* cpd_canvas_object_first(t_cpd_canvas* cnv)
+t_cpd_object* cpd_canvas_first_object(t_cpd_canvas* cnv)
 {
     NULL_CHECK_RETURN(cnv, nullptr);
 

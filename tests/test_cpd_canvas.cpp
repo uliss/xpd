@@ -100,19 +100,19 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         auto c1 = cpd_root_canvas_new();
 
         REQUIRE(cpd_canvas_object_count(c0) == 0);
-        REQUIRE(cpd_canvas_object_first(c0) == 0);
+        REQUIRE(cpd_canvas_first_object(c0) == 0);
         auto obj0 = cpd_object_new(c0, "float", 0, 100, 200);
         REQUIRE(cpd_canvas_object_count(c0) == 1);
-        REQUIRE(cpd_canvas_object_first(c0) == obj0);
+        REQUIRE(cpd_canvas_first_object(c0) == obj0);
 
         REQUIRE(cpd_canvas_object_count(c1) == 0);
-        REQUIRE(cpd_canvas_object_first(c1) == 0);
+        REQUIRE(cpd_canvas_first_object(c1) == 0);
         auto obj1 = cpd_object_new(c1, "float", 0, 100, 200);
         REQUIRE(cpd_canvas_object_count(c1) == 1);
-        REQUIRE(cpd_canvas_object_first(c1) == obj1);
+        REQUIRE(cpd_canvas_first_object(c1) == obj1);
         auto obj2 = cpd_object_new(c1, "float", 0, 100, 200);
         REQUIRE(cpd_canvas_object_count(c1) == 2);
-        REQUIRE(cpd_canvas_object_first(c1) == obj1);
+        REQUIRE(cpd_canvas_first_object(c1) == obj1);
 
         REQUIRE(cpd_object_next(obj1) == obj2);
         REQUIRE(cpd_object_next(obj2) == nullptr);
@@ -123,7 +123,7 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
     SECTION("first object")
     {
-        REQUIRE(cpd_canvas_object_first(0) == nullptr);
+        REQUIRE(cpd_canvas_first_object(0) == nullptr);
     }
 
     SECTION("load patch")
@@ -158,7 +158,7 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
         REQUIRE(c0);
         REQUIRE(cpd_canvas_object_count(c0) == 7);
 
-        auto obj = cpd_canvas_object_first(c0);
+        auto obj = cpd_canvas_first_object(c0);
 
         REQUIRE(obj);
         REQUIRE(cpd_object_name(obj) == std::string("+"));
