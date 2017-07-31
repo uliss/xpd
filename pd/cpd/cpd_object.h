@@ -205,6 +205,14 @@ CPD_EXTERN const char* cpd_object_abstraction_filename(t_cpd_object* obj);
  */
 CPD_EXTERN const char* cpd_object_abstraction_dir(t_cpd_object* obj);
 
+/**
+ * Returns list of object method names
+ * @param obj - pointer to object
+ * @return 1 on success, 0 on error
+ * @note Caller should free (with cpd_list_free()) result
+ */
+CPD_EXTERN t_cpd_list* cpd_object_method_names(t_cpd_object* obj);
+
 #ifdef __cplusplus
 }
 #endif

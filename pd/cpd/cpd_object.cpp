@@ -354,3 +354,31 @@ const char* cpd_object_abstraction_dir(t_cpd_object* obj)
 
     return canvas_getdir(patch)->s_name;
 }
+
+t_cpd_list* cpd_object_method_names(t_cpd_object* obj)
+{
+    if (!obj) {
+        DEBUG("NULL pointers are given");
+        return nullptr;
+    }
+
+    // get class pointer
+    t_class* c = obj->te_g.g_pd;
+
+// handle different struct definitions in <m_impl.h>
+#ifdef PDINSTANCE
+    t_methodentry* mlist = c->c_methods[pd_this->pd_instanceno];
+#else
+    t_methodentry* mlist = c->c_methods;
+#endif
+
+    const size_t N = size_t(c->c_nmethod);
+    auto lst = cpd_list_new(N);
+
+    for (size_t i = 0; i < N; i++) {
+        t_methodentry* m = mlist + i;
+        cpd_list_set_symbol_at(lst, i, m->me_name);
+    }
+
+    return lst;
+}

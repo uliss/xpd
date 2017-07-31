@@ -257,4 +257,39 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv2);
     }
+
+    SECTION("create abstraction")
+    {
+        auto cnv = cpd_patch_new();
+
+        // no search path
+        auto abs0 = cpd_object_new(cnv, "simple_abstraction_1", 0, 0, 0);
+        REQUIRE_FALSE(abs0);
+
+        // full path
+        auto abs1 = cpd_object_new(cnv, TEST_PD_DIR "/simple_abstraction_1", 0, 0, 0);
+        REQUIRE(abs1);
+        REQUIRE(cpd_is_abstraction(abs1));
+
+        cpd_searchpath_append(TEST_PD_DIR);
+
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("list methods")
+    {
+        REQUIRE_FALSE(cpd_object_method_names(nullptr));
+
+        auto cnv = cpd_patch_new();
+
+        auto obj = cpd_object_new(cnv, "soundfiler", 0, 0, 0);
+        auto methods = cpd_object_method_names(obj);
+        REQUIRE(cpd_list_size(methods) == 2);
+        REQUIRE(cpd_symbol_name(cpd_list_get_symbol_at(methods, 0)) == std::string("read"));
+        REQUIRE(cpd_symbol_name(cpd_list_get_symbol_at(methods, 1)) == std::string("write"));
+
+        cpd_list_free(methods);
+
+        cpd_canvas_free(cnv);
+    }
 }
