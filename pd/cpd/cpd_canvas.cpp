@@ -71,8 +71,10 @@ size_t cpd_canvas_object_count(t_cpd_canvas* cnv)
     size_t n = 0;
 
     while (l) {
+        if (l->g_pd->c_patchable)
+            n++;
+
         l = l->g_next;
-        n++;
     }
 
     return n;
@@ -112,4 +114,24 @@ t_cpd_object* cpd_canvas_to_object(t_cpd_canvas* cnv)
     NULL_CHECK_RETURN(cnv, nullptr);
 
     return &cnv->gl_obj;
+}
+
+t_cpd_object* cpd_canvas_object_at(t_cpd_canvas* cnv, size_t n)
+{
+    NULL_CHECK_RETURN(cnv, nullptr);
+
+    t_gobj* l = cnv->gl_list;
+    size_t cur = 0;
+    while (l) {
+        if (l->g_pd->c_patchable) {
+            if (n == cur)
+                return reinterpret_cast<t_cpd_object*>(l);
+
+            cur++;
+        }
+
+        l = l->g_next;
+    }
+
+    return nullptr;
 }

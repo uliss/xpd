@@ -321,3 +321,36 @@ t_cpd_conn_type cpd_object_outlet_type(t_cpd_object* obj, size_t n)
 
     return obj_issignaloutlet(obj, n) ? CPD_CONNECTION_SIGNAL : CPD_CONNECTION_CONTROL;
 }
+
+int cpd_is_abstraction(t_cpd_object* obj)
+{
+    if (!obj) {
+        DEBUG("NULL pointer given");
+        return 0;
+    }
+
+    return cpd_is_canvas(obj) && canvas_isabstraction(reinterpret_cast<t_canvas*>(obj));
+}
+
+const char* cpd_object_abstraction_filename(t_cpd_object* obj)
+{
+    if (!cpd_is_abstraction(obj)) {
+        DEBUG("not an abstraction");
+        return "";
+    }
+
+    t_cpd_canvas* cnv = reinterpret_cast<t_cpd_canvas*>(obj);
+    return cpd_canvas_name(cnv);
+}
+
+const char* cpd_object_abstraction_dir(t_cpd_object* obj)
+{
+    if (!cpd_is_abstraction(obj)) {
+        DEBUG("not an abstraction");
+        return "";
+    }
+
+    t_cpd_canvas* patch = reinterpret_cast<t_cpd_canvas*>(obj);
+
+    return canvas_getdir(patch)->s_name;
+}

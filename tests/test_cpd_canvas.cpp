@@ -341,4 +341,22 @@ TEST_CASE("cpd_canvas", "[cpd PureData wrapper]")
 
         cpd_canvas_free(c0);
     }
+
+    SECTION("test at")
+    {
+        REQUIRE_FALSE(cpd_canvas_object_at(nullptr, 0));
+
+        auto c0 = cpd_patch_new();
+        REQUIRE_FALSE(cpd_canvas_object_at(c0, 0));
+        REQUIRE_FALSE(cpd_canvas_object_at(c0, 1));
+
+        auto o1 = cpd_object_new(c0, "+", 0, 0, 0);
+        auto o2 = cpd_object_new(c0, "*", 0, 0, 0);
+
+        REQUIRE(cpd_canvas_object_at(c0, 0) == o1);
+        REQUIRE(cpd_canvas_object_at(c0, 1) == o2);
+        REQUIRE(cpd_canvas_object_at(c0, 2) == nullptr);
+
+        cpd_canvas_free(c0);
+    }
 }

@@ -137,6 +137,13 @@ CPD_EXTERN t_cpd_conn_type cpd_object_outlet_type(t_cpd_object* obj, size_t n);
 CPD_EXTERN int cpd_is_canvas(t_cpd_object* x);
 
 /**
+ * @brief check is object is abstraction
+ * @param x - pointer to object
+ * @return 1 is abstraction, otherwise returns 0
+ */
+CPD_EXTERN int cpd_is_abstraction(t_cpd_object* obj);
+
+/**
  * Returns pointer to next object on canvas
  * @param obj - pointer to current object
  * @return pointer to object or NULL if not found
@@ -181,6 +188,22 @@ CPD_EXTERN void cpd_send_list(t_cpd_object* obj, const t_cpd_list* l);
  * @see cpd_send_bang(), cpd_send_float(), cpd_send_symbol(), cpd_send_list()
  */
 CPD_EXTERN void cpd_send_message(t_cpd_object* obj, t_cpd_symbol* sel, const t_cpd_list* l);
+
+/**
+ * Returns abstraction filename
+ * @param obj - pointer to abstraction
+ * @return abstraction filename or empty string on error
+ * @see cpd_object_abstraction_dir()
+ */
+CPD_EXTERN const char* cpd_object_abstraction_filename(t_cpd_object* obj);
+
+/**
+ * Returns abstraction directory
+ * @param obj - pointer to abstraction
+ * @return abstraction directory or empty string on error
+ * @see cpd_object_abstraction_filename()
+ */
+CPD_EXTERN const char* cpd_object_abstraction_dir(t_cpd_object* obj);
 
 #ifdef __cplusplus
 }

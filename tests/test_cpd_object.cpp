@@ -4,6 +4,12 @@
 
 #include <string>
 
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
+
+#define TEST_PD_DIR TEST_DATA_DIR "/pd"
+
 static int init = cpd_init();
 
 TEST_CASE("cpd_object", "[cpd PureData wrapper]")
@@ -217,5 +223,38 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         cpd_object_free(cnv, obj1);
         cpd_object_free(cnv, obj2);
         cpd_canvas_free(cnv);
+    }
+
+    SECTION("is_abstraction")
+    {
+        REQUIRE_FALSE(cpd_is_abstraction(nullptr));
+        auto cnv = cpd_patch_load("subpatch_abstraction_1.pd", TEST_PD_DIR);
+        REQUIRE(cnv);
+
+        auto obj = cpd_canvas_object_at(cnv, 0);
+        REQUIRE(obj);
+        REQUIRE_FALSE(cpd_is_abstraction(obj));
+        REQUIRE_FALSE(cpd_is_abstraction(cpd_canvas_object_at(cnv, 4)));
+        const char* name = cpd_object_text(obj);
+        REQUIRE(name == std::string("pd gen~"));
+        free((void*)name);
+
+        cpd_canvas_free(cnv);
+
+        auto cnv2 = cpd_patch_load("test_abstraction_1.pd", TEST_PD_DIR);
+        REQUIRE(cnv2);
+        REQUIRE(cpd_canvas_object_count(cnv2) == 1);
+        obj = cpd_canvas_object_at(cnv2, 0);
+        REQUIRE(obj);
+        REQUIRE(cpd_is_abstraction(obj));
+        REQUIRE(cpd_object_inlet_count(obj) == 3);
+        REQUIRE(cpd_object_outlet_count(obj) == 2);
+        REQUIRE(cpd_object_abstraction_filename(obj) == std::string("simple_abstraction_1.pd"));
+        REQUIRE(cpd_object_abstraction_dir(obj) == std::string(TEST_PD_DIR));
+
+        REQUIRE(cpd_object_abstraction_filename(nullptr) == std::string());
+        REQUIRE(cpd_object_abstraction_dir(nullptr) == std::string());
+
+        cpd_canvas_free(cnv2);
     }
 }

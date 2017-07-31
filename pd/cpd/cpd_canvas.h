@@ -59,13 +59,22 @@ CPD_EXTERN int cpd_canvas_free(t_cpd_canvas* cnv);
 CPD_EXTERN int cpd_canvas_is_root(t_cpd_canvas* cnv);
 
 /**
+ * Returns patchable object on canvas by given index
+ * @param cnv - pointer to canvas
+ * @param n - object index
+ * @return pointer to object or NULL on error
+ * @see cpd_canvas_object_count()
+ */
+CPD_EXTERN t_cpd_object* cpd_canvas_object_at(t_cpd_canvas* cnv, size_t n);
+
+/**
  * Returns number of child element on canvas 
  * @see cpd_canvas_first_object()
  */
 CPD_EXTERN size_t cpd_canvas_object_count(t_cpd_canvas* cnv);
 
 /**
- * Returns pointer to first object on canvas
+ * Returns pointer to first patchable object on canvas
  * @param cnv - pointer to canvas
  * @return pointer to object or NULL if not found
  * @see cpd_canvas_object_count()
