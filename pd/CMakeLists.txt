@@ -45,6 +45,7 @@ set(PD_SOURCES
     pure-data/src/s_audio.c
     pure-data/src/s_audio_paring.c
     pure-data/src/s_audio_dummy.c
+    mocks/s_audio_dummy.cpp
     pure-data/src/s_file.c
     pure-data/src/s_inter.c
     pure-data/src/s_loader.c
@@ -90,6 +91,7 @@ source_group(pd FILES ${PD_SOURCES})
 source_group(pdextra FILES ${PD_EXTRA_SOURCES})
 
 include_directories(${PROJECT_SOURCE_DIR}/pd/pure-data/src)
+include_directories(${PROJECT_SOURCE_DIR}/distrib/rtaudio/rtaudio)
 
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 
@@ -99,7 +101,7 @@ if(WIN32)
 endif()
 
 find_package(Threads REQUIRED)
-add_definitions(-DPD=1 -DPD_INTERNAL=1 -DTHREAD_LOCKING=0)
+add_definitions(-DPD=1 -DPD_INTERNAL=1 -DTHREAD_LOCKING=0 -DUSEAPI_MMIO=1)
 
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
@@ -114,6 +116,28 @@ if(UNIX AND NOT APPLE)
     list(APPEND PD_LINK_LIBRARIES m)
     list(APPEND PD_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     set(LINUX True)
+endif()
+
+macro(add_osx_framework fwname target)
+    find_library(FRAMEWORK_${fwname}
+        NAMES ${fwname}
+        PATHS ${CMAKE_OSX_SYSROOT}/System/Library
+        PATH_SUFFIXES Frameworks
+        NO_DEFAULT_PATH)
+    if(${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
+        MESSAGE(ERROR ": Framework ${fwname} not found")
+    else()
+        target_link_libraries(${target} PUBLIC "${FRAMEWORK_${fwname}}/${fwname}")
+        message(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
+    endif()
+endmacro()
+
+if(APPLE)
+    include_directories(${CMAKE_OSX_SYSROOT}/System/Library)
+    find_library(COREAUDIO_LIB CoreAudio)
+    find_library(COREFOUNDATION_LIB CoreFoundation)
+    find_library(AUDIOTOOLBOX_LIB AudioToolbox)
+    list(APPEND PD_LINK_LIBRARIES rtaudio_static ${COREAUDIO_LIB} ${COREFOUNDATION_LIB} ${AUDIOTOOLBOX_LIB})  
 endif()
 
 if(WIN32)
@@ -138,62 +162,6 @@ if(WIN32)
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols -lpthread")
     set(CMAKE_EXE_LINKER_FLAGS "-shared-libgcc -lpthread")
-endif()
-
-# ALSA
-if(WITH_ALSA_AUDIO)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_alsa.c pure-data/src/s_audio_alsamm.c)
-    list(APPEND PD_LINK_LIBRARIES ${ALSA_LIBRARIES})
-endif()
-
-if(WITH_ALSA_MIDI)
-    list(APPEND PD_SOURCES pure-data/src/s_midi_alsa.c)
-    list(APPEND PD_LINK_LIBRARIES ${ALSA_LIBRARIES})
-endif()
-
-# JACK
-if(WITH_JACK)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_jack.c)
-    list(APPEND PD_LINK_LIBRARIES ${JACK_LIBRARIES})
-endif()
-
-if(WITH_PORTAUDIO)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_pa.c)
-    list(APPEND PD_LINK_LIBRARIES ${PORTAUDIO_LIBRARIES})
-    include_directories(PORTAUDIO_INCLUDE_DIRS)
-    if(MINGW)
-        # this is a link fix when portaudio was build with ASIO support.
-        # and it requires C++ linking
-        # we are making empty C++ file, so cmake automatically uses c++ linker
-        set(_asio_link_fix ${CMAKE_CURRENT_BINARY_DIR}/asio_link_fix.cpp)
-        if(NOT EXISTS ${_asio_link_fix})
-            file(WRITE ${_asio_link_fix} "")
-        endif()
-        list(APPEND PD_SOURCES ${_asio_link_fix})
-    endif()
-endif()
-
-if(WITH_MMIO)
-    add_definitions(-DUSEAPI_MMIO)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_mmio.c)
-endif()
-
-#if(WITH_PORTMIDI)
-#    include_directories(pure-data/portmidi/portmidi/pm_common)
-#    include_directories(pure-data/portmidi/portmidi/porttime)
-#    list(APPEND S_SRC pure-data/src/s_midi_pm.c)
-#    list(APPEND PD_LINK_LIBRARIES portmidi-static)
-#endif()
-
-if(WITH_OSS)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_oss.c)
-    list(APPEND PD_SOURCES pure-data/src/s_midi_oss.c)
-    list(APPEND PD_LINK_LIBRARIES ${OSSLIB})
-endif()
-
-# Dummy
-if(WITH_DUMMY_AUDIO)
-    list(APPEND PD_SOURCES pure-data/src/s_audio_dummy.c)
 endif()
 
 if(WITH_DUMMY_MIDI)

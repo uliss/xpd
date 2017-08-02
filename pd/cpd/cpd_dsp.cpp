@@ -38,10 +38,12 @@ int cpd_dsp_switch(int state)
         return 0;
     }
 
+    sys_lock();
     t_atom a;
     SETFLOAT(&a, state ? 1 : 0);
     DEBUG("DSP {}", state ? "ON" : "OFF");
-    pd_typedmess(dest, gensym("dsp"), 1, &a);
+    pd_typedmess(dest, CPD_SYMBOL_DSP, 1, &a);
+    sys_unlock();
     return 1;
 }
 
@@ -147,6 +149,7 @@ const char* cpd_audio_output_device_name(t_cpd_audio_devlist* devl, size_t n)
 
 extern "C" int m_mainloop(void);
 extern "C" void sys_exit(void);
+extern "C" void sched_reopenmeplease(void);
 
 static std::thread* dsp_thread = 0;
 static std::mutex dsp_thread_mutex;
@@ -154,6 +157,13 @@ static std::mutex dsp_thread_mutex;
 int cpd_dsp_thread_start()
 {
     std::lock_guard<std::mutex> dsp_lock(dsp_thread_mutex);
+
+    // already running
+    if (dsp_thread)
+        return 0;
+
+    //    sched_reopenmeplease();
+    sched_set_using_audio(SCHED_AUDIO_POLL);
 
     DEBUG("starting DSP thread mainloop...");
 
@@ -175,7 +185,6 @@ int cpd_dsp_thread_stop()
     }
 
     DEBUG("stopping DSP thread mainloop...");
-
     sys_exit();
 
     if (dsp_thread->joinable()) {
