@@ -88,6 +88,12 @@ CPD_EXTERN t_cpd_object* cpd_canvas_first_object(t_cpd_canvas* cnv);
  */
 CPD_EXTERN t_cpd_object* cpd_canvas_to_object(t_cpd_canvas* cnv);
 
+/**
+ * Sends the loadbang
+ * @param cnv - pointer to canvas
+ */
+CPD_EXTERN void cpd_canvas_loadbang(t_cpd_canvas* cnv);
+
 #ifdef __cplusplus
 }
 #endif
