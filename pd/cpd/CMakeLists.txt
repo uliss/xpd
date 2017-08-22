@@ -12,7 +12,7 @@ set(CMP_SOURCES
     cpd_object.h cpd_object.cpp
     cpd_patch.h cpd_patch.cpp
     cpd_types.h cpd_types.cpp 
-    pr_log.cpp)
+    pr_log.cpp cpd_loader.h cpd_loader.cpp)
 
 if(WIN32)
     add_definitions(-DCPD_INTERNAL)
