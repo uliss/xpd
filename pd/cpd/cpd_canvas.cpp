@@ -143,4 +143,4 @@ void cpd_canvas_loadbang(t_cpd_canvas* cnv)
     canvas_loadbang(cnv);
 }
 
-}
+
