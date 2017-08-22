@@ -383,3 +383,25 @@ t_cpd_list* cpd_object_method_names(t_cpd_object* obj)
 
     return lst;
 }
+
+void cpd_bind_object(t_cpd_object* obj, t_cpd_symbol* s)
+{
+    if ((!obj) || (!s)) {
+        DEBUG("NULL pointers are given");
+        return;
+    }
+    
+    // todo: check object
+    pd_bind((t_pd*)obj, s);
+}
+
+void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s)
+{
+    if ((!obj) || (!s)) {
+        DEBUG("NULL pointers are given");
+        return;
+    }
+    
+    // todo: check object
+    pd_unbind((t_pd*)obj, s);
+}
