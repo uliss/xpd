@@ -19,6 +19,7 @@ set(SERVER_SRC
     object.cpp
     objectlist.cpp
     objectproperties.cpp
+    objectobserver.cpp
     observer.cpp
     pd_arguments.cpp
     pd_canvas.cpp
