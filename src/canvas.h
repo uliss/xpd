@@ -54,9 +54,6 @@ public:
     virtual ObjectId createObject(const std::string& name, int x, int y) = 0;
     virtual bool deleteObject(ObjectId objId);
 
-    ObjectId createArray(const std::string& name, size_t size);
-    bool deleteArray(const std::string& name);
-
     bool hasChildren() const;
     size_t childrenCount() const;
     const ObjectList& children() const;

@@ -65,3 +65,18 @@ t_cpd_object* PdCanvas::findById(ObjectId id)
     Object* o = obj_list_.findObject(id);
     return o ? static_cast<PdObject*>(o)->pdObject() : nullptr;
 }
+
+ObjectId PdCanvas::createArray(const std::string& name, size_t size)
+{
+    return 0;
+}
+
+bool PdCanvas::deleteArray(const std::string& name)
+{
+    return false;
+}
+
+void PdCanvas::loadbang()
+{
+
+}
