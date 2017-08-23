@@ -11,6 +11,7 @@ AbstractServerProcess::AbstractServerProcess(const AbstractServer* parent,
     , parent_(parent)
     , log_level_(LOG_DEBUG)
 {
+    console_observer_ = 0;
 }
 
 AbstractServerProcess::~AbstractServerProcess()
@@ -116,4 +117,14 @@ ClassList AbstractServerProcess::loadedClasses() const
 
 void AbstractServerProcess::sendMessage(const std::string& object, const std::string& text)
 {
+}
+
+void AbstractServerProcess::registerConsoleObserver(ConsoleObserverPtr o)
+{
+    console_observer_ = o;
+}
+
+void AbstractServerProcess::unregisterConsoleObserver(ConsoleObserverPtr o)
+{
+    console_observer_ = 0;
 }
