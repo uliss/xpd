@@ -1,14 +1,14 @@
-#ifndef ARRAY_H
-#define ARRAY_H
+#ifndef PdFloatArray_H
+#define PdFloatArray_H
 
 #include "object.h"
 
-#include "arraydata.h"
+#include "pd_floatarraydata.h"
 #include "canvas.h"
 
 namespace xpd {
 
-class Array : public Object {
+class PdFloatArray : public Object {
     std::string _name;
     size_t _size;
 
@@ -16,12 +16,12 @@ class Array : public Object {
     
     Observer* _observer;
 public:
-    Array(const Canvas* parent, const std::string& name, size_t size);
+    PdFloatArray(const Canvas* parent, const std::string& name, size_t size);
     
     int size();
     void setSize(int size);
     
-    ArrayData* getData();
+    PdFloatArrayData* getData();
     
     virtual void registerObserver(Observer* o);
     virtual void unregisterObserver(Observer* o);
@@ -29,4 +29,4 @@ public:
 
 } // namespace xpd
 
-#endif // ARRAY_H
+#endif // PdFloatArray_H

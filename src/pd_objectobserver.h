@@ -6,12 +6,12 @@
 
 namespace xpd {
 
-class ObjectObserver : public Observer {
+class PdObjectObserver : public Observer {
     t_cpd_list* _data;
 
 public:
-    ObjectObserver();
-    virtual ~ObjectObserver();
+    PdObjectObserver();
+    virtual ~PdObjectObserver();
 
     virtual void update();
 

@@ -1,8 +1,7 @@
 set(SERVER_SRC 
     abstractserver.cpp
     abstractserverprocess.cpp
-    arguments.cpp
-    array.cpp
+    arguments.cpp    
     audiodevice.cpp
     audiodevicemanager.cpp
     canvas.cpp
@@ -19,12 +18,13 @@ set(SERVER_SRC
     object.cpp
     objectlist.cpp
     objectproperties.cpp
-    objectobserver.cpp
     observer.cpp
     pd_arguments.cpp
+    pd_floatarray.cpp
     pd_canvas.cpp
     pd_localprocess.cpp
     pd_localserver.cpp 
+    pd_objectobserver.cpp
     pd_object.cpp
     propertyobserver.cpp
     serverpath.cpp
