@@ -71,4 +71,34 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv);
     }
+
+    SECTION("hidden name")
+    {
+        REQUIRE(cpd_array_hidden_name(NULL) == 0);
+
+        auto cnv = cpd_patch_new();
+
+        auto arr1 = cpd_array_new(cnv, cpd_symbol("array1"), 100, 0);
+        REQUIRE(cpd_array_hidden_name(arr1) == 0);
+
+        auto arr2 = cpd_array_new(cnv, cpd_symbol("array2"), 100, CPD_ARRAY_HIDE_NAME);
+        REQUIRE(cpd_array_hidden_name(arr2) == 1);
+
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("same name")
+    {
+        REQUIRE(cpd_array_hidden_name(NULL) == 0);
+
+        auto cnv = cpd_patch_new();
+
+        auto arr1 = cpd_array_new(cnv, cpd_symbol("same"), 100, 0);
+        auto arr2 = cpd_array_new(cnv, cpd_symbol("same"), 100, 0);
+        REQUIRE(arr1);
+        REQUIRE(arr2);
+        REQUIRE(arr1 != arr2);
+
+        cpd_canvas_free(cnv);
+    }
 }

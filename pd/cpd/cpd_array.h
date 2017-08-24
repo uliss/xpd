@@ -79,6 +79,13 @@ CPD_EXTERN t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr);
 CPD_EXTERN int cpd_array_set_plotstyle(t_cpd_array* arr, t_cpd_array_flags style);
 
 /**
+ * Checks if array name should be hidden
+ * @param arr - pointer to array
+ * @return 1 if true, 0 on false
+ */
+CPD_EXTERN int cpd_array_hidden_name(t_cpd_array* arr);
+
+/**
  * Returns value of named float field
  * @param arr - pointer to array
  * @param name - field name

@@ -11,6 +11,7 @@ extern "C" {
 #include "s_stuff.h"
 
 t_scalar* garray_getscalar(t_garray* x);
+int garray_getname(t_garray* x, t_symbol** namep);
 }
 
 #include <algorithm>
@@ -45,8 +46,6 @@ t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int
     }
 
     size = std::max<size_t>(1, size);
-
-    int pd_flags = 0;
 
     auto arr = graph_array(c, name, &s_float, size, flags);
     canvas_dirty(c, 1);
@@ -166,4 +165,15 @@ int cpd_array_set_plotstyle(t_cpd_array* arr, t_cpd_array_flags style)
     }
 
     return cpd_array_set_float_field(arr, SYM_ARRAY_STYLE, flag);
+}
+
+int cpd_array_hidden_name(t_cpd_array* arr)
+{
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return 0;
+    }
+
+    t_symbol* foo;
+    return garray_getname(arr, &foo) ? 1 : 0;
 }
