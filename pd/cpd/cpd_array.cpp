@@ -146,3 +146,24 @@ t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr)
     }
     }
 }
+
+int cpd_array_set_plotstyle(t_cpd_array* arr, t_cpd_array_flags style)
+{
+    int flag = 0;
+    switch (style) {
+    case CPD_ARRAY_STYLE_POLY:
+        flag = 0;
+        break;
+    case CPD_ARRAY_STYLE_POINTS:
+        flag = 1;
+        break;
+    case CPD_ARRAY_STYLE_BEZIER:
+        flag = 2;
+        break;
+    default:
+        DEBUG("unknown style flag: {}", style);
+        return 0;
+    }
+
+    return cpd_array_set_float_field(arr, SYM_ARRAY_STYLE, flag);
+}

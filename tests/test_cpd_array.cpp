@@ -36,6 +36,7 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
     {
         REQUIRE(cpd_array_linewidth(NULL) == 0);
         REQUIRE(cpd_array_set_linewidth(NULL, 0) == 0);
+        REQUIRE(cpd_array_set_plotstyle(NULL, CPD_ARRAY_STYLE_POLY) == 0);
 
         auto cnv = cpd_patch_new();
 
@@ -56,6 +57,17 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
 
         REQUIRE(cpd_array_set_linewidth(arr4, 1.2));
         REQUIRE(cpd_array_linewidth(arr4) == 1.2f);
+
+        REQUIRE(cpd_array_set_plotstyle(arr4, CPD_ARRAY_STYLE_POINTS));
+        REQUIRE(cpd_array_plotstyle(arr4) == CPD_ARRAY_STYLE_POINTS);
+
+        REQUIRE(cpd_array_set_plotstyle(arr4, CPD_ARRAY_STYLE_POLY));
+        REQUIRE(cpd_array_plotstyle(arr4) == CPD_ARRAY_STYLE_POLY);
+
+        REQUIRE(cpd_array_set_plotstyle(arr4, CPD_ARRAY_STYLE_BEZIER));
+        REQUIRE(cpd_array_plotstyle(arr4) == CPD_ARRAY_STYLE_BEZIER);
+
+        REQUIRE(cpd_array_set_plotstyle(arr4, CPD_ARRAY_HIDE_NAME) == 0);
 
         cpd_canvas_free(cnv);
     }

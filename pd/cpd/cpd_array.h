@@ -71,6 +71,14 @@ CPD_EXTERN int cpd_array_set_linewidth(t_cpd_array* arr, t_cpd_float wd);
 CPD_EXTERN t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr);
 
 /**
+ * Sets flag style
+ * @param arr - pointer to array
+ * @param style - line style: CPD_ARRAY_STYLE_POLY, CPD_ARRAY_STYLE_POINTS, CPD_ARRAY_STYLE_BEZIER
+ * @return 1 on success, 0 on error
+ */
+CPD_EXTERN int cpd_array_set_plotstyle(t_cpd_array* arr, t_cpd_array_flags style);
+
+/**
  * Returns value of named float field
  * @param arr - pointer to array
  * @param name - field name
