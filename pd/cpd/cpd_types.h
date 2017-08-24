@@ -29,6 +29,9 @@ typedef struct _cpd_list t_cpd_list;
 struct _garray;
 typedef struct _garray t_cpd_array;
 
+union word;
+typedef union word t_cpd_array_element;
+
 struct _cpd_connection;
 typedef struct _cpd_connection t_cpd_connection;
 

@@ -13,17 +13,24 @@ extern "C" {
  * @param name - array name
  * @return pointer to array or NULL if not found
  */
-t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name);
+CPD_EXTERN t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name);
 
 /**
- * Get array data - variant 1, yet disabled
+ * Returns pointer to specified array element
+ * @param arr - pointer to array
+ * @param n - element position
+ * @return pointer to array data or NULL on error
  */
-// void cpd_get_array_data(t_cpd_array* a, int* size, float** vec);
+CPD_EXTERN t_cpd_array_element* cpd_array_at(t_cpd_array* arr, size_t n);
 
 /**
- * Get array data - variant 2
+ * Copy array elements to destination
+ * @param arr - pointer to array
+ * @param dest - pointer to destination float array
+ * @param n - number of elements in destination array
+ * @return 1 on success, 0 on error
  */
-float* cpd_get_array_data(t_cpd_array* a);
+CPD_EXTERN int cpd_array_copy_data(t_cpd_array* arr, t_cpd_float* dest, size_t n);
 
 /**
  * Returns array size
@@ -31,6 +38,13 @@ float* cpd_get_array_data(t_cpd_array* a);
  * @return array size or 0 on error
  */
 CPD_EXTERN size_t cpd_array_size(t_cpd_array* a);
+
+/**
+ * Returns array name
+ * @param arr - pointer to array
+ * @return array name or CPD_SYMBOL_EMPTY on error
+ */
+CPD_EXTERN t_cpd_symbol* cpd_array_name(t_cpd_array* arr);
 
 /**
  * Create new array
@@ -92,7 +106,7 @@ CPD_EXTERN int cpd_array_hidden_name(t_cpd_array* arr);
  * @param name - field name
  * @return 0 on error
  */
-t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name);
+CPD_EXTERN t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name);
 
 /**
  * Sets value of named float field
@@ -100,7 +114,23 @@ t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name);
  * @param name - field name
  * @return 0 on error, 1 on success
  */
-int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float val);
+CPD_EXTERN int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float val);
+
+/**
+ * Returns array element float value
+ * @param el - pointer to element
+ * @return float value
+ * @note no NULL check
+ */
+CPD_EXTERN t_cpd_float cpd_array_element_float(t_cpd_array_element* el);
+
+/**
+ * Set array element float value
+ * @param el - pointer to element
+ * @param value - new value
+ * @note no NULL check
+ */
+CPD_EXTERN void cpd_array_element_set_float(t_cpd_array_element* el, t_cpd_float value);
 
 #ifdef __cplusplus
 }

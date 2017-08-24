@@ -20,22 +20,10 @@ static t_symbol* SYM_TEMPLATE_ARRAY = gensym("pd-float-array");
 static t_symbol* SYM_ARRAY_LINEWIDTH = gensym("linewidth");
 static t_symbol* SYM_ARRAY_STYLE = gensym("style");
 
-// variant 1 - yet disabled
-//void cpd_get_array_data(t_cpd_array* a, int* size, float** vec)
-//{
-//    // needs fix for t_word
-//    garray_getfloatwords(a, size, (t_word**)vec);
-//}
-
-float* cpd_get_array_data(t_cpd_array* a)
-{
-    return (float*)garray_vec(a);
-}
-
 t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int flags)
 {
     if (!c) {
-        DEBUG("NULL canvas cpointer given");
+        DEBUG("NULL canvas pointer given");
         return nullptr;
     }
 
@@ -175,4 +163,65 @@ int cpd_array_hidden_name(t_cpd_array* arr)
 t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name)
 {
     return reinterpret_cast<t_cpd_array*>(pd_findbyclass(name, garray_class));
+}
+
+t_cpd_array_element* cpd_array_at(t_cpd_array* arr, size_t n)
+{
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return nullptr;
+    }
+
+    if (n >= garray_npoints(arr)) {
+        DEBUG("invalid element index: {}", n);
+        return nullptr;
+    }
+
+    return reinterpret_cast<t_cpd_array_element*>(garray_vec(arr)) + n;
+}
+
+int cpd_array_copy_data(t_cpd_array* arr, t_cpd_float* dest, size_t n)
+{
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return 0;
+    }
+
+    int pd_size = 0;
+    t_word* data = 0;
+    if (!garray_getfloatwords(arr, &pd_size, &data)) {
+        DEBUG("can't get array data: {}", cpd_array_name(arr)->s_name);
+        return 0;
+    }
+
+    const size_t total = std::min(n, size_t(pd_size));
+
+    for (size_t i = 0; i < total; i++) {
+        dest[i] = data[i].w_float;
+    }
+
+    return 1;
+}
+
+t_cpd_symbol* cpd_array_name(t_cpd_array* arr)
+{
+    t_symbol* res = CPD_SYMBOL_EMPTY;
+
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return res;
+    }
+
+    garray_getname(arr, &res);
+    return res;
+}
+
+t_cpd_float cpd_array_element_float(t_cpd_array_element* el)
+{
+    return el->w_float;
+}
+
+void cpd_array_element_set_float(t_cpd_array_element* el, t_cpd_float value)
+{
+    el->w_float = value;
 }

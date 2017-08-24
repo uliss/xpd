@@ -105,4 +105,55 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv);
     }
+
+    SECTION("data")
+    {
+        REQUIRE(cpd_array_at(NULL, 0) == NULL);
+
+        auto cnv = cpd_patch_new();
+        auto arr = cpd_array_new(cnv, cpd_symbol("array1"), 5, 0);
+
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 0)) == 0);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 1)) == 0);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 2)) == 0);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 3)) == 0);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 4)) == 0);
+
+        REQUIRE(cpd_array_at(arr, 5) == NULL);
+        REQUIRE(cpd_array_at(arr, 6) == NULL);
+
+        cpd_array_element_set_float(cpd_array_at(arr, 0), 1);
+        cpd_array_element_set_float(cpd_array_at(arr, 1), 2);
+        cpd_array_element_set_float(cpd_array_at(arr, 2), 3);
+        cpd_array_element_set_float(cpd_array_at(arr, 3), 4);
+        cpd_array_element_set_float(cpd_array_at(arr, 4), 5);
+
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 0)) == 1);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 1)) == 2);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 2)) == 3);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 3)) == 4);
+        REQUIRE(cpd_array_element_float(cpd_array_at(arr, 4)) == 5);
+
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("copy data")
+    {
+        REQUIRE_FALSE(cpd_array_copy_data(NULL, 0, 5));
+
+        t_cpd_float buf[5] = { 1, 1, 1, 1, 1 };
+
+        auto cnv = cpd_patch_new();
+        auto arr = cpd_array_new(cnv, cpd_symbol("array1"), 3, 0);
+        REQUIRE(cpd_array_copy_data(arr, buf, 5));
+
+        // copy only 3 first elements
+        REQUIRE(buf[0] == 0);
+        REQUIRE(buf[1] == 0);
+        REQUIRE(buf[2] == 0);
+        REQUIRE(buf[3] == 1);
+        REQUIRE(buf[4] == 1);
+
+        cpd_canvas_free(cnv);
+    }
 }
