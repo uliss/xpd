@@ -75,7 +75,7 @@ TEST_CASE("localserver", "[server]")
         ProcessPtr p = srv.createProcess();
         CanvasPtr cnv = p->createCanvas();
 
-        REQUIRE_THROWS_AS(cnv->createObject("test", 100, 200), Object::Exception);
+        REQUIRE_THROWS_AS(cnv->createObject("unknown", 100, 200), Object::Exception);
         ObjectId id = cnv->createObject("mtof", 100, 200);
         REQUIRE(id != 0);
 
