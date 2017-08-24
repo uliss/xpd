@@ -28,6 +28,8 @@ PdFloatArray::PdFloatArray(const Canvas* parent, const std::string& name, size_t
     if (!arr_) {
         throw Exception("can't create array");
     }
+
+    setPlotStyle(PLOT_LINES);
 }
 
 PdFloatArray::~PdFloatArray()
@@ -56,6 +58,28 @@ bool PdFloatArray::resize(size_t sz)
     }
 
     return false;
+}
+
+void PdFloatArray::setPlotStyle(FloatArray::PlotStyle style)
+{
+    t_cpd_array_flags cpd_style = CPD_ARRAY_STYLE_POLY;
+    switch (style) {
+    case PLOT_POINTS:
+        cpd_style = CPD_ARRAY_STYLE_POINTS;
+        break;
+    case PLOT_LINES:
+        cpd_style = CPD_ARRAY_STYLE_POLY;
+        break;
+    case PLOT_BEZIER:
+        cpd_style = CPD_ARRAY_STYLE_BEZIER;
+        break;
+    default:
+        break;
+    }
+
+    if (cpd_array_set_plotstyle(arr_, cpd_style)) {
+        FloatArray::setPlotStyle(style);
+    }
 }
 
 } // namespace xpd

@@ -21,6 +21,7 @@ public:
 
     float at(size_t idx) const;
     bool resize(size_t sz);
+    void setPlotStyle(PlotStyle style);
 };
 
 } // namespace xpd

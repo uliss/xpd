@@ -24,6 +24,8 @@ TEST_CASE("PdFloatArray", "[PdFloatArray]")
         REQUIRE(arr.size() == 10);
         REQUIRE_FALSE(arr.empty());
         REQUIRE(arr.name() == "array1");
+        REQUIRE(arr.plotStyle() == FloatArray::PLOT_LINES);
+
         REQUIRE(arr.at(0) == 0.f);
         REQUIRE(arr.at(9) == 0.f);
         REQUIRE_THROWS_AS(arr.at(10), FloatArray::Exception);
@@ -35,5 +37,14 @@ TEST_CASE("PdFloatArray", "[PdFloatArray]")
 
         REQUIRE(arr.resize(5));
         REQUIRE_FALSE(arr.resize(0));
+    }
+
+    SECTION("plotStyle")
+    {
+        PdFloatArray arr(c.get(), "array1", 10);
+
+        REQUIRE(arr.plotStyle() == FloatArray::PLOT_LINES);
+        arr.setPlotStyle(FloatArray::PLOT_POINTS);
+        REQUIRE(arr.plotStyle() == FloatArray::PLOT_POINTS);
     }
 }
