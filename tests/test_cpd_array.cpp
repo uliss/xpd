@@ -296,4 +296,30 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv);
     }
+
+    SECTION("pointers")
+    {
+        auto cnv = cpd_patch_new();
+        auto arr = cpd_array_new(cnv, cpd_symbol("array1"), 3, 0);
+
+        auto ptr = cpd_array_element_at(arr, 0);
+
+        for (size_t i = 0; i < 3; i++) {
+            REQUIRE(cpd_element_float(ptr) == 0);
+            cpd_element_set_float(ptr, i);
+            REQUIRE(cpd_element_float(ptr) == i);
+
+            ptr = cpd_element_next(ptr);
+        }
+
+        ptr = cpd_array_element_at(arr, 2);
+        for (size_t i = 3; i > 0; i--) {
+            REQUIRE(cpd_element_float(ptr) == i - 1);
+            ptr = cpd_element_prev(ptr);
+        }
+
+        REQUIRE(cpd_element_float(cpd_element_move(cpd_array_element_at(arr, 0), 2)) == 2);
+
+        cpd_canvas_free(cnv);
+    }
 }

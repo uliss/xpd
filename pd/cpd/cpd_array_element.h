@@ -3,6 +3,8 @@
 
 #include "cpd_types.h"
 
+#include <cstddef>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,6 +28,7 @@ CPD_EXTERN void cpd_element_set_float(t_cpd_array_element* el, t_cpd_float value
 /**
  * Returns pointer to next element
  * @param el - pointer to element
+ * @return new pointer
  * @note no NULL check
  */
 CPD_EXTERN t_cpd_array_element* cpd_element_next(t_cpd_array_element* el);
@@ -33,9 +36,18 @@ CPD_EXTERN t_cpd_array_element* cpd_element_next(t_cpd_array_element* el);
 /**
  * Returns pointer to prev element
  * @param el - pointer to element
+ * @return new pointer
  * @note no NULL check
  */
 CPD_EXTERN t_cpd_array_element* cpd_element_prev(t_cpd_array_element* el);
+
+/**
+ * Moves pointer by offset
+ * @param el - pointer to element
+ * @return new pointer
+ * @note no NULL check
+ */
+CPD_EXTERN t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset);
 
 /**
  * Fill element with specified value

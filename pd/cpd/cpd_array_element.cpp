@@ -2,22 +2,22 @@
 
 #include "m_pd.h"
 
-t_cpd_float cpd_array_element_float(t_cpd_array_element* el)
+t_cpd_float cpd_element_float(t_cpd_array_element* el)
 {
     return el->w_float;
 }
 
-void cpd_array_element_set_float(t_cpd_array_element* el, t_cpd_float value)
+void cpd_element_set_float(t_cpd_array_element* el, t_cpd_float value)
 {
     el->w_float = value;
 }
 
-t_cpd_array_element* cpd_array_element_next(t_cpd_array_element* el)
+t_cpd_array_element* cpd_element_next(t_cpd_array_element* el)
 {
     return el + 1;
 }
 
-t_cpd_array_element* cpd_array_element_prev(t_cpd_array_element* el)
+t_cpd_array_element* cpd_element_prev(t_cpd_array_element* el)
 {
     return el - 1;
 }
@@ -66,4 +66,9 @@ t_cpd_float cpd_elements_rfold(t_cpd_array_element* el, size_t n, cpd_element_fo
     }
 
     return res;
+}
+
+t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset)
+{
+    return el + offset;
 }
