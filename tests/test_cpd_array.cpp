@@ -16,10 +16,12 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
         REQUIRE(cpd_array_size(arr) == 200);
         REQUIRE(cpd_array_find_by_name(cpd_symbol("array1")) == arr);
         REQUIRE(cpd_array_find_by_name(cpd_symbol("unknown")) == NULL);
+        REQUIRE(cpd_array_name(arr) == cpd_symbol("array1"));
         cpd_array_free(cnv, arr);
 
         cpd_array_free(NULL, arr);
         cpd_array_free(cnv, NULL);
+        REQUIRE(cpd_array_name(NULL) == cpd_symbol(""));
 
         REQUIRE(cpd_array_new(NULL, cpd_symbol("array1"), 200, 0) == nullptr);
         cpd_canvas_free(cnv);
@@ -228,6 +230,24 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
             rv = cpd_elements_rfold(cpd_array_element_at(arr, 1), 4, mul, 1);
             REQUIRE(lv == 24);
             REQUIRE(rv == 24);
+
+            cpd_canvas_free(cnv);
+        }
+
+        SECTION("fill")
+        {
+            auto cnv = cpd_patch_new();
+            auto arr = cpd_array_new(cnv, cpd_symbol("array4"), 3, 0);
+
+            REQUIRE(cpd_array_float_at(arr, 0) == 0);
+            REQUIRE(cpd_array_float_at(arr, 1) == 0);
+            REQUIRE(cpd_array_float_at(arr, 2) == 0);
+
+            cpd_elements_fill(cpd_array_element_at(arr, 0), 100, 3);
+
+            REQUIRE(cpd_array_float_at(arr, 0) == 100);
+            REQUIRE(cpd_array_float_at(arr, 1) == 100);
+            REQUIRE(cpd_array_float_at(arr, 2) == 100);
 
             cpd_canvas_free(cnv);
         }
