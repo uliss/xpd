@@ -26,6 +26,9 @@ typedef struct _glist t_cpd_canvas;
 struct _cpd_list;
 typedef struct _cpd_list t_cpd_list;
 
+struct _garray;
+typedef struct _garray t_cpd_array;
+
 struct _cpd_connection;
 typedef struct _cpd_connection t_cpd_connection;
 
@@ -55,3 +58,5 @@ CPD_EXTERN const char* cpd_symbol_name(const t_cpd_symbol* s);
 #endif
 
 #endif // CPD_TYPES_H
+
+

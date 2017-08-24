@@ -75,6 +75,7 @@ public:
 
     // ?
     void registerConsoleObserver(ConsoleObserverPtr o);
+    void unregisterConsoleObserver(ConsoleObserverPtr o);
 
     void addSearchPath(const std::string& path);
 

@@ -1,7 +1,7 @@
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 set(CMP_SOURCES
     cpd.h  cpd.cpp 
-    cpd_atom.h cpd_atom.cpp 
+    cpd_atom.h cpd_atom.cpp cpd_array.cpp
     cpd_canvas.h cpd_canvas.cpp
     cpd_catcher.h cpd_catcher.cpp
     cpd_connection.h cpd_connection.cpp
@@ -12,7 +12,7 @@ set(CMP_SOURCES
     cpd_object.h cpd_object.cpp
     cpd_patch.h cpd_patch.cpp
     cpd_types.h cpd_types.cpp 
-    pr_log.cpp)
+    pr_log.cpp cpd_loader.h cpd_loader.cpp)
 
 if(WIN32)
     add_definitions(-DCPD_INTERNAL)

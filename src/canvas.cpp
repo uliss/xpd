@@ -49,16 +49,6 @@ bool Canvas::deleteObject(ObjectId objId)
     return false;
 }
 
-ObjectId Canvas::createArray(const std::string& name, size_t size)
-{
-    return 0;
-}
-
-bool Canvas::deleteArray(const std::string& name)
-{
-    return false;
-}
-
 bool Canvas::hasChildren() const
 {
     return !obj_list_.empty();
