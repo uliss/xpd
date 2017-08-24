@@ -70,6 +70,15 @@ size_t cpd_array_size(t_cpd_array* a)
 
 void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr)
 {
+    if (!c) {
+        ERROR("NULL canvas given");
+        return;
+    }
+
+    if (!arr) {
+        ERROR("NULL array given");
+        return;
+    }
+
     glist_delete(c, reinterpret_cast<t_gobj*>(arr));
-    //    pd_free(reinterpret_cast<t_pd*>(arr));
 }
