@@ -67,6 +67,14 @@ CPD_EXTERN int cpd_array_copy_from(t_cpd_array* arr, const t_cpd_float* src, siz
 CPD_EXTERN size_t cpd_array_size(t_cpd_array* a);
 
 /**
+ * Resizes array
+ * @param a - pointer to array
+ * @param sz - new size
+ * @return new size or 0 on error
+ */
+CPD_EXTERN size_t cpd_array_resize(t_cpd_array* a, size_t sz);
+
+/**
  * Returns array name
  * @param arr - pointer to array
  * @return array name or CPD_SYMBOL_EMPTY on error

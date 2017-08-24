@@ -241,3 +241,24 @@ void cpd_array_set_float_at(t_cpd_array* arr, size_t n, t_cpd_float value)
     auto el = reinterpret_cast<t_cpd_array_element*>(garray_vec(arr)) + n;
     el->w_float = value;
 }
+
+size_t cpd_array_resize(t_cpd_array* a, size_t sz)
+{
+    const size_t old_size = cpd_array_size(a);
+
+    if (!old_size)
+        return 0;
+
+    if (sz < 1) {
+        DEBUG("invalid size: {}", sz);
+        return 0;
+    }
+
+    if (old_size == sz) {
+        DEBUG("sizes are equal: {} == {}", old_size, sz);
+        return sz;
+    }
+
+    garray_resize_long(a, sz);
+    return sz;
+}
