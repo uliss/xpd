@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir build && cd build
+mkdir -p build && cd build
 if [ -n "$COVERAGE" ]
 then
     cmake -DWITH_COVERAGE=On -DCMAKE_BUILD_TYPE=Debug ..
