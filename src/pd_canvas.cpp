@@ -78,5 +78,5 @@ bool PdCanvas::deleteArray(const std::string& name)
 
 void PdCanvas::loadbang()
 {
-
+    cpd_canvas_loadbang(cnv_);
 }

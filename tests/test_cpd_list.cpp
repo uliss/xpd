@@ -170,6 +170,8 @@ TEST_CASE("cpd_list", "[cpd PureData wrapper]")
         REQUIRE(cpd_atom_get_float(cpd_list_at(l1, 2)) == 123);
 
         REQUIRE(cpd_list_copy(0) == 0);
+
+        cpd_list_free(l1);
     }
 
     SECTION("set")

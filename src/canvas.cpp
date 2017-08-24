@@ -91,6 +91,11 @@ void Canvas::sendFloat(ObjectId id, float f)
     o->sendFloat(f);
 }
 
+void Canvas::loadbang()
+{
+    log()->warn("Canvas::loadbang() is not implemented");
+}
+
 CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)
     : name_(name)
     , x_(std::max(0, x))

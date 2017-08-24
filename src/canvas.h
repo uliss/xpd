@@ -62,6 +62,11 @@ public:
 
     void sendBang(ObjectId id);
     void sendFloat(ObjectId id, float f);
+
+    /**
+     * Sends loadbang to all objects
+     */
+    virtual void loadbang();
 };
 
 //    vector<ServerPatchcord*> _patchcords;
