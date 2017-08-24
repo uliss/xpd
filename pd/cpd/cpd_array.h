@@ -25,14 +25,28 @@ t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname);
 float* cpd_get_array_data(t_cpd_array* a);
 
 /**
- * Get array size
+ * Returns array size
+ * @param a - pointer to array
+ * @return array size or 0 on error
  */
-int cpd_get_array_size(t_cpd_array* a);
+CPD_EXTERN size_t cpd_array_size(t_cpd_array* a);
 
 /**
  * Create new array
+ * @param c - parent canvas
+ * @param name - array name
+ * @param size - array size (>0)
+ * @param flags - t_cpd_array_flags
+ * @return pointer to new array 
  */
-t_cpd_array* cpd_new_array(t_cpd_canvas* c, t_cpd_symbol* name, t_cpd_float size, t_cpd_float save, t_cpd_float newgraph);
+CPD_EXTERN t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int flags);
+
+/**
+ * Free array
+ * @param c - pointer to parent canvas
+ * @param arr - pointer to array
+ */
+CPD_EXTERN void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr);
 
 #ifdef __cplusplus
 }

@@ -57,6 +57,7 @@ xpd_add_test(connections cpd_connections)
 xpd_add_test(catcher cpd_catcher)
 xpd_add_test(dsp cpd_dsp)
 xpd_add_test(loader cpd_loader)
+xpd_add_test(array cpd_array)
 
 xpd_add_test(PdObject pdobject)
 xpd_add_test(LocalServer localserver)

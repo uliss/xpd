@@ -4,9 +4,13 @@
 #include "pr_log.h"
 
 #include "m_pd.h"
+extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+}
+
+#include <algorithm>
 
 t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname)
 {
@@ -26,16 +30,46 @@ float* cpd_get_array_data(t_cpd_array* a)
     return (float*)garray_vec(a);
 }
 
-int cpd_get_array_size(t_cpd_array* a)
+t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int flags)
 {
-    return garray_npoints(a);
+    if (!c) {
+        DEBUG("NULL canvas cpointer given");
+        return nullptr;
+    }
+
+    size = std::max<size_t>(1, size);
+
+    //    auto gl = glist_addglist(c, &s_, 0, 1,
+    //        size, -1, 0, 0, 0, 0);
+
+    auto arr = graph_array(c, name, &s_float, size, flags);
+    canvas_dirty(c, 1);
+    return arr;
+
+    //    template_setfloat(template, gensym("style"), x->x_scalar->sc_vec,
+    //        style, 1);
+    //    template_setfloat(template, gensym("linewidth"), x->x_scalar->sc_vec,
+    //        ((style == PLOTSTYLE_POINTS) ? 2 : 1), 1);
 }
 
-t_cpd_array* cpd_new_array(t_cpd_canvas* c, t_cpd_symbol* name, t_cpd_float size, t_cpd_float save, t_cpd_float newgraph)
+size_t cpd_array_size(t_cpd_array* a)
 {
-    //possibly unused as we use arrays by symbol lookup table
-    t_garray* ret;
-    glist_arraydialog(c, name, size, save, newgraph);
-    ret = cpd_get_array(name);
-    return ret;
+    if (!a) {
+        DEBUG("NULL argument");
+        return 0;
+    }
+
+    t_array* arr = garray_getarray(a);
+    if (!arr) {
+        DEBUG("Invalid array pointer");
+        return 0;
+    }
+
+    return arr->a_n;
+}
+
+void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr)
+{
+    glist_delete(c, reinterpret_cast<t_gobj*>(arr));
+    //    pd_free(reinterpret_cast<t_pd*>(arr));
 }

@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 
+#include "cpd_array.h"
 #include "cpd_atom.h"
 #include "cpd_canvas.h"
 #include "cpd_connection.h"
