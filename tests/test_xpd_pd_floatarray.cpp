@@ -51,4 +51,19 @@ TEST_CASE("PdFloatArray", "[PdFloatArray]")
         arr.setPlotStyle(FloatArray::PLOT_BEZIER);
         REQUIRE(arr.plotStyle() == FloatArray::PLOT_BEZIER);
     }
+
+    SECTION("fill")
+    {
+        PdFloatArray arr(c.get(), "array1", 10);
+
+        arr.fill(1000);
+        REQUIRE(arr.at(0) == 1000.f);
+        REQUIRE(arr.at(1) == 1000.f);
+        REQUIRE(arr.at(9) == 1000.f);
+
+        REQUIRE(arr.resize(5));
+        arr.fill(2000);
+        REQUIRE(arr.at(0) == 2000.f);
+        REQUIRE(arr.at(4) == 2000.f);
+    }
 }

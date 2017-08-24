@@ -43,6 +43,11 @@ void FloatArray::setPlotStyle(FloatArray::PlotStyle style)
     plot_style_ = style;
 }
 
+void FloatArray::fill(float v)
+{
+    throw Exception("not implemented");
+}
+
 void FloatArray::registerObserver(Observer* o)
 {
 }

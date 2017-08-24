@@ -53,6 +53,12 @@ public:
      */
     virtual void setPlotStyle(PlotStyle style);
 
+    /**
+     * Fill with value
+     * @param v - fill value
+     */
+    virtual void fill(float v);
+
     virtual void registerObserver(Observer* o);
     virtual void unregisterObserver(Observer* o);
 

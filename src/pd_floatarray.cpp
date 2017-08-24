@@ -3,6 +3,7 @@
 #include "pd_canvas.h"
 
 #include "cpd/cpd_array.h"
+#include "cpd/cpd_array_element.h"
 #include "cpd/cpd_object.h"
 
 namespace xpd {
@@ -80,6 +81,12 @@ void PdFloatArray::setPlotStyle(FloatArray::PlotStyle style)
     if (cpd_array_set_plotstyle(arr_, cpd_style)) {
         FloatArray::setPlotStyle(style);
     }
+}
+
+void PdFloatArray::fill(float v)
+{
+    auto el = cpd_array_element_at(arr_, 0);
+    cpd_elements_fill(el, v, size());
 }
 
 } // namespace xpd
