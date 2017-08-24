@@ -9,10 +9,11 @@ extern "C" {
 #endif
 
 /**
- * Get array pointer by name
+ * Find array by specified name 
+ * @param name - array name
+ * @return pointer to array or NULL if not found
  */
-
-t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname);
+t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name);
 
 /**
  * Get array data - variant 1, yet disabled

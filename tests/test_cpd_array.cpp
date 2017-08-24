@@ -14,6 +14,8 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
         auto cnv = cpd_patch_new();
         auto arr = cpd_array_new(cnv, cpd_symbol("array1"), 200, 0);
         REQUIRE(cpd_array_size(arr) == 200);
+        REQUIRE(cpd_array_find_by_name(cpd_symbol("array1")) == arr);
+        REQUIRE(cpd_array_find_by_name(cpd_symbol("unknown")) == NULL);
         cpd_array_free(cnv, arr);
 
         cpd_array_free(NULL, arr);
@@ -98,6 +100,8 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
         REQUIRE(arr1);
         REQUIRE(arr2);
         REQUIRE(arr1 != arr2);
+
+        REQUIRE(cpd_array_find_by_name(cpd_symbol("same")) == arr1);
 
         cpd_canvas_free(cnv);
     }

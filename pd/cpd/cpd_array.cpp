@@ -20,12 +20,6 @@ static t_symbol* SYM_TEMPLATE_ARRAY = gensym("pd-float-array");
 static t_symbol* SYM_ARRAY_LINEWIDTH = gensym("linewidth");
 static t_symbol* SYM_ARRAY_STYLE = gensym("style");
 
-t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname)
-{
-    t_cpd_array* ret = (t_cpd_array*)pd_findbyclass(arrayname, garray_class);
-    return ret;
-}
-
 // variant 1 - yet disabled
 //void cpd_get_array_data(t_cpd_array* a, int* size, float** vec)
 //{
@@ -176,4 +170,9 @@ int cpd_array_hidden_name(t_cpd_array* arr)
 
     t_symbol* foo;
     return garray_getname(arr, &foo) ? 1 : 0;
+}
+
+t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name)
+{
+    return reinterpret_cast<t_cpd_array*>(pd_findbyclass(name, garray_class));
 }
