@@ -1,7 +1,9 @@
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 set(CMP_SOURCES
     cpd.h  cpd.cpp 
-    cpd_atom.h cpd_atom.cpp cpd_array.cpp
+    cpd_atom.h cpd_atom.cpp 
+    cpd_array.h cpd_array.cpp 
+    cpd_array_element.h cpd_array_element.cpp
     cpd_canvas.h cpd_canvas.cpp
     cpd_catcher.h cpd_catcher.cpp
     cpd_connection.h cpd_connection.cpp

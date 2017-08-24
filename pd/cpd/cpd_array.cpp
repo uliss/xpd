@@ -1,4 +1,5 @@
 #include "cpd_array.h"
+#include "cpd_array_element.h"
 #include "cpd_globals.h"
 #include "cpd_types.h"
 
@@ -165,7 +166,7 @@ t_cpd_array* cpd_array_find_by_name(t_cpd_symbol* name)
     return reinterpret_cast<t_cpd_array*>(pd_findbyclass(name, garray_class));
 }
 
-t_cpd_array_element* cpd_array_at(t_cpd_array* arr, size_t n)
+t_cpd_array_element* cpd_array_element_at(t_cpd_array* arr, size_t n)
 {
     if (!arr) {
         DEBUG("NULL array pointer given");
@@ -177,13 +178,13 @@ t_cpd_array_element* cpd_array_at(t_cpd_array* arr, size_t n)
         return nullptr;
     }
 
-    return reinterpret_cast<t_cpd_array_element*>(garray_vec(arr)) + n;
+    return &(reinterpret_cast<t_cpd_array_element*>(garray_vec(arr))[n]);
 }
 
-int cpd_array_copy_data(t_cpd_array* arr, t_cpd_float* dest, size_t n)
+int cpd_array_copy_to(t_cpd_array* arr, t_cpd_float* dest, size_t n)
 {
-    if (!arr) {
-        DEBUG("NULL array pointer given");
+    if (!arr || !dest) {
+        DEBUG("NULL pointers given");
         return 0;
     }
 
@@ -196,10 +197,7 @@ int cpd_array_copy_data(t_cpd_array* arr, t_cpd_float* dest, size_t n)
 
     const size_t total = std::min(n, size_t(pd_size));
 
-    for (size_t i = 0; i < total; i++) {
-        dest[i] = data[i].w_float;
-    }
-
+    cpd_elements_copy_floats_to(data, dest, total);
     return 1;
 }
 
@@ -216,12 +214,34 @@ t_cpd_symbol* cpd_array_name(t_cpd_array* arr)
     return res;
 }
 
-t_cpd_float cpd_array_element_float(t_cpd_array_element* el)
+int cpd_array_copy_from(t_cpd_array* arr, const t_cpd_float* src, size_t n)
 {
+    if (!arr || !src) {
+        DEBUG("NULL pointers given");
+        return 0;
+    }
+
+    int pd_size = 0;
+    t_word* data = 0;
+    if (!garray_getfloatwords(arr, &pd_size, &data)) {
+        DEBUG("can't get array data: {}", cpd_array_name(arr)->s_name);
+        return 0;
+    }
+
+    const size_t total = std::min(n, size_t(pd_size));
+    cpd_elements_copy_floats_from(data, src, total);
+
+    return 1;
+}
+
+t_cpd_float cpd_array_float_at(t_cpd_array* arr, size_t n)
+{
+    auto el = reinterpret_cast<t_cpd_array_element*>(garray_vec(arr)) + n;
     return el->w_float;
 }
 
-void cpd_array_element_set_float(t_cpd_array_element* el, t_cpd_float value)
+void cpd_array_set_float_at(t_cpd_array* arr, size_t n, t_cpd_float value)
 {
+    auto el = reinterpret_cast<t_cpd_array_element*>(garray_vec(arr)) + n;
     el->w_float = value;
 }

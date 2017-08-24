@@ -53,6 +53,16 @@ typedef enum _cpd_array_flags {
 } t_cpd_array_flags;
 
 /**
+ * Float map function
+ */
+typedef t_cpd_float(cpd_element_map_fn)(t_cpd_float);
+
+/**
+ * Float fold function
+ */
+typedef t_cpd_float(cpd_element_fold_fn)(t_cpd_float v, t_cpd_float acc);
+
+/**
  * Creates new symbol from given string. Caller should NOT free result pointer
  * @param str - symbol string
  * @return pointer to internal PureData hash table
