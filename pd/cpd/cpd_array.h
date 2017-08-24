@@ -48,6 +48,21 @@ CPD_EXTERN t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_
  */
 CPD_EXTERN void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr);
 
+/**
+ * Returns array graph line width
+ * @param arr - pointer to array
+ * @return linewidth (currently 1 or 2) or 0 on error
+ */
+CPD_EXTERN float cpd_array_linewidth(t_cpd_array* arr);
+
+/**
+ * Sets array graph line width
+ * @param arr - pointer to array
+ * @param wd - new line width
+ * @return 1 on success, 0 on error
+ */
+CPD_EXTERN int cpd_array_set_linewidth(t_cpd_array* arr, float wd);
+
 #ifdef __cplusplus
 }
 #endif

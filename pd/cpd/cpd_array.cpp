@@ -1,4 +1,5 @@
 #include "cpd_array.h"
+#include "cpd_globals.h"
 #include "cpd_types.h"
 
 #include "pr_log.h"
@@ -8,9 +9,14 @@ extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
 #include "s_stuff.h"
+
+t_scalar* garray_getscalar(t_garray* x);
 }
 
 #include <algorithm>
+
+static t_symbol* SYM_TEMPLATE_ARRAY = gensym("pd-float-array");
+static t_symbol* SYM_ARRAY_LINEWIDTH = gensym("linewidth");
 
 t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname)
 {
@@ -38,9 +44,6 @@ t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int
     }
 
     size = std::max<size_t>(1, size);
-
-    //    auto gl = glist_addglist(c, &s_, 0, 1,
-    //        size, -1, 0, 0, 0, 0);
 
     auto arr = graph_array(c, name, &s_float, size, flags);
     canvas_dirty(c, 1);
@@ -81,4 +84,39 @@ void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr)
     }
 
     glist_delete(c, reinterpret_cast<t_gobj*>(arr));
+}
+
+float cpd_array_linewidth(t_cpd_array* arr)
+{
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return 0;
+    }
+
+    auto tmpl = template_findbyname(SYM_TEMPLATE_ARRAY);
+    if (!tmpl) {
+        DEBUG("couldn't find template {}", SYM_TEMPLATE_ARRAY->s_name);
+        return 0;
+    }
+
+    auto scalar = garray_getscalar(arr);
+    return template_getfloat(tmpl, SYM_ARRAY_LINEWIDTH, scalar->sc_vec, 1);
+}
+
+int cpd_array_set_linewidth(t_cpd_array* arr, float wd)
+{
+    if (!arr) {
+        DEBUG("NULL array pointer given");
+        return 0;
+    }
+
+    auto tmpl = template_findbyname(SYM_TEMPLATE_ARRAY);
+    if (!tmpl) {
+        DEBUG("couldn't find template {}", SYM_TEMPLATE_ARRAY->s_name);
+        return 0;
+    }
+
+    auto scalar = garray_getscalar(arr);
+    template_setfloat(tmpl, SYM_ARRAY_LINEWIDTH, scalar->sc_vec, wd, 1);
+    return 1;
 }
