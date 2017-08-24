@@ -62,7 +62,7 @@ public:
         Exception(const std::string& msg);
     };
 
-private:
+protected:
     size_t size_;
     PlotStyle plot_style_;
 };

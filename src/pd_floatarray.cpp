@@ -50,6 +50,11 @@ float PdFloatArray::at(size_t idx) const
 
 bool PdFloatArray::resize(size_t sz)
 {
+    if (cpd_array_resize(arr_, sz)) {
+        size_ = sz;
+        return true;
+    }
+
     return false;
 }
 

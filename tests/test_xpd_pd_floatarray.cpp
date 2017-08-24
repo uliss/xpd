@@ -28,4 +28,12 @@ TEST_CASE("PdFloatArray", "[PdFloatArray]")
         REQUIRE(arr.at(9) == 0.f);
         REQUIRE_THROWS_AS(arr.at(10), FloatArray::Exception);
     }
+
+    SECTION("resize")
+    {
+        PdFloatArray arr(c.get(), "array1", 10);
+
+        REQUIRE(arr.resize(5));
+        REQUIRE_FALSE(arr.resize(0));
+    }
 }
