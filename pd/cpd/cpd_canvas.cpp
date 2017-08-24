@@ -135,3 +135,12 @@ t_cpd_object* cpd_canvas_object_at(t_cpd_canvas* cnv, size_t n)
 
     return nullptr;
 }
+
+void cpd_canvas_loadbang(t_cpd_canvas* cnv)
+{
+    NULL_CHECK(cnv);
+
+    canvas_loadbang(cnv);
+}
+
+

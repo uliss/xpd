@@ -21,6 +21,11 @@ public:
     bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
 
     const t_cpd_canvas* canvas() const;
+    
+    ObjectId createArray(const std::string& name, size_t size);
+    bool deleteArray(const std::string& name);
+    
+    void loadbang();
 
 private:
     t_cpd_object* findById(ObjectId id);

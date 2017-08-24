@@ -213,8 +213,22 @@ CPD_EXTERN const char* cpd_object_abstraction_dir(t_cpd_object* obj);
  */
 CPD_EXTERN t_cpd_list* cpd_object_method_names(t_cpd_object* obj);
 
+/**
+ * Binds Pd object to symbol
+ * @param obj - pointer to object, s - symbol
+ */
+CPD_EXTERN void cpd_bind_object(t_cpd_object* obj, t_cpd_symbol* s);
+
+/**
+ * Uninds Pd object to symbol
+ * @param obj - pointer to object, s - symbol
+ */
+CPD_EXTERN void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s);
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif // CPD_OBJECT_H
+
+
