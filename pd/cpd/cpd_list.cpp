@@ -180,3 +180,26 @@ void cpd_list_prepend_float(t_cpd_list* l, t_cpd_float f)
     SETFLOAT(&a, f);
     l->data.insert(l->data.begin(), a);
 }
+
+char* cpd_list_to_string(t_cpd_list* l)
+{
+    if (!l) {
+        DEBUG("NULL argument");
+        return strdup("");
+    }
+
+    std::string res;
+    size_t argc = cpd_list_size(l);
+
+    for (size_t i = 0; i < argc; i++) {
+        if (i != 0)
+            res += ' ';
+
+        char buf[MAXPDSTRING];
+        atom_string(cpd_list_at(l, i), buf, MAXPDSTRING);
+
+        res += buf;
+    }
+
+    return strdup(res.c_str());
+}

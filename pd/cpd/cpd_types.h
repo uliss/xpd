@@ -75,6 +75,13 @@ CPD_EXTERN t_cpd_symbol* cpd_symbol(const char* str);
  */
 CPD_EXTERN const char* cpd_symbol_name(const t_cpd_symbol* s);
 
+/**
+ * Checks if symbol is binded to object
+ * @param s - symbol
+ * @return 1 if binded, otherwise 0 
+ */
+CPD_EXTERN int cpd_symbol_binded(const t_cpd_symbol* s);
+
 #ifdef __cplusplus
 }
 #endif

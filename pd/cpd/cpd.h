@@ -33,6 +33,8 @@ CPD_EXTERN int cpd_stop();
  */
 CPD_EXTERN void cpd_error(const char* msg, ...);
 
+CPD_EXTERN int cpd_send_brodcast_message(t_cpd_symbol* sel, const t_cpd_list* l);
+
 #ifdef __cplusplus
 }
 #endif

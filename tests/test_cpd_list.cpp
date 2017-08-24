@@ -259,4 +259,23 @@ TEST_CASE("cpd_list", "[cpd PureData wrapper]")
 
         cpd_list_free(l0);
     }
+
+    SECTION("to_string")
+    {
+        const char* str = 0;
+
+        auto l0 = cpd_list_new(0);
+        str = cpd_list_to_string(l0);
+        REQUIRE(str);
+        REQUIRE(str == std::string(""));
+        free((void*)str);
+        cpd_list_free(l0);
+
+        l0 = cpd_list_new_from_string(" 1 2 5 a b ");
+        str = cpd_list_to_string(l0);
+        REQUIRE(str);
+        REQUIRE(str == std::string("1 2 5 a b"));
+        free((void*)str);
+        cpd_list_free(l0);
+    }
 }

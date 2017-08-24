@@ -1,6 +1,8 @@
 #include "catch.hpp"
 
 #include "cpd/cpd.h"
+#include "cpd/cpd_catcher.h"
+#include "cpd/cpd_globals.h"
 
 #include <string>
 
@@ -289,6 +291,45 @@ TEST_CASE("cpd_object", "[cpd PureData wrapper]")
         REQUIRE(cpd_symbol_name(cpd_list_get_symbol_at(methods, 1)) == std::string("write"));
 
         cpd_list_free(methods);
+
+        cpd_canvas_free(cnv);
+    }
+
+    SECTION("bind")
+    {
+        cpd_catcher_init();
+
+        REQUIRE_FALSE(cpd_symbol_binded(NULL));
+        REQUIRE(cpd_symbol_binded(CPD_SYMBOL_PD));
+
+        auto cnv = cpd_patch_new();
+
+        auto catcher = cpd_catcher_new(cnv);
+        t_cpd_symbol* DEST = cpd_symbol("send_bind");
+        REQUIRE_FALSE(cpd_symbol_binded(DEST));
+        cpd_bind_object(catcher, DEST);
+        REQUIRE(cpd_symbol_binded(DEST));
+
+        auto args = cpd_list_new(0);
+        cpd_list_append_float(args, 200);
+
+        REQUIRE_FALSE(cpd_send_brodcast_message(0, args));
+        REQUIRE_FALSE(cpd_send_brodcast_message(cpd_symbol("XXunknown"), 0));
+        REQUIRE_FALSE(cpd_send_brodcast_message(cpd_symbol("XXunknown"), args));
+
+        REQUIRE(cpd_send_brodcast_message(DEST, args));
+        cpd_list_free(args);
+
+        REQUIRE(cpd_catcher_count(catcher) == 1);
+        REQUIRE(cpd_list_to_string(cpd_catcher_last(catcher)) == std::string("send_bind 200"));
+
+        auto catcher2 = cpd_catcher_new(cnv);
+        cpd_bind_object(catcher2, DEST);
+
+        args = cpd_list_new_from_string("a b c");
+        REQUIRE(cpd_send_brodcast_message(DEST, args));
+        REQUIRE(cpd_list_to_string(cpd_catcher_last(catcher)) == std::string("send_bind a b c"));
+        cpd_list_free(args);
 
         cpd_canvas_free(cnv);
     }

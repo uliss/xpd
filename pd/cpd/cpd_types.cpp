@@ -10,3 +10,11 @@ const char* cpd_symbol_name(const t_cpd_symbol* s)
 {
     return s->s_name;
 }
+
+int cpd_symbol_binded(const t_cpd_symbol* s)
+{
+    if (!s)
+        return 0;
+
+    return s->s_thing != 0;
+}

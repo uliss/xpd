@@ -390,9 +390,8 @@ void cpd_bind_object(t_cpd_object* obj, t_cpd_symbol* s)
         DEBUG("NULL pointers are given");
         return;
     }
-    
-    // todo: check object
-    pd_bind((t_pd*)obj, s);
+
+    pd_bind(&obj->te_g.g_pd, s);
 }
 
 void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s)
@@ -401,7 +400,6 @@ void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s)
         DEBUG("NULL pointers are given");
         return;
     }
-    
-    // todo: check object
-    pd_unbind((t_pd*)obj, s);
+
+    pd_unbind(&obj->te_g.g_pd, s);
 }

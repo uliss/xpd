@@ -112,3 +112,22 @@ int cpd_stop()
 
     return 1;
 }
+
+int cpd_send_brodcast_message(t_cpd_symbol* sel, const t_cpd_list* l)
+{
+    if (!sel || !l) {
+        DEBUG("NULL pointer given");
+        return 0;
+    }
+
+    if (!sel->s_thing) {
+        DEBUG("invalid destination: {}", sel->s_name);
+        return 0;
+    }
+
+    int n = cpd_list_size(l);
+    t_cpd_atom* atoms = cpd_list_at(const_cast<t_cpd_list*>(l), 0);
+    pd_typedmess(sel->s_thing, sel, n, atoms);
+
+    return 1;
+}

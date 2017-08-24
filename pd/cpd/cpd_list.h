@@ -138,6 +138,14 @@ CPD_EXTERN int cpd_list_set_float_at(t_cpd_list* l, size_t idx, t_cpd_float f);
  */
 CPD_EXTERN int cpd_list_equal(t_cpd_list* l0, t_cpd_list* l1);
 
+/**
+ * Returns list content as string
+ * @param l
+ * @return pointer to allocated string
+ * @warning caller should free result
+ */
+CPD_EXTERN char* cpd_list_to_string(t_cpd_list* l);
+
 #ifdef __cplusplus
 }
 #endif
