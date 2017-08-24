@@ -4,6 +4,7 @@ set(SERVER_SRC
     arguments.cpp    
     audiodevice.cpp
     audiodevicemanager.cpp
+    array.cpp
     canvas.cpp
     canvasobserver.cpp
     classinfo.cpp

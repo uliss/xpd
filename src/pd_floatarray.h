@@ -1,30 +1,26 @@
 #ifndef PdFloatArray_H
 #define PdFloatArray_H
 
-#include "object.h"
-
+#include "array.h"
 #include "pd_floatarraydata.h"
-#include "canvas.h"
+
+#include "cpd/cpd_types.h"
 
 namespace xpd {
 
-class PdFloatArray : public Object {
-    std::string _name;
-    size_t _size;
-
-    Canvas* _parent;
-    
+class PdFloatArray : public FloatArray {
+    t_cpd_canvas* cnv_;
+    t_cpd_array* arr_;
     Observer* _observer;
+
 public:
     PdFloatArray(const Canvas* parent, const std::string& name, size_t size);
-    
-    int size();
-    void setSize(int size);
-    
+    ~PdFloatArray();
+
     PdFloatArrayData* getData();
-    
-    virtual void registerObserver(Observer* o);
-    virtual void unregisterObserver(Observer* o);
+
+    float at(size_t idx) const;
+    bool resize(size_t sz);
 };
 
 } // namespace xpd

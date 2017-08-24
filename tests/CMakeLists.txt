@@ -59,6 +59,8 @@ xpd_add_test(dsp cpd_dsp)
 xpd_add_test(loader cpd_loader)
 xpd_add_test(array cpd_array)
 
+xpd_add_test(Array xpd_array)
 xpd_add_test(PdObject pdobject)
 xpd_add_test(LocalServer localserver)
 xpd_add_test(ObjectList objectlist)
+xpd_add_test(PdFloatArray xpd_pd_floatarray)

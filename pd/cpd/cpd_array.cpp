@@ -17,15 +17,11 @@ int garray_getname(t_garray* x, t_symbol** namep);
 
 #include <algorithm>
 
-static t_symbol* SYM_TEMPLATE_ARRAY = gensym("pd-float-array");
-static t_symbol* SYM_ARRAY_LINEWIDTH = gensym("linewidth");
-static t_symbol* SYM_ARRAY_STYLE = gensym("style");
-
 t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int flags)
 {
     if (!c) {
         DEBUG("NULL canvas pointer given");
-        return nullptr;
+        return 0;
     }
 
     size = std::max<size_t>(1, size);
@@ -73,9 +69,9 @@ t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name)
         return 0;
     }
 
-    auto tmpl = template_findbyname(SYM_TEMPLATE_ARRAY);
+    auto tmpl = template_findbyname(CPD_SYMBOL_TEMPLATE_ARRAY);
     if (!tmpl) {
-        DEBUG("couldn't find template {}", SYM_TEMPLATE_ARRAY->s_name);
+        DEBUG("couldn't find template {}", CPD_SYMBOL_TEMPLATE_ARRAY->s_name);
         return 0;
     }
 
@@ -90,9 +86,9 @@ int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float 
         return 0;
     }
 
-    auto tmpl = template_findbyname(SYM_TEMPLATE_ARRAY);
+    auto tmpl = template_findbyname(CPD_SYMBOL_TEMPLATE_ARRAY);
     if (!tmpl) {
-        DEBUG("couldn't find template {}", SYM_TEMPLATE_ARRAY->s_name);
+        DEBUG("couldn't find template {}", CPD_SYMBOL_TEMPLATE_ARRAY->s_name);
         return 0;
     }
 
@@ -103,17 +99,17 @@ int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float 
 
 t_cpd_float cpd_array_linewidth(t_cpd_array* arr)
 {
-    return cpd_array_float_field(arr, SYM_ARRAY_LINEWIDTH);
+    return cpd_array_float_field(arr, CPD_SYMBOL_ARRAY_LINEWIDTH);
 }
 
 int cpd_array_set_linewidth(t_cpd_array* arr, t_cpd_float wd)
 {
-    return cpd_array_set_float_field(arr, SYM_ARRAY_LINEWIDTH, wd);
+    return cpd_array_set_float_field(arr, CPD_SYMBOL_ARRAY_LINEWIDTH, wd);
 }
 
 t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr)
 {
-    int val = cpd_array_float_field(arr, SYM_ARRAY_STYLE);
+    int val = cpd_array_float_field(arr, CPD_SYMBOL_ARRAY_STYLE);
     // see fuzzy flag logic in g_array.c: graph_array
     switch (val) {
     case 0:
@@ -147,7 +143,7 @@ int cpd_array_set_plotstyle(t_cpd_array* arr, t_cpd_array_flags style)
         return 0;
     }
 
-    return cpd_array_set_float_field(arr, SYM_ARRAY_STYLE, flag);
+    return cpd_array_set_float_field(arr, CPD_SYMBOL_ARRAY_STYLE, flag);
 }
 
 int cpd_array_hidden_name(t_cpd_array* arr)
