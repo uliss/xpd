@@ -4,17 +4,16 @@
 #include "observer.h"
 #include <string>
 
-using namespace std;
-
 namespace xpd {
 
 class ConsoleObserver : public Observer {
-    string _text;
+    std::string text_;
+
 public:
     ConsoleObserver();
-    
-    void setText(string text);
-    string text();
+
+    void setText(const std::string& text);
+    const std::string& text() const;
 };
 
 } // namespace xpd

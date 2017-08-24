@@ -6,14 +6,14 @@ ConsoleObserver::ConsoleObserver()
 {
 }
 
-void ConsoleObserver::setText(string text)
+void ConsoleObserver::setText(const std::string& text)
 {
-    _text = text;
-};
+    text_ = text;
+}
 
-string ConsoleObserver::text()
+const std::string& ConsoleObserver::text() const
 {
-    return _text;
-};
+    return text_;
+}
 
 } // namespace xpd
