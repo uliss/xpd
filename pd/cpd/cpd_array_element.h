@@ -18,6 +18,14 @@ extern "C" {
 CPD_EXTERN t_cpd_float cpd_element_float(t_cpd_array_element* el);
 
 /**
+ * Returns pointer to element float value
+ * @param el - pointer to element
+ * @return float value
+ * @note no NULL check
+ */
+CPD_EXTERN t_cpd_float* cpd_element_float_ptr(t_cpd_array_element* el);
+
+/**
  * Set array element float value
  * @param el - pointer to element
  * @param value - new value
@@ -48,6 +56,14 @@ CPD_EXTERN t_cpd_array_element* cpd_element_prev(t_cpd_array_element* el);
  * @note no NULL check
  */
 CPD_EXTERN t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset);
+
+/**
+ * Returns element difference
+ * @param e0
+ * @param e1
+ * @return 
+ */
+CPD_EXTERN ptrdiff_t cpd_element_diff(t_cpd_array_element* e0, t_cpd_array_element* e1);
 
 /**
  * Fill element with specified value

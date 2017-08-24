@@ -7,6 +7,11 @@ t_cpd_float cpd_element_float(t_cpd_array_element* el)
     return el->w_float;
 }
 
+t_cpd_float* cpd_element_float_ptr(t_cpd_array_element* el)
+{
+    return &el->w_float;
+}
+
 void cpd_element_set_float(t_cpd_array_element* el, t_cpd_float value)
 {
     el->w_float = value;
@@ -71,4 +76,9 @@ t_cpd_float cpd_elements_rfold(t_cpd_array_element* el, size_t n, cpd_element_fo
 t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset)
 {
     return el + offset;
+}
+
+ptrdiff_t cpd_element_diff(t_cpd_array_element* e0, t_cpd_array_element* e1)
+{
+    return e0 - e1;
 }

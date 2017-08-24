@@ -89,4 +89,135 @@ void PdFloatArray::fill(float v)
     cpd_elements_fill(el, v, size());
 }
 
+PdFloatArray::iterator PdFloatArray::begin()
+{
+    return iterator(cpd_array_element_at(arr_, 0));
+}
+
+const PdFloatArray::iterator PdFloatArray::begin() const
+{
+    return iterator(cpd_array_element_at(arr_, 0));
+}
+
+PdFloatArray::iterator PdFloatArray::end()
+{
+    return begin() + size_;
+}
+
+const PdFloatArray::iterator PdFloatArray::end() const
+{
+    return begin() + size_;
+}
+
+PdFloatArray::reverse_iterator PdFloatArray::rbegin()
+{
+    return reverse_iterator(begin());
+}
+
+PdFloatArray::reverse_iterator PdFloatArray::rend()
+{
+    return reverse_iterator(end());
+}
+
+PdFloatArray::reference PdFloatArray::front()
+{
+    return *begin();
+}
+
+PdFloatArray::const_reference PdFloatArray::front() const
+{
+    return *begin();
+}
+
+PdFloatArray::reference PdFloatArray::back()
+{
+    return *(begin() + size_ - 1);
+}
+
+PdFloatArray::const_reference PdFloatArray::back() const
+{
+    return *(begin() + size_ - 1);
+}
+
+PdFloatArray::iterator::iterator(t_cpd_array_element* el)
+    : el_(el)
+{
+}
+
+PdFloatArray::iterator::iterator(const PdFloatArray::iterator& it)
+    : el_(it.el_)
+{
+}
+
+PdFloatArray::iterator& PdFloatArray::iterator::operator=(const PdFloatArray::iterator& it)
+{
+    el_ = it.el_;
+    return *this;
+}
+
+PdFloatArray::iterator& PdFloatArray::iterator::operator++()
+{
+    el_ = cpd_element_next(el_);
+    return *this;
+}
+
+PdFloatArray::iterator PdFloatArray::iterator::operator++(int)
+{
+    iterator res(*this);
+    el_ = cpd_element_next(el_);
+    return res;
+}
+
+PdFloatArray::iterator& PdFloatArray::iterator::operator--()
+{
+    el_ = cpd_element_prev(el_);
+    return *this;
+}
+
+PdFloatArray::iterator PdFloatArray::iterator::operator--(int)
+{
+    iterator res(*this);
+    el_ = cpd_element_prev(el_);
+    return res;
+}
+
+PdFloatArray::iterator& PdFloatArray::iterator::operator+=(PdFloatArray::size_type off)
+{
+    el_ = cpd_element_move(el_, off);
+    return *this;
+}
+
+PdFloatArray::iterator PdFloatArray::iterator::operator+(PdFloatArray::size_type off) const
+{
+    iterator res(*this);
+    return res += off;
+}
+
+PdFloatArray::iterator& PdFloatArray::iterator::operator-=(PdFloatArray::size_type off)
+{
+    el_ = cpd_element_move(el_, -ssize_t(off));
+    return *this;
+}
+
+PdFloatArray::iterator PdFloatArray::iterator::operator-(PdFloatArray::size_type off) const
+{
+    iterator res(*this);
+    return res -= off;
+}
+
+PdFloatArray::iterator::difference_type PdFloatArray::iterator::operator-(PdFloatArray::iterator it) const
+{
+    return cpd_element_diff(el_, it.el_);
+}
+
+PdFloatArray::iterator::reference PdFloatArray::iterator::operator*() const
+{
+    return *cpd_element_float_ptr(el_);
+}
+
+PdFloatArray::iterator::reference PdFloatArray::iterator::operator[](PdFloatArray::size_type off) const
+{
+    return *cpd_element_float_ptr(cpd_element_move(el_, off));
+}
+
 } // namespace xpd
