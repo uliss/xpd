@@ -78,6 +78,15 @@ CPD_EXTERN int cpd_patch_width(t_cpd_canvas* cnv);
  */
 CPD_EXTERN int cpd_patch_height(t_cpd_canvas* cnv);
 
+/**
+ * Creates new subpatch on given canvas
+ * @param parent - pointer to parent canvas
+ * @param name - subpatch name
+ * @param args - subpatch arguments
+ * @param x - subpatch x pos
+ * @param y - subpatch y pos
+ * @return pointer to create subpatch or NULL on error
+ */
 CPD_EXTERN t_cpd_canvas* cpd_subpatch_new(t_cpd_canvas* parent,
     const char* name, t_cpd_list* args, int x, int y);
 
