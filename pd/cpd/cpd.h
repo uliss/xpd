@@ -9,6 +9,7 @@
 #include "cpd_dsp.h"
 #include "cpd_env.h"
 #include "cpd_list.h"
+#include "cpd_loader.h"
 #include "cpd_object.h"
 #include "cpd_patch.h"
 

@@ -8,6 +8,11 @@
 extern "C" {
 #endif
 
+/**
+ * Tries to load library
+ * @param s - library name
+ * @return 1 on success, 0 on error
+ */
 CPD_EXTERN int cpd_load_library(t_cpd_symbol* s);
 
 #ifdef __cplusplus
