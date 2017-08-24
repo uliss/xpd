@@ -44,12 +44,15 @@ TEST_CASE("cpd_array", "[cpd PureData wrapper]")
 
         auto arr2 = cpd_array_new(cnv, cpd_symbol("array2"), 100, CPD_ARRAY_STYLE_POLY);
         REQUIRE(cpd_array_linewidth(arr2) == 2);
+        REQUIRE(cpd_array_plotstyle(arr2) == CPD_ARRAY_STYLE_POLY);
 
         auto arr3 = cpd_array_new(cnv, cpd_symbol("array3"), 100, CPD_ARRAY_STYLE_POINTS);
         REQUIRE(cpd_array_linewidth(arr3) == 1);
+        REQUIRE(cpd_array_plotstyle(arr3) == CPD_ARRAY_STYLE_POINTS);
 
         auto arr4 = cpd_array_new(cnv, cpd_symbol("array4"), 100, CPD_ARRAY_STYLE_BEZIER);
         REQUIRE(cpd_array_linewidth(arr4) == 1);
+        REQUIRE(cpd_array_plotstyle(arr4) == CPD_ARRAY_STYLE_BEZIER);
 
         REQUIRE(cpd_array_set_linewidth(arr4, 1.2));
         REQUIRE(cpd_array_linewidth(arr4) == 1.2f);

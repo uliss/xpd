@@ -43,9 +43,9 @@ typedef enum _cpd_conn_type {
 typedef enum _cpd_array_flags {
     // do not change values
     CPD_ARRAY_SAVE_CONTENT = 1,
+    CPD_ARRAY_STYLE_POINTS = 0,
     CPD_ARRAY_STYLE_POLY = 2,
-    CPD_ARRAY_STYLE_POINTS = 4,
-    CPD_ARRAY_STYLE_BEZIER = 6,
+    CPD_ARRAY_STYLE_BEZIER = 4,
     CPD_ARRAY_HIDE_NAME = 1 << 3
 } t_cpd_array_flags;
 

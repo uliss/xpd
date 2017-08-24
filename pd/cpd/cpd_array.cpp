@@ -17,6 +17,7 @@ t_scalar* garray_getscalar(t_garray* x);
 
 static t_symbol* SYM_TEMPLATE_ARRAY = gensym("pd-float-array");
 static t_symbol* SYM_ARRAY_LINEWIDTH = gensym("linewidth");
+static t_symbol* SYM_ARRAY_STYLE = gensym("style");
 
 t_cpd_array* cpd_get_array(t_cpd_symbol* arrayname)
 {
@@ -45,14 +46,11 @@ t_cpd_array* cpd_array_new(t_cpd_canvas* c, t_cpd_symbol* name, size_t size, int
 
     size = std::max<size_t>(1, size);
 
+    int pd_flags = 0;
+
     auto arr = graph_array(c, name, &s_float, size, flags);
     canvas_dirty(c, 1);
     return arr;
-
-    //    template_setfloat(template, gensym("style"), x->x_scalar->sc_vec,
-    //        style, 1);
-    //    template_setfloat(template, gensym("linewidth"), x->x_scalar->sc_vec,
-    //        ((style == PLOTSTYLE_POINTS) ? 2 : 1), 1);
 }
 
 size_t cpd_array_size(t_cpd_array* a)
@@ -86,7 +84,7 @@ void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr)
     glist_delete(c, reinterpret_cast<t_gobj*>(arr));
 }
 
-float cpd_array_linewidth(t_cpd_array* arr)
+t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name)
 {
     if (!arr) {
         DEBUG("NULL array pointer given");
@@ -100,10 +98,10 @@ float cpd_array_linewidth(t_cpd_array* arr)
     }
 
     auto scalar = garray_getscalar(arr);
-    return template_getfloat(tmpl, SYM_ARRAY_LINEWIDTH, scalar->sc_vec, 1);
+    return template_getfloat(tmpl, name, scalar->sc_vec, 1);
 }
 
-int cpd_array_set_linewidth(t_cpd_array* arr, float wd)
+int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float val)
 {
     if (!arr) {
         DEBUG("NULL array pointer given");
@@ -117,6 +115,34 @@ int cpd_array_set_linewidth(t_cpd_array* arr, float wd)
     }
 
     auto scalar = garray_getscalar(arr);
-    template_setfloat(tmpl, SYM_ARRAY_LINEWIDTH, scalar->sc_vec, wd, 1);
+    template_setfloat(tmpl, name, scalar->sc_vec, val, 1);
     return 1;
+}
+
+t_cpd_float cpd_array_linewidth(t_cpd_array* arr)
+{
+    return cpd_array_float_field(arr, SYM_ARRAY_LINEWIDTH);
+}
+
+int cpd_array_set_linewidth(t_cpd_array* arr, t_cpd_float wd)
+{
+    return cpd_array_set_float_field(arr, SYM_ARRAY_LINEWIDTH, wd);
+}
+
+t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr)
+{
+    int val = cpd_array_float_field(arr, SYM_ARRAY_STYLE);
+    // see fuzzy flag logic in g_array.c: graph_array
+    switch (val) {
+    case 0:
+        return CPD_ARRAY_STYLE_POLY;
+    case 1:
+        return CPD_ARRAY_STYLE_POINTS;
+    case 2:
+        return CPD_ARRAY_STYLE_BEZIER;
+    default: {
+        DEBUG("unknown array plot style: {}", val);
+        return CPD_ARRAY_STYLE_POINTS;
+    }
+    }
 }

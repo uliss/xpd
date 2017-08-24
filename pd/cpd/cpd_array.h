@@ -53,7 +53,7 @@ CPD_EXTERN void cpd_array_free(t_cpd_canvas* c, t_cpd_array* arr);
  * @param arr - pointer to array
  * @return linewidth (currently 1 or 2) or 0 on error
  */
-CPD_EXTERN float cpd_array_linewidth(t_cpd_array* arr);
+CPD_EXTERN t_cpd_float cpd_array_linewidth(t_cpd_array* arr);
 
 /**
  * Sets array graph line width
@@ -61,7 +61,30 @@ CPD_EXTERN float cpd_array_linewidth(t_cpd_array* arr);
  * @param wd - new line width
  * @return 1 on success, 0 on error
  */
-CPD_EXTERN int cpd_array_set_linewidth(t_cpd_array* arr, float wd);
+CPD_EXTERN int cpd_array_set_linewidth(t_cpd_array* arr, t_cpd_float wd);
+
+/**
+ * Returns array plot style: CPD_ARRAY_STYLE_POLY, CPD_ARRAY_STYLE_POINTS or CPD_ARRAY_STYLE_BEZIER
+ * @param arr - pointer to array
+ * @return on error returns 0
+ */
+CPD_EXTERN t_cpd_array_flags cpd_array_plotstyle(t_cpd_array* arr);
+
+/**
+ * Returns value of named float field
+ * @param arr - pointer to array
+ * @param name - field name
+ * @return 0 on error
+ */
+t_cpd_float cpd_array_float_field(t_cpd_array* arr, t_cpd_symbol* name);
+
+/**
+ * Sets value of named float field
+ * @param arr - pointer to array
+ * @param name - field name
+ * @return 0 on error, 1 on success
+ */
+int cpd_array_set_float_field(t_cpd_array* arr, t_cpd_symbol* name, t_cpd_float val);
 
 #ifdef __cplusplus
 }
