@@ -198,5 +198,6 @@ int cpd_patch_save(t_cpd_canvas* patch, const char* name, const char* dir)
     cpd_list_append_symbol(args, cpd_symbol(dir));
 
     pd_typedmess(&patch->gl_obj.te_g.g_pd, gensym("savetofile"), cpd_list_size(args), cpd_list_at(args, 0));
+    cpd_list_free(args);
     return 1;
 }
