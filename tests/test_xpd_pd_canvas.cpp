@@ -73,5 +73,7 @@ TEST_CASE("PdCanvas", "[PdCanvas]")
         REQUIRE(ct->isEmpty());
         c->loadbang();
         REQUIRE(ct->isLastBang());
+        REQUIRE_FALSE(ct->isLastFloat(123));
+        ct->clear();
     }
 }
