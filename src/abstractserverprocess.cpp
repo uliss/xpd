@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "cpd/cpd_loader.h"
+
 using namespace xpd;
 
 AbstractServerProcess::AbstractServerProcess(const AbstractServer* parent,
@@ -52,6 +54,7 @@ void AbstractServerProcess::addSearchPath(const std::string& path)
 
 bool AbstractServerProcess::loadLibrary(const std::string& libraryName)
 {
+    cpd_load_library(cpd_symbol(libraryName.c_str()));
 }
 
 bool AbstractServerProcess::loadExternal(const std::string& externalName)
