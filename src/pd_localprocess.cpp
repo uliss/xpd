@@ -32,4 +32,22 @@ CanvasPtr PdLocalProcess::createCanvas()
     return cnv;
 }
 
+void PdLocalProcess::post(const std::string& text)
+{
+    if(console_observer_)
+    {
+        console_observer_->setText(text);
+        console_observer_->update();
+    }
+}
+
+void PdLocalProcess::error(const std::string& text)
+{
+
+}
+
+void PdLocalProcess::log(LogLevel level, const std::string& text)
+{
+}
+
 } // namespace xpd

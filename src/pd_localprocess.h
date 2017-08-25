@@ -17,6 +17,10 @@ public:
      * @return pointer to new canvas or 0 on error
      */
     CanvasPtr createCanvas();
+    
+    virtual void post(const std::string& text = "");
+    virtual void error(const std::string& text = "");
+    virtual void log(LogLevel level, const std::string& text);
 };
 
 } // namespace xpd
