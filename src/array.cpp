@@ -9,6 +9,11 @@ FloatArray::FloatArray(const Canvas* parent, const std::string& name, size_t siz
 {
 }
 
+ObjectType FloatArray::type() const
+{
+    return OBJ_TYPE_ARRAY;
+}
+
 size_t FloatArray::size() const
 {
     return size_;

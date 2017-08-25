@@ -17,6 +17,11 @@ public:
     FloatArray(const Canvas* parent, const std::string& name, size_t size);
 
     /**
+     * Returns OBJ_TYPE_ARRAY 
+     */
+    ObjectType type() const;
+
+    /**
      * Returns array size
      */
     virtual size_t size() const;

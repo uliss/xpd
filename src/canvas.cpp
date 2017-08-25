@@ -46,7 +46,7 @@ bool Canvas::disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t in
 
 bool Canvas::deleteObject(ObjectId objId)
 {
-    return false;
+    return obj_list_.remove(objId);
 }
 
 bool Canvas::hasChildren() const
@@ -62,6 +62,11 @@ size_t Canvas::childrenCount() const
 const ObjectList& Canvas::children() const
 {
     return obj_list_;
+}
+
+void Canvas::removeAllChildren()
+{
+    obj_list_.clear();
 }
 
 ObjectType Canvas::type() const
@@ -94,6 +99,11 @@ void Canvas::sendFloat(ObjectId id, float f)
 void Canvas::loadbang()
 {
     log()->warn("Canvas::loadbang() is not implemented");
+}
+
+bool Canvas::isRoot() const
+{
+    return !parent();
 }
 
 CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)

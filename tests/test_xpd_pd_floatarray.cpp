@@ -27,12 +27,23 @@ TEST_CASE("PdFloatArray", "[PdFloatArray]")
         REQUIRE_FALSE(arr.empty());
         REQUIRE(arr.name() == "array1");
         REQUIRE(arr.plotStyle() == FloatArray::PLOT_LINES);
+        REQUIRE(arr.id() != 0);
+        REQUIRE(arr.type() == OBJ_TYPE_ARRAY);
 
         REQUIRE(arr.at(0) == 0.f);
         REQUIRE(arr.at(9) == 0.f);
         REQUIRE_THROWS_AS(arr.at(10), FloatArray::Exception);
 
         REQUIRE_THROWS_AS(PdFloatArray(nullptr, "array2", 1000), FloatArray::Exception);
+    }
+
+    SECTION("id")
+    {
+        PdFloatArray a0(c.get(), "array1", 10);
+        PdFloatArray a1(c.get(), "array2", 10);
+
+        REQUIRE(a0.id() != a1.id());
+        REQUIRE(a0.id() < a1.id());
     }
 
     SECTION("resize")

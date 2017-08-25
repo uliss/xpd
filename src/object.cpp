@@ -4,10 +4,17 @@
 
 namespace xpd {
 
+size_t Object::id_counter_ = 2000;
+
+ObjectId Object::generateNewId()
+{
+    return id_counter_++;
+}
+
 Object::Object(const Canvas* parent, const std::string& name, int x, int y)
     : parent_(parent)
     , name_(name)
-    , id_(0)
+    , id_(generateNewId())
     , x_(x)
     , y_(y)
 {
@@ -100,6 +107,10 @@ const ObjectList& Object::children() const
 {
     static ObjectList empty;
     return empty;
+}
+
+void Object::removeAllChildren()
+{
 }
 
 int Object::x() const

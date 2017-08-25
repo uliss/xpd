@@ -41,6 +41,16 @@ void ObjectList::clear()
     obj_.clear();
 }
 
+bool ObjectList::remove(ObjectId id)
+{
+    ssize_t pos = findObjectIndex(id);
+    if (pos < 0)
+        return false;
+
+    obj_.erase(obj_.begin() + pos);
+    return true;
+}
+
 bool ObjectList::empty() const
 {
     return obj_.empty();
@@ -106,6 +116,12 @@ const Object* ObjectList::findObject(ObjectId id) const
 {
     auto it = std::find_if(obj_.begin(), obj_.end(), [id](const Object* o) { return o->id() == id; });
     return it == obj_.end() ? 0 : *it;
+}
+
+ssize_t ObjectList::findObjectIndex(ObjectId id) const
+{
+    auto it = std::find_if(obj_.begin(), obj_.end(), [id](const Object* o) { return o->id() == id; });
+    return it == obj_.end() ? -1 : std::distance(obj_.begin(), it);
 }
 
 bool ObjectList::contains(ObjectId id) const

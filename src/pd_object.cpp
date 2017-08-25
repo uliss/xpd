@@ -14,8 +14,6 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArgume
     , outlet_n_(0)
     , args_(args)
 {
-    static size_t id_counter_ = 2000;
-
     const PdCanvas* pd_canvas = dynamic_cast<const PdCanvas*>(parent);
     if (!pd_canvas) {
         throw Exception("PdObject: invalid canvas pointer given. PdCanvas* expected");
@@ -30,8 +28,6 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArgume
     if (!obj_) {
         throw Exception("PdObject: can't create object");
     }
-
-    id_ = id_counter_++;
 
     // cache xlet number, since it should not change after object creation
     inlet_n_ = cpd_object_inlet_count(obj_);

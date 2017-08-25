@@ -1,5 +1,6 @@
 #include "pd_canvas.h"
 #include "logger.h"
+#include "pd_floatarray.h"
 #include "pd_object.h"
 
 #include "cpd/cpd.h"
@@ -25,11 +26,6 @@ PdCanvas::~PdCanvas()
 
 ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
 {
-    if (!cnv_) {
-        log()->error("canvas is NULL");
-        return ObjectId(-1);
-    }
-
     //    t_cpd_atomlist* lst = cpd_list_new();
     //    lst.n = 0;
     //    lst.data = 0;
@@ -68,12 +64,9 @@ t_cpd_object* PdCanvas::findById(ObjectId id)
 
 ObjectId PdCanvas::createArray(const std::string& name, size_t size)
 {
-    return 0;
-}
-
-bool PdCanvas::deleteArray(const std::string& name)
-{
-    return false;
+    Object* array = new PdFloatArray(this, name, size);
+    obj_list_.append(array);
+    return array->id();
 }
 
 void PdCanvas::loadbang()

@@ -6,6 +6,8 @@
 
 namespace xpd {
 
+class PdCatcher;
+
 class PdCanvas : public Canvas {
     t_cpd_canvas* cnv_;
     PdCanvas();
@@ -21,11 +23,19 @@ public:
     bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
 
     const t_cpd_canvas* canvas() const;
-    
+
+    /**
+     * Creates new array on canvas
+     * @param name - array name
+     * @param size - array size
+     * @return array ID
+     */
     ObjectId createArray(const std::string& name, size_t size);
-    bool deleteArray(const std::string& name);
-    
+
     void loadbang();
+
+public:
+    friend class PdCatcher;
 
 private:
     t_cpd_object* findById(ObjectId id);

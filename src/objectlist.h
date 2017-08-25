@@ -40,6 +40,18 @@ public:
 
     Object* findObject(ObjectId id);
     const Object* findObject(ObjectId id) const;
+
+    /**
+     * Returns object index or -1 if not found
+     * @param id - object id 
+     */
+    ssize_t findObjectIndex(ObjectId id) const;
+
+    /**
+     * Checks list contains object with specified ID
+     * @param id - search id
+     * @return true on success, otherwise false
+     */
     bool contains(ObjectId id) const;
 
 private:

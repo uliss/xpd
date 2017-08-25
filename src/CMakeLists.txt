@@ -23,6 +23,7 @@ set(SERVER_SRC
     pd_arguments.cpp
     pd_floatarray.cpp
     pd_canvas.cpp
+    pd_catcher.cpp
     pd_localprocess.cpp
     pd_localserver.cpp 
     pd_objectobserver.cpp

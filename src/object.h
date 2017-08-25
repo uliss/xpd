@@ -36,6 +36,8 @@ enum ObjectType {
 typedef size_t ObjectId;
 
 class Object {
+    static size_t id_counter_;
+
 protected:
     std::string name_;
     const Canvas* parent_;
@@ -44,6 +46,8 @@ protected:
     ClassInfoPtr class_;
     ObjectId id_;
     int x_, y_;
+
+    static ObjectId generateNewId();
 
 public:
     typedef std::runtime_error Exception;
@@ -77,6 +81,7 @@ public:
     virtual bool hasChildren() const;
     virtual size_t childrenCount() const;
     virtual const ObjectList& children() const;
+    virtual void removeAllChildren();
 
     int x() const;
     int y() const;

@@ -23,5 +23,7 @@ TEST_CASE("Array", "[Array]")
         REQUIRE(arr.plotStyle() == FloatArray::PLOT_POINTS);
         REQUIRE_THROWS_AS(arr.at(0), FloatArray::Exception);
         REQUIRE_THROWS_AS(arr.fill(0), FloatArray::Exception);
+
+        REQUIRE(arr.type() == OBJ_TYPE_ARRAY);
     }
 }

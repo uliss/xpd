@@ -54,9 +54,18 @@ public:
     virtual ObjectId createObject(const std::string& name, int x, int y) = 0;
     virtual bool deleteObject(ObjectId objId);
 
+    /**
+     * Creates new array and appends it to child list
+     * @param name - array name
+     * @param size - array size
+     * @return array ID
+     */
+    virtual ObjectId createArray(const std::string& name, size_t size) = 0;
+
     bool hasChildren() const;
     size_t childrenCount() const;
     const ObjectList& children() const;
+    void removeAllChildren();
 
     ObjectType type() const;
 
@@ -67,15 +76,17 @@ public:
      * Sends loadbang to all objects
      */
     virtual void loadbang();
+
+    /**
+     * If canvas has no parents - it's root canvas
+     */
+    bool isRoot() const;
 };
 
 //    vector<ServerPatchcord*> _patchcords;
 //    ServerInstance* _parentInstance;
-//    void setParentInstance(ServerInstance* p) { _parentInstance = p; }
-//    ServerInstance* parentInstance() { return _parentInstance; }
 //    struct _glist* canvasObject();
 //    ServerCanvas* createEmptySubCanvas();
-//    void loadbang();
 //    ServerObject* toServerObject();
 
 } // namespace xpd
