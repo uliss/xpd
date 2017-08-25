@@ -12,6 +12,7 @@ class PdCatcher : public PdObject {
 
 public:
     PdCatcher(Canvas* cnv);
+    ~PdCatcher();
     bool isEmpty() const;
     bool isLastBang() const;
     bool isLastFloat(float v) const;

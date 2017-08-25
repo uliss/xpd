@@ -67,13 +67,13 @@ TEST_CASE("PdCanvas", "[PdCanvas]")
     {
         c->removeAllChildren();
         auto lb = c->createObject("loadbang", 0, 0);
-        PdCatcher* ct = new PdCatcher(c.get());
-        REQUIRE(c->connect(lb, 0, ct->id(), 0));
+        PdCatcher ct(c.get());
+        REQUIRE(c->connect(lb, 0, ct.id(), 0));
 
-        REQUIRE(ct->isEmpty());
+        REQUIRE(ct.isEmpty());
         c->loadbang();
-        REQUIRE(ct->isLastBang());
-        REQUIRE_FALSE(ct->isLastFloat(123));
-        ct->clear();
+        REQUIRE(ct.isLastBang());
+        REQUIRE_FALSE(ct.isLastFloat(123));
+        ct.clear();
     }
 }

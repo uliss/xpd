@@ -24,6 +24,19 @@ PdCatcher::PdCatcher(Canvas* cnv)
     obj_ = pd_cnv->findById(id());
 }
 
+PdCatcher::~PdCatcher()
+{
+    PdCanvas* pd_cnv = (PdCanvas*)(parent());
+    if (!pd_cnv)
+        return;
+
+    auto idx = pd_cnv->obj_list_.findObjectIndex(id());
+    if (idx < 1)
+        return;
+
+    pd_cnv->obj_list_.removeIndex(idx);
+}
+
 bool PdCatcher::isEmpty() const
 {
     return cpd_catcher_empty(obj_);

@@ -47,6 +47,16 @@ bool ObjectList::remove(ObjectId id)
     if (pos < 0)
         return false;
 
+    delete obj_[pos];
+    return removeIndex(pos);
+}
+
+bool ObjectList::removeIndex(size_t pos)
+{
+    if (pos >= obj_.size())
+        return false;
+
+    obj_[pos] = nullptr;
     obj_.erase(obj_.begin() + pos);
     return true;
 }

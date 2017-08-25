@@ -30,6 +30,7 @@ public:
     bool append(Object* o);
     void clear();
     bool remove(ObjectId id);
+    bool removeIndex(size_t pos);
 
     bool empty() const;
     size_t size() const;
