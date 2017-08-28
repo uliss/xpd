@@ -3,6 +3,8 @@
 #include "pd_floatarray.h"
 #include "pd_object.h"
 
+#include <string>
+
 #include "cpd/cpd.h"
 
 using namespace xpd;
@@ -31,9 +33,24 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     //    lst.data = 0;
 
     try {
-        Object* obj = new PdObject(this, name, PdArguments(), x, y);
+        // stub:
+        using namespace std;
+        
+        string argumentString;
+        string objName;
+        
+        int pos = name.find_first_of(' ');
+        argumentString = name.substr(pos+1),
+        objName = name.substr(0, pos);
+        
+        PdArguments * args = new PdArguments();
+        args->parseString(argumentString);
+        
+        //
+        Object* obj = new PdObject(this, objName, *args, x, y);
         obj_list_.append(obj);
         return obj->id();
+        
     } catch (const std::exception&) {
         // error message here
         return 0;
