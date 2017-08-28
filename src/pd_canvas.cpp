@@ -78,15 +78,15 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
         string argumentString;
         string objName;
 
-        int pos = name.find_first_of(' ');
-        argumentString = name.substr(pos + 1),
-        objName = name.substr(0, pos);
+        size_t pos = name.find_first_of(' ');
+        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1) ;
+        objName = (pos == string::npos) ? name : name.substr(0, pos);
 
-        PdArguments* args = new PdArguments();
-        args->parseString(argumentString);
+        PdArguments args;
+        args.parseString(argumentString);
 
         // throws exception on error
-        Object* obj = new PdObject(this, objName, *args, x, y);
+        Object* obj = new PdObject(this, objName, args, x, y);
         // ok
         obj_list_.append(obj);
 

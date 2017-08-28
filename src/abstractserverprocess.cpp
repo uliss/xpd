@@ -54,11 +54,15 @@ void AbstractServerProcess::addSearchPath(const std::string& path)
 
 bool AbstractServerProcess::loadLibrary(const std::string& libraryName)
 {
-    cpd_load_library(cpd_symbol(libraryName.c_str()));
+    // cpd_load_library returns 0 if ok
+    bool ret = cpd_load_library(cpd_symbol(libraryName.c_str()));
+    return ret;
 }
 
 bool AbstractServerProcess::loadExternal(const std::string& externalName)
 {
+    // stub
+    return false;
 }
 
 const AbstractServer* AbstractServerProcess::parent() const
@@ -111,7 +115,7 @@ size_t AbstractServerProcess::canvasCount() const
 }
 
 LibraryList AbstractServerProcess::loadedLibraries() const
-{
+{    
 }
 
 ClassList AbstractServerProcess::loadedClasses() const
