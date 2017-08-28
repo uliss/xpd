@@ -1,4 +1,5 @@
 #include "object.h"
+#include "canvas.h"
 #include "objectlist.h"
 #include "propertyobserver.h"
 
@@ -42,12 +43,12 @@ const Arguments& Object::arguments() const
 
 size_t Object::inletCount() const
 {
-    return 0;
+    return inlet_list_.size();
 }
 
 size_t Object::outletCount() const
 {
-    return 0;
+    return outlet_list_.size();
 }
 
 ObjectType Object::type() const
@@ -143,6 +144,16 @@ void Object::sendFloat(float f)
 
 void Object::sendSymbol(const std::string& s)
 {
+}
+
+Canvas* Object::asCanvas()
+{
+    return (type() == OBJ_TYPE_CANVAS) ? static_cast<Canvas*>(this) : nullptr;
+}
+
+const Canvas* Object::asCanvas() const
+{
+    return (type() == OBJ_TYPE_CANVAS) ? static_cast<const Canvas*>(this) : nullptr;
 }
 
 } // namespace xpd

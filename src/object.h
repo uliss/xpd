@@ -93,6 +93,9 @@ public:
     virtual void sendFloat(float f);
     virtual void sendSymbol(const std::string& s);
 
+    virtual Canvas* asCanvas();
+    virtual const Canvas* asCanvas() const;
+
 private:
     Object(const Object&);
     void operator=(const Object&);

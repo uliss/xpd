@@ -23,7 +23,7 @@ void PdLocalProcess::dspSwitch(bool value)
 CanvasPtr PdLocalProcess::createCanvas()
 {
     CanvasSettings s("Untitled-1");
-    CanvasPtr cnv = std::make_shared<PdCanvas>(nullptr, s);
+    CanvasPtr cnv = std::make_shared<PdCanvas>(s);
 
     if (!cnv)
         return cnv;

@@ -15,7 +15,7 @@ class PdCanvas : public Canvas {
     void operator=(const PdCanvas&);
 
 public:
-    PdCanvas(const Canvas* parent, const CanvasSettings& s);
+    PdCanvas(const CanvasSettings& s);
     ~PdCanvas();
 
     ObjectId createObject(const std::string& name, int x, int y);
@@ -38,7 +38,11 @@ public:
     friend class PdCatcher;
 
 private:
+    PdCanvas(const Canvas* parent, const CanvasSettings& s);
     t_cpd_object* findById(ObjectId id);
+    void updateXlets();
+    void updateInlets();
+    void updateOutlets();
 };
 
 } // namespace xpd

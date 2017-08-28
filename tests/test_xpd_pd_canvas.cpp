@@ -21,6 +21,8 @@ TEST_CASE("PdCanvas", "[PdCanvas]")
     SECTION("init")
     {
         REQUIRE(c->type() == OBJ_TYPE_CANVAS);
+        REQUIRE(c->inletCount() == 0);
+        REQUIRE(c->outletCount() == 0);
     }
 
     SECTION("create array")
@@ -75,5 +77,66 @@ TEST_CASE("PdCanvas", "[PdCanvas]")
         REQUIRE(ct.isLastBang());
         REQUIRE_FALSE(ct.isLastFloat(123));
         ct.clear();
+    }
+
+    SECTION("subpatch")
+    {
+        c->removeAllChildren();
+        auto sp_id = c->createObject("pd test", 0, 0);
+        REQUIRE(sp_id > 0);
+        REQUIRE(c->childrenCount() == 1);
+        auto obj = c->children().findObject(sp_id);
+        REQUIRE(obj);
+        REQUIRE(c->children().findObjectIndex(sp_id) == 0);
+
+        REQUIRE(obj->type() == OBJ_TYPE_CANVAS);
+        Canvas* subpatch = (Canvas*)obj->asCanvas();
+        REQUIRE(subpatch);
+        REQUIRE(subpatch->inletCount() == 0);
+        REQUIRE(subpatch->outletCount() == 0);
+
+        auto inl_id = subpatch->createObject("inlet", 0, 0);
+        auto otl_id = subpatch->createObject("outlet", 0, 0);
+
+        REQUIRE(inl_id > sp_id);
+        REQUIRE(otl_id > inl_id);
+
+        REQUIRE(obj->childrenCount() == 2);
+        REQUIRE(subpatch->childrenCount() == 2);
+
+        REQUIRE(obj->inletCount() == 1);
+        REQUIRE(obj->inlets().size() == 1);
+        REQUIRE(obj->inlets()[0].type() == XLET_MESSAGE);
+
+        REQUIRE(obj->outletCount() == 1);
+        REQUIRE(obj->outlets().size() == 1);
+        REQUIRE(obj->outlets()[0].type() == XLET_MESSAGE);
+
+        auto inl2_id = subpatch->createObject("inlet~", 100, 0);
+        auto otl2_id = subpatch->createObject("outlet~", 100, 0);
+
+        REQUIRE(obj->inletCount() == 2);
+        REQUIRE(obj->inlets().size() == 2);
+        REQUIRE(obj->inlets()[0].type() == XLET_MESSAGE);
+        REQUIRE(obj->inlets()[1].type() == XLET_SIGNAL);
+
+        REQUIRE(obj->outletCount() == 2);
+        REQUIRE(obj->outlets().size() == 2);
+        REQUIRE(obj->outlets()[0].type() == XLET_MESSAGE);
+        REQUIRE(obj->outlets()[1].type() == XLET_SIGNAL);
+
+        // testing X-position
+        auto inl3_id = subpatch->createObject("inlet", 50, 0);
+        auto otl3_id = subpatch->createObject("outlet", 50, 0);
+
+        REQUIRE(obj->inletCount() == 3);
+        REQUIRE(obj->inlets()[0].type() == XLET_MESSAGE);
+        REQUIRE(obj->inlets()[1].type() == XLET_MESSAGE);
+        REQUIRE(obj->inlets()[2].type() == XLET_SIGNAL);
+
+        REQUIRE(obj->outletCount() == 3);
+        REQUIRE(obj->outlets()[0].type() == XLET_MESSAGE);
+        REQUIRE(obj->outlets()[1].type() == XLET_MESSAGE);
+        REQUIRE(obj->outlets()[2].type() == XLET_SIGNAL);
     }
 }
