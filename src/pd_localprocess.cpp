@@ -34,8 +34,7 @@ CanvasPtr PdLocalProcess::createCanvas()
 
 void PdLocalProcess::post(const std::string& text)
 {
-    if(console_observer_)
-    {
+    if (console_observer_) {
         console_observer_->setText(text);
         console_observer_->update();
     }
@@ -43,11 +42,17 @@ void PdLocalProcess::post(const std::string& text)
 
 void PdLocalProcess::error(const std::string& text)
 {
-
 }
 
 void PdLocalProcess::log(LogLevel level, const std::string& text)
 {
+}
+
+void PdLocalProcess::setLogLevel(LogLevel l)
+{
+    this->AbstractServerProcess::setLogLevel(l);
+
+    cpd_set_verbose_level((int)l);
 }
 
 } // namespace xpd

@@ -21,6 +21,8 @@ public:
     virtual void post(const std::string& text = "");
     virtual void error(const std::string& text = "");
     virtual void log(LogLevel level, const std::string& text);
+    
+    virtual void setLogLevel(LogLevel l);
 };
 
 } // namespace xpd
