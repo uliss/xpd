@@ -30,9 +30,14 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     //    lst.n = 0;
     //    lst.data = 0;
 
-    Object* obj = new PdObject(this, name, PdArguments(), x, y);
-    obj_list_.append(obj);
-    return obj->id();
+    try {
+        Object* obj = new PdObject(this, name, PdArguments(), x, y);
+        obj_list_.append(obj);
+        return obj->id();
+    } catch (const std::exception&) {
+        // error message here
+        return 0;
+    }
 }
 
 bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
