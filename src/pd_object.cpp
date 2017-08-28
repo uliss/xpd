@@ -3,6 +3,7 @@
 #include "pd_canvas.h"
 
 #include "cpd/cpd_object.h"
+#include "cpd/cpd_types.h"
 
 namespace xpd {
 
@@ -85,4 +86,10 @@ void PdObject::sendSymbol(const std::string& s)
 {
 }
 
+void PdObject::setReceiveSymbol(const std::string& s)
+{
+    cpd_bind_object(obj_, cpd_symbol(s.c_str()));
+}
+
 } // namespace xpd
+

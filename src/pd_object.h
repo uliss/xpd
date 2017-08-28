@@ -32,6 +32,8 @@ public:
     void sendBang();
     void sendFloat(float f);
     void sendSymbol(const std::string& s);
+    
+    void setReceiveSymbol(const std::string& s);
 };
 
 } // namespace xpd
