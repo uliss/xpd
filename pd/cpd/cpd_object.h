@@ -157,6 +157,12 @@ CPD_EXTERN t_cpd_object* cpd_object_next(t_cpd_object* obj);
 CPD_EXTERN int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
 
 /**
+ * Disconnects two objects
+ * @return 1 on success, 0 on error
+ */
+CPD_EXTERN int cpd_disconnect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
+
+/**
  * Sends bang to object
  * @see cpd_send_float(), cpd_send_symbol(), cpd_send_list(), cpd_send_message()
  */
