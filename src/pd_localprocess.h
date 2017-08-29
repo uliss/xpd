@@ -23,6 +23,9 @@ public:
     virtual void log(LogLevel level, const std::string& text);
     
     virtual void setLogLevel(LogLevel l);
+
+    virtual void registerConsoleObserver(ConsoleObserverPtr o);
+    virtual void unregisterConsoleObserver(ConsoleObserverPtr o);
 };
 
 } // namespace xpd

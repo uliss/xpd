@@ -1,6 +1,7 @@
 #include "pd_localprocess.h"
 #include "cpd/cpd.h"
 #include "pd_canvas.h"
+#include "pd_consoleobserver.h"
 
 namespace xpd {
 
@@ -53,6 +54,21 @@ void PdLocalProcess::setLogLevel(LogLevel l)
     this->AbstractServerProcess::setLogLevel(l);
 
     cpd_set_verbose_level((int)l);
+}
+
+void PdLocalProcess::registerConsoleObserver(ConsoleObserverPtr o)
+{
+    if (!o)
+        return;
+
+    this->AbstractServerProcess::registerConsoleObserver(o);
+    cpd_setprinthook(&PdConsoleObserver::hookFunction);
+}
+
+void PdLocalProcess::unregisterConsoleObserver(ConsoleObserverPtr o)
+{
+    this->AbstractServerProcess::unregisterConsoleObserver(o);
+    cpd_setprinthook(0);
 }
 
 } // namespace xpd

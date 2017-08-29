@@ -28,6 +28,7 @@ set(SERVER_SRC
     pd_localserver.cpp 
     pd_objectobserver.cpp
     pd_object.cpp
+    pd_consoleobserver.cpp
     propertyobserver.cpp
     serverpath.cpp
     videodevice.cpp
