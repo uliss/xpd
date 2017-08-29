@@ -13,6 +13,9 @@ class PdConsoleObserver : public ConsoleObserver {
     static ConsoleObserverPtr _pdConsoleObserver;
 public:
     static void hookFunction(const char* str);
+
+    // stub
+    static void setPdConsoleObserver(ConsoleObserverPtr o);
 };
 
 } // namespace xpd

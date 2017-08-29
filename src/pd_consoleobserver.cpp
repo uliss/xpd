@@ -13,4 +13,9 @@ void PdConsoleObserver::hookFunction(const char* str)
     }
 }
 
+void PdConsoleObserver::setPdConsoleObserver(ConsoleObserverPtr o)
+{
+    _pdConsoleObserver = o;
+}
+
 } // namespace xpd

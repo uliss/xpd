@@ -62,6 +62,8 @@ void PdLocalProcess::registerConsoleObserver(ConsoleObserverPtr o)
         return;
 
     this->AbstractServerProcess::registerConsoleObserver(o);
+    PdConsoleObserver::setPdConsoleObserver(o);
+    // this may be moved:
     cpd_setprinthook(&PdConsoleObserver::hookFunction);
 }
 
