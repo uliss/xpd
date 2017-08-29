@@ -127,7 +127,7 @@ bool PdCanvas::disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t 
         return false;
     }
 
-    if (!obj_list_.connect(src, outletIdx, dest, inletIdx))
+    if (!obj_list_.disconnect(src, outletIdx, dest, inletIdx))
         return false;
 
     return cpd_disconnect(pd_src, outletIdx, pd_dest, inletIdx);
