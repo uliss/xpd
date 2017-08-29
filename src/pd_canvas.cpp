@@ -117,6 +117,22 @@ bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inl
     return cpd_connect(pd_src, outletIdx, pd_dest, inletIdx);
 }
 
+bool PdCanvas::disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
+{
+    t_cpd_object* pd_src = findById(src);
+    t_cpd_object* pd_dest = findById(dest);
+
+    if (!pd_src || !pd_dest) {
+        log()->error("PdCanvas::connect: invalid object ID: {} {}", src, dest);
+        return false;
+    }
+
+    if (!obj_list_.connect(src, outletIdx, dest, inletIdx))
+        return false;
+
+    return cpd_disconnect(pd_src, outletIdx, pd_dest, inletIdx);
+}
+
 const t_cpd_canvas* PdCanvas::canvas() const
 {
     return cnv_;
