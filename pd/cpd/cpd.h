@@ -35,6 +35,8 @@ CPD_EXTERN void cpd_error(const char* msg, ...);
 
 CPD_EXTERN int cpd_send_brodcast_message(t_cpd_symbol* sel, const t_cpd_list* l);
 
+CPD_EXTERN void cpd_set_verbose_level(int v);
+
 #ifdef __cplusplus
 }
 #endif

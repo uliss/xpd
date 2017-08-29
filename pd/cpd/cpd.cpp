@@ -131,3 +131,8 @@ int cpd_send_brodcast_message(t_cpd_symbol* sel, const t_cpd_list* l)
 
     return 1;
 }
+
+void cpd_set_verbose_level(int v)
+{
+    sys_verbose = v;
+}

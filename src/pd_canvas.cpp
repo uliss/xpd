@@ -4,6 +4,8 @@
 #include "pd_floatarray.h"
 #include "pd_object.h"
 
+#include <string>
+
 #include "cpd/cpd.h"
 
 using namespace xpd;
@@ -69,15 +71,34 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
     //    lst.n = 0;
     //    lst.data = 0;
 
-    // throws exception on error
-    Object* obj = new PdObject(this, name, PdArguments(), x, y);
-    // ok
-    obj_list_.append(obj);
+    try {
+        // stub:
+        using namespace std;
 
-    // update inlets/outlets
-    updateXlets();
+        string argumentString;
+        string objName;
 
-    return obj->id();
+        size_t pos = name.find_first_of(' ');
+        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1) ;
+        objName = (pos == string::npos) ? name : name.substr(0, pos);
+
+        PdArguments args;
+        args.parseString(argumentString);
+
+        // throws exception on error
+        Object* obj = new PdObject(this, objName, args, x, y);
+        // ok
+        obj_list_.append(obj);
+
+        // update inlets/outlets
+        updateXlets();
+
+        return obj->id();
+
+    } catch (const std::exception&) {
+        // error message here
+        return 0;
+    }
 }
 
 bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
@@ -94,6 +115,22 @@ bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inl
         return false;
 
     return cpd_connect(pd_src, outletIdx, pd_dest, inletIdx);
+}
+
+bool PdCanvas::disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
+{
+    t_cpd_object* pd_src = findById(src);
+    t_cpd_object* pd_dest = findById(dest);
+
+    if (!pd_src || !pd_dest) {
+        log()->error("PdCanvas::connect: invalid object ID: {} {}", src, dest);
+        return false;
+    }
+
+    if (!obj_list_.disconnect(src, outletIdx, dest, inletIdx))
+        return false;
+
+    return cpd_disconnect(pd_src, outletIdx, pd_dest, inletIdx);
 }
 
 const t_cpd_canvas* PdCanvas::canvas() const

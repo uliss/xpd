@@ -20,7 +20,8 @@ public:
 
     ObjectId createObject(const std::string& name, int x, int y);
 
-    bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
+    virtual bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
+    virtual bool disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
 
     const t_cpd_canvas* canvas() const;
 

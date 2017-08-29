@@ -32,11 +32,11 @@ typedef std::vector<ClassInfo> ClassList;
 class AbstractServer;
 
 enum LogLevel {
-    LOG_ERROR,
-    LOG_FATAL,
-    LOG_INFO,
-    LOG_DEBUG,
-    LOG_DUMP
+    LOG_ERROR = 0,
+    LOG_FATAL = 1,
+    LOG_INFO = 2,
+    LOG_DEBUG = 3,
+    LOG_DUMP = 4
 };
 
 class AbstractServerProcess {
@@ -74,8 +74,8 @@ public:
     void unregisterObserver(ObserverPtr o);
 
     // ?
-    void registerConsoleObserver(ConsoleObserverPtr o);
-    void unregisterConsoleObserver(ConsoleObserverPtr o);
+    virtual void registerConsoleObserver(ConsoleObserverPtr o);
+    virtual void unregisterConsoleObserver(ConsoleObserverPtr o);
 
     void addSearchPath(const std::string& path);
 
@@ -89,7 +89,7 @@ public:
     virtual void log(LogLevel level, const std::string& text);
 
     LogLevel logLevel() const;
-    void setLogLevel(LogLevel l);
+    virtual void setLogLevel(LogLevel l);
 
     virtual CanvasPtr createCanvas() = 0;
     virtual bool deleteCanvas(CanvasPtr cnv);

@@ -4,6 +4,7 @@
 #include "cpd_types.h"
 
 #include <cstddef>
+#include <sys/types.h>
 
 #ifdef __cplusplus
 extern "C" {
