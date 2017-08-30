@@ -33,6 +33,20 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArgume
     // cache xlet number, since it should not change after object creation
     inlet_n_ = cpd_object_inlet_count(obj_);
     outlet_n_ = cpd_object_outlet_count(obj_);
+
+    for (int i = 0; i < inlet_n_; i++) {
+        XletType t = (cpd_object_inlet_type(obj_, i) == CPD_CONNECTION_SIGNAL) ? XLET_SIGNAL : XLET_MESSAGE;
+        Inlet n = Inlet(t);
+
+        inlet_list_.push_back(n);
+    }
+
+    for (int i = 0; i < outlet_n_; i++) {
+        XletType t = (cpd_object_outlet_type(obj_, i) == CPD_CONNECTION_SIGNAL) ? XLET_SIGNAL : XLET_MESSAGE;
+        Outlet n = Outlet(t);
+
+        outlet_list_.push_back(n);
+    }
 }
 
 PdObject::~PdObject()
@@ -92,4 +106,3 @@ void PdObject::setReceiveSymbol(const std::string& s)
 }
 
 } // namespace xpd
-
