@@ -14,6 +14,7 @@
 #include "cpd_loader.h"
 #include "cpd_object.h"
 #include "cpd_patch.h"
+#include "cpd_system_lists.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -26,6 +26,9 @@ public:
 
     virtual void registerConsoleObserver(ConsoleObserverPtr o);
     virtual void unregisterConsoleObserver(ConsoleObserverPtr o);
+
+    std::string getBindObjectList();
+    std::vector<std::string> getLoadedClassesList();
 };
 
 } // namespace xpd
