@@ -85,8 +85,7 @@ ClassList PdLocalProcess::loadedClasses() const
     ClassList ret;
     std::vector<std::string> vs = cpd_system_list_loaded_classes();
 
-    for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it)
-    {
+    for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
         ClassInfo i = ClassInfo(*it);
         ret.push_back(i);
     }
