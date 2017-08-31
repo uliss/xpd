@@ -73,7 +73,7 @@ t_cpd_float cpd_elements_rfold(t_cpd_array_element* el, size_t n, cpd_element_fo
     return res;
 }
 
-t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset)
+t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, long offset)
 {
     return el + offset;
 }
