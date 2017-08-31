@@ -14,7 +14,7 @@ const std::string& ClassInfo::name() const
 
 const std::string& ClassInfo::library() const
 {
-    return ""
+    //
 }
 
 } // namespace xpd
