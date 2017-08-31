@@ -6,6 +6,7 @@ set(CMP_SOURCES
     cpd_array_element.h cpd_array_element.cpp
     cpd_canvas.h cpd_canvas.cpp
     cpd_catcher.h cpd_catcher.cpp
+    cpd_class.h cpd_class.cpp
     cpd_connection.h cpd_connection.cpp
     cpd_dsp.h cpd_dsp.cpp
     cpd_globals.h cpd_globals.cpp

@@ -7,6 +7,7 @@
 #include "cpd_array_element.h"
 #include "cpd_atom.h"
 #include "cpd_canvas.h"
+#include "cpd_class.h"
 #include "cpd_connection.h"
 #include "cpd_dsp.h"
 #include "cpd_env.h"

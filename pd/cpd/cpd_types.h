@@ -33,6 +33,12 @@ struct _text;
 typedef struct _text t_cpd_object;
 
 /**
+ * object method
+ */
+struct _methodentry;
+typedef struct _methodentry t_cpd_method;
+
+/**
  * object class
  */
 struct _class;
