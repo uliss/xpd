@@ -21,20 +21,20 @@ public:
     PdObject(const Canvas* parent, const std::string& name, const PdArguments& args = PdArguments(), int x = 0, int y = 0);
     ~PdObject();
 
-    void setX(int x);
-    void setY(int y);
+    void setX(int x) override;
+    void setY(int y) override;
 
-    size_t inletCount() const;
-    size_t outletCount() const;
+    size_t inletCount() const override;
+    size_t outletCount() const override;
 
-    const Arguments& arguments() const;
+    const Arguments& arguments() const override;
 
     t_cpd_object* pdObject();
 
-    void sendBang();
-    void sendFloat(float f);
-    void sendSymbol(const std::string& s);
-    
+    void sendBang() override;
+    void sendFloat(float f) override;
+    void sendSymbol(const std::string& s) override;
+
     void setReceiveSymbol(const std::string& s);
 
     virtual void registerObserver(ObserverPtr o);

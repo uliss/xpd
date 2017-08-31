@@ -58,6 +58,13 @@ CPD_EXTERN t_cpd_list* cpd_object_arguments(t_cpd_object* obj);
 CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
 
 /**
+ * Returns object class
+ * @param obj - pointer to object
+ * @return pointer to class or NULL on error
+ */
+CPD_EXTERN t_cpd_class* cpd_object_class(t_cpd_object* obj);
+
+/**
  * Returns object help filename
  * @param obj - pointer to object
  * @return path or empty string on error
@@ -236,5 +243,3 @@ CPD_EXTERN void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s);
 #endif
 
 #endif // CPD_OBJECT_H
-
-

@@ -18,10 +18,10 @@ public:
     PdCanvas(const CanvasSettings& s);
     ~PdCanvas();
 
-    ObjectId createObject(const std::string& name, int x, int y);
+    ObjectId createObject(const std::string& name, int x, int y) override;
 
-    virtual bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
-    virtual bool disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx);
+    virtual bool connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx) override;
+    virtual bool disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx) override;
 
     const t_cpd_canvas* canvas() const;
 
@@ -31,9 +31,11 @@ public:
      * @param size - array size
      * @return array ID
      */
-    ObjectId createArray(const std::string& name, size_t size);
+    ObjectId createArray(const std::string& name, size_t size) override;
 
-    void loadbang();
+    void loadbang() override;
+
+    std::vector<std::string> availableObjects() const override;
 
 public:
     friend class PdCatcher;

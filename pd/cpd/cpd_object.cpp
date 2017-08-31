@@ -429,3 +429,8 @@ void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s)
 
     pd_unbind(&obj->te_g.g_pd, s);
 }
+
+t_cpd_class* cpd_object_class(t_cpd_object* obj)
+{
+    return obj ? obj->te_g.g_pd : NULL;
+}

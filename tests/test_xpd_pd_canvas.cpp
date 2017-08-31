@@ -6,11 +6,18 @@
 #include "pd_catcher.h"
 #include "pd_localserver.h"
 
+#include <algorithm>
 #include <string>
 
 using namespace xpd;
 
 extern const char* CATCHER_NAME;
+
+template <class T, class V>
+static bool contains(const T& cont, const V& val)
+{
+    return std::find(std::begin(cont), std::end(cont), val) != std::end(cont);
+}
 
 TEST_CASE("PdCanvas", "[PdCanvas]")
 {
@@ -138,5 +145,18 @@ TEST_CASE("PdCanvas", "[PdCanvas]")
         REQUIRE(obj->outlets()[0].type() == XLET_MESSAGE);
         REQUIRE(obj->outlets()[1].type() == XLET_MESSAGE);
         REQUIRE(obj->outlets()[2].type() == XLET_SIGNAL);
+    }
+
+    SECTION("list available objects")
+    {
+        auto lst = c->availableObjects();
+        REQUIRE(lst.size() > 0);
+        REQUIRE(contains(lst, "pd"));
+        REQUIRE(contains(lst, "soundfiler"));
+        REQUIRE(contains(lst, "&&"));
+        REQUIRE(contains(lst, "f"));
+        REQUIRE(contains(lst, "*~"));
+        REQUIRE(contains(lst, "mtof"));
+        REQUIRE(contains(lst, "list append"));
     }
 }
