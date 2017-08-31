@@ -14,6 +14,11 @@ t_cpd_method* cpd_class_method_at(t_cpd_class* c, size_t n)
         return 0;
     }
 
+    if (n >= c->c_nmethod) {
+        WARNING("invalid method index: {}", n);
+        return 0;
+    }
+
     return &c->c_methods[n];
 }
 

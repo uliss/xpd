@@ -11,6 +11,7 @@ set(CMP_SOURCES
     cpd_dsp.h cpd_dsp.cpp
     cpd_globals.h cpd_globals.cpp
     cpd_list.h cpd_list.cpp 
+    cpd_method.h cpd_method.cpp
     cpd_env.h cpd_env.cpp 
     cpd_object.h cpd_object.cpp
     cpd_patch.h cpd_patch.cpp

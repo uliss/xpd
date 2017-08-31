@@ -91,6 +91,13 @@ typedef enum _cpd_array_flags {
     CPD_ARRAY_HIDE_NAME = 1 << 3 /// hide array name on canvas
 } t_cpd_array_flags;
 
+typedef enum _cpd_method_arg_type {
+    CPD_ARG_NONE = 0,
+    CPD_ARG_FLOAT,
+    CPD_ARG_SYMBOL,
+    CPD_ARG_POINTER
+} t_cpd_method_arg_type;
+
 /**
  * Float map function
  */

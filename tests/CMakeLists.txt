@@ -59,6 +59,7 @@ xpd_add_test(catcher cpd_catcher)
 xpd_add_test(dsp cpd_dsp)
 xpd_add_test(loader cpd_loader)
 xpd_add_test(array cpd_array)
+xpd_add_test(method cpd_method)
 
 xpd_add_test(Array xpd_array)
 xpd_add_test(PdObject pdobject)
