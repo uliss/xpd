@@ -4,7 +4,6 @@
 #include "cpd_types.h"
 
 #include <cstddef>
-#include <sys/types.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,7 +55,7 @@ CPD_EXTERN t_cpd_array_element* cpd_element_prev(t_cpd_array_element* el);
  * @return new pointer
  * @note no NULL check
  */
-CPD_EXTERN t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, ssize_t offset);
+CPD_EXTERN t_cpd_array_element* cpd_element_move(t_cpd_array_element* el, long offset);
 
 /**
  * Returns element difference
