@@ -105,7 +105,6 @@ public:
 
 //class PDSERVER_EXPORT ServerInstance // : Object ??
 //{
-//    static string getBindObjectsList();
 //    static string getAudioAPIs();
 //};
 

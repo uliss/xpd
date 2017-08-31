@@ -6,7 +6,7 @@ extern "C"{
 }
 
 
-std::string cmp_system_list_bind_objects()
+std::string cpd_system_list_bind_objects()
 {
     std::string ret = "";
     /*
@@ -33,7 +33,7 @@ std::string cmp_system_list_bind_objects()
     return ret;
 }
 
-std::vector<std::string> cmp_system_list_loaded_classes()
+std::vector<std::string> cpd_system_list_loaded_classes()
 {
 
     std::vector<std::string> ret;

@@ -115,11 +115,15 @@ size_t AbstractServerProcess::canvasCount() const
 }
 
 LibraryList AbstractServerProcess::loadedLibraries() const
-{    
+{
+    LibraryList ret;
+    return ret;
 }
 
 ClassList AbstractServerProcess::loadedClasses() const
 {
+    ClassList ret;
+    return ret;
 }
 
 void AbstractServerProcess::sendMessage(const std::string& object, const std::string& text)

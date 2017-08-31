@@ -74,14 +74,33 @@ void PdLocalProcess::unregisterConsoleObserver(ConsoleObserverPtr o)
     cpd_setprinthook(0);
 }
 
-std::string PdLocalProcess:: getBindObjectList()
+LibraryList PdLocalProcess::loadedLibraries() const
 {
-    return cmp_system_list_bind_objects();
+    LibraryList ret;
+    return ret;
+}
+
+ClassList PdLocalProcess::loadedClasses() const
+{
+    ClassList ret;
+    std::vector<std::string> vs = cpd_system_list_loaded_classes();
+
+    for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it)
+    {
+        ClassInfo i = ClassInfo(*it);
+        ret.push_back(i);
+    }
+    return ret;
+}
+
+std::string PdLocalProcess::getBindObjectList()
+{
+    return cpd_system_list_bind_objects();
 }
 
 std::vector<std::string> PdLocalProcess::getLoadedClassesList()
 {
-    return cmp_system_list_loaded_classes();
+    return cpd_system_list_loaded_classes();
 }
 
 } // namespace xpd

@@ -26,6 +26,9 @@ public:
 
     virtual void registerConsoleObserver(ConsoleObserverPtr o);
     virtual void unregisterConsoleObserver(ConsoleObserverPtr o);
+    
+    virtual LibraryList loadedLibraries() const;
+    virtual ClassList loadedClasses() const;
 
     std::string getBindObjectList();
     std::vector<std::string> getLoadedClassesList();
