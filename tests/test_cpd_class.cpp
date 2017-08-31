@@ -34,4 +34,20 @@ TEST_CASE("cpd_class", "[cpd PureData wrapper]")
 
         cpd_canvas_free(cnv);
     }
+
+    SECTION("method_at")
+    {
+        REQUIRE(cpd_class_method_at(nullptr, 0) == 0);
+
+        auto cnv = cpd_patch_new();
+
+        auto obj_f = cpd_object_new(cnv, "readsf~", NULL, 0, 0);
+        auto class_f = cpd_object_class(obj_f);
+        REQUIRE(cpd_class_method_count(class_f) == 5);
+        for (size_t i = 0; i < cpd_class_method_count(class_f); i++) {
+            REQUIRE(cpd_class_method_at(class_f, i) != NULL);
+        }
+
+        cpd_canvas_free(cnv);
+    }
 }
