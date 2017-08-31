@@ -2,6 +2,8 @@
 #define PD_CONSOLEOBSERVER_H
 
 #include "consoleobserver.h"
+
+#include <memory>
 #include <string>
 
 namespace xpd {
@@ -11,6 +13,7 @@ typedef std::shared_ptr<ConsoleObserver> ConsoleObserverPtr;
 
 class PdConsoleObserver : public ConsoleObserver {
     static ConsoleObserverPtr _pdConsoleObserver;
+
 public:
     static void hookFunction(const char* str);
 
