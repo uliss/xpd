@@ -13,8 +13,8 @@ typedef void (*t_cpd_receiver_callback)(t_cpd_list* msg);
 
 CPD_EXTERN void cpd_receiver_init();
 
-static CPD_EXTERN t_cpd_object* cpd_receiver_new();
-static CPD_EXTERN void cpd_receiver_set_callback(t_receiver* x, t_cpd_receiver_callback c);
+CPD_EXTERN t_cpd_object* cpd_receiver_new();
+CPD_EXTERN void cpd_receiver_set_callback(t_receiver* x, t_cpd_receiver_callback c);
 
 #ifdef __cplusplus
 }

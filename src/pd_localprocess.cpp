@@ -14,6 +14,12 @@ PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcess
 {
     if (!cpd_init())
         throw Exception("can't start pd");
+
+    // receiver
+    cpd_receiver_init();
+    receiver_ = reinterpret_cast<t_receiver*>(cpd_receiver_new());
+    cpd_receiver_set_callback(receiver_,&PdLocalProcess::receiverCallback);
+
 }
 
 PdLocalProcess::~PdLocalProcess()

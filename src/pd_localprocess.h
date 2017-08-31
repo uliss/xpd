@@ -3,6 +3,7 @@
 
 #include "abstractserverprocess.h"
 #include "cpd/cpd_list.h"
+#include "cpd/cpd_receiver.h"
 #include <map>
 
 namespace xpd {
@@ -10,6 +11,7 @@ namespace xpd {
 class PdObjectObserver;
 
 class PdLocalProcess : public AbstractServerProcess {
+    t_receiver *receiver_;
 public:
     PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s);
     ~PdLocalProcess();

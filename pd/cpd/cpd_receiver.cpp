@@ -17,7 +17,7 @@ typedef struct _receiver {
 
 static t_class* receiver_class = 0;
 
-static t_cpd_object* cpd_receiver_new()
+CPD_EXTERN t_cpd_object* cpd_receiver_new()
 {
     t_receiver* x = reinterpret_cast<t_receiver*>(pd_new(receiver_class));
     x->callback = 0;
@@ -42,12 +42,12 @@ static void cpd_receiver_any(t_receiver* x, t_symbol* sel, int argc, t_atom* arg
         (x->callback)(msg);
 }
 
-static CPD_EXTERN void cpd_receiver_set_callback(t_receiver* x,t_cpd_receiver_callback c)
+CPD_EXTERN void cpd_receiver_set_callback(t_receiver* x,t_cpd_receiver_callback c)
 {
     x->callback = c;
 }
 
-void cpd_receiver_init()
+CPD_EXTERN void cpd_receiver_init()
 {
     // already initialized
     if (receiver_class)
