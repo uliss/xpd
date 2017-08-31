@@ -19,6 +19,7 @@ PdLocalProcess::~PdLocalProcess()
 
 void PdLocalProcess::dspSwitch(bool value)
 {
+    cpd_dsp_switch(value);
 }
 
 CanvasPtr PdLocalProcess::createCanvas()
