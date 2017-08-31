@@ -33,7 +33,9 @@ public:
      */
     ObjectId createArray(const std::string& name, size_t size);
 
-    void loadbang();
+    void loadbang() override;
+
+    std::vector<std::string> availableObjects() const override;
 
 public:
     friend class PdCatcher;

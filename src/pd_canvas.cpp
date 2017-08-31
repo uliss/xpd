@@ -79,7 +79,7 @@ ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
         string objName;
 
         size_t pos = name.find_first_of(' ');
-        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1) ;
+        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1);
         objName = (pos == string::npos) ? name : name.substr(0, pos);
 
         PdArguments args;
@@ -188,4 +188,23 @@ ObjectId PdCanvas::createArray(const std::string& name, size_t size)
 void PdCanvas::loadbang()
 {
     cpd_canvas_loadbang(cnv_);
+}
+
+std::vector<std::string> PdCanvas::availableObjects() const
+{
+    std::vector<std::string> res;
+
+    t_cpd_list* lst = cpd_class_global_list();
+    const size_t n = cpd_list_size(lst);
+    res.reserve(n);
+
+    for (size_t i = 0; i < n; i++) {
+        auto symbol = cpd_list_get_symbol_at(lst, i);
+        if (symbol)
+            res.push_back(cpd_symbol_name(symbol));
+    }
+
+    cpd_list_free(lst);
+
+    return res;
 }

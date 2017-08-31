@@ -81,6 +81,8 @@ public:
      * If canvas has no parents - it's root canvas
      */
     bool isRoot() const;
+
+    virtual std::vector<std::string> availableObjects() const;
 };
 
 //    vector<ServerPatchcord*> _patchcords;
