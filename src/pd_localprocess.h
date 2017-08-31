@@ -2,8 +2,12 @@
 #define LOCALPDPROCESS_H
 
 #include "abstractserverprocess.h"
+#include "cpd/cpd_list.h"
+#include <map>
 
 namespace xpd {
+
+class PdObjectObserver;
 
 class PdLocalProcess : public AbstractServerProcess {
 public:
@@ -32,6 +36,9 @@ public:
 
     std::string getBindObjectList();
     std::vector<std::string> getLoadedClassesList();
+
+    static void receiverCallback(t_cpd_list* msg);
+    static std::map<t_cpd_object*,PdObjectObserver*> objectObserverMap;
 };
 
 } // namespace xpd

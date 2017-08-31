@@ -2,8 +2,12 @@
 #include "cpd/cpd.h"
 #include "pd_canvas.h"
 #include "pd_consoleobserver.h"
+#include "cpd/cpd_list.h"
+#include "pd_objectobserver.h"
 
 namespace xpd {
+
+std::map<t_cpd_object*,PdObjectObserver*> PdLocalProcess::objectObserverMap;
 
 PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s)
     : AbstractServerProcess(parent, s)
@@ -100,6 +104,52 @@ std::string PdLocalProcess::getBindObjectList()
 std::vector<std::string> PdLocalProcess::getLoadedClassesList()
 {
     return cpd_system_list_loaded_classes();
+}
+
+void PdLocalProcess::receiverCallback(t_cpd_list* msg)
+{
+    if (cpd_list_size(msg)<1)
+        return;
+
+    t_cpd_atom * a = cpd_list_at(msg,0);
+    t_cpd_symbol* s = cpd_atom_get_symbol(a);
+
+    if (!s)
+        return;
+
+    std::string sym = cpd_symbol_name(s);
+
+    // UI object pointer
+    if (sym == "pd_ui_object")
+    {
+        if (cpd_list_size(msg)<3)
+            return;
+
+        a = cpd_list_at(msg,1);
+
+        long lPtr =  static_cast<long>(cpd_atom_get_float(a));
+        t_cpd_object* objPtr = reinterpret_cast<t_cpd_object*>(lPtr);
+
+        if (!objPtr)
+            return;
+
+        if (!PdLocalProcess::objectObserverMap[objPtr])
+                return;
+
+        PdObjectObserver *observer = PdLocalProcess::objectObserverMap[objPtr];
+
+        // todo:
+        t_cpd_list* o = cpd_list_new(cpd_list_size(msg)-2);
+        for (int i=2; i<cpd_list_size(msg); i++)
+        {
+            cpd_list_append(o, cpd_list_at(msg,i));
+        }
+
+        observer->setData(o);
+        observer->update();
+
+    }
+
 }
 
 } // namespace xpd

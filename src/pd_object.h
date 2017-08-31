@@ -3,6 +3,7 @@
 
 #include "object.h"
 #include "pd_arguments.h"
+#include "pd_objectobserver.h"
 
 #include "cpd/cpd_canvas.h"
 
@@ -14,6 +15,7 @@ class PdObject : public Object {
     size_t inlet_n_;
     size_t outlet_n_;
     PdArguments args_;
+    PdObjectObserver* observer_;
 
 public:
     PdObject(const Canvas* parent, const std::string& name, const PdArguments& args = PdArguments(), int x = 0, int y = 0);
@@ -34,6 +36,9 @@ public:
     void sendSymbol(const std::string& s);
     
     void setReceiveSymbol(const std::string& s);
+
+    virtual void registerObserver(ObserverPtr o);
+    virtual void deleteObserver(ObserverPtr);
 };
 
 } // namespace xpd

@@ -1,6 +1,8 @@
 #include "pd_object.h"
-#include "logger.h"
 #include "pd_canvas.h"
+#include "pd_localprocess.h"
+
+#include "logger.h"
 
 #include "cpd/cpd_object.h"
 #include "cpd/cpd_types.h"
@@ -47,6 +49,8 @@ PdObject::PdObject(const Canvas* parent, const std::string& name, const PdArgume
 
         outlet_list_.push_back(n);
     }
+
+    observer_ = 0;
 }
 
 PdObject::~PdObject()
@@ -103,6 +107,17 @@ void PdObject::sendSymbol(const std::string& s)
 void PdObject::setReceiveSymbol(const std::string& s)
 {
     cpd_bind_object(obj_, cpd_symbol(s.c_str()));
+}
+
+void PdObject::registerObserver(ObserverPtr o)
+{
+    observer_ = o;
+    PdLocalProcess::objectObserverMap[pdObject()] = o;
+}
+void PdObject::deleteObserver(ObserverPtr)
+{
+    observer_ = 0;
+    PdLocalProcess::objectObserverMap[pdObject()] = 0;
 }
 
 } // namespace xpd
