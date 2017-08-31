@@ -7,7 +7,7 @@
 
 namespace xpd {
 
-std::map<t_cpd_object*,PdObjectObserver*> PdLocalProcess::objectObserverMap;
+std::map<t_cpd_object*,ObserverPtr> PdLocalProcess::objectObserverMap;
 
 PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s)
     : AbstractServerProcess(parent, s)
@@ -136,7 +136,8 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
         if (!PdLocalProcess::objectObserverMap[objPtr])
                 return;
 
-        PdObjectObserver *observer = PdLocalProcess::objectObserverMap[objPtr];
+        ObserverPtr p = PdLocalProcess::objectObserverMap[objPtr];
+        PdObjectObserver *observer = reinterpret_cast<PdObjectObserver*>(p.get());
 
         // todo:
         t_cpd_list* o = cpd_list_new(cpd_list_size(msg)-2);

@@ -38,7 +38,7 @@ public:
     std::vector<std::string> getLoadedClassesList();
 
     static void receiverCallback(t_cpd_list* msg);
-    static std::map<t_cpd_object*,PdObjectObserver*> objectObserverMap;
+    static std::map<t_cpd_object*,ObserverPtr> objectObserverMap;
 };
 
 } // namespace xpd

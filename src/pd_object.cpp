@@ -111,7 +111,9 @@ void PdObject::setReceiveSymbol(const std::string& s)
 
 void PdObject::registerObserver(ObserverPtr o)
 {
-    observer_ = o;
+    PdObjectObserver *observer = reinterpret_cast<PdObjectObserver*>(o.get());
+
+    observer_ = observer;
     PdLocalProcess::objectObserverMap[pdObject()] = o;
 }
 void PdObject::deleteObserver(ObserverPtr)
