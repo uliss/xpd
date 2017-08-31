@@ -113,8 +113,15 @@ void PdObject::registerObserver(ObserverPtr o)
 {
     PdObjectObserver *observer = reinterpret_cast<PdObjectObserver*>(o.get());
 
+    if (!o)
+    {
+        log()->error("bad observer pointer!");
+        return;
+    }
+
     observer_ = observer;
     PdLocalProcess::objectObserverMap[pdObject()] = o;
+
 }
 void PdObject::deleteObserver(ObserverPtr)
 {

@@ -5,6 +5,10 @@
 #include "cpd/cpd_list.h"
 #include "pd_objectobserver.h"
 
+#include "logger.h"
+
+#include <sstream>
+
 namespace xpd {
 
 std::map<t_cpd_object*,ObserverPtr> PdLocalProcess::objectObserverMap;
@@ -19,7 +23,7 @@ PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcess
     cpd_receiver_init();
     receiver_ = reinterpret_cast<t_receiver*>(cpd_receiver_new());
     cpd_receiver_set_callback(receiver_,&PdLocalProcess::receiverCallback);
-
+    cpd_bind_object(reinterpret_cast<t_cpd_object*>(receiver_), cpd_symbol("xpd_receiver"));
 }
 
 PdLocalProcess::~PdLocalProcess()
@@ -115,13 +119,19 @@ std::vector<std::string> PdLocalProcess::getLoadedClassesList()
 void PdLocalProcess::receiverCallback(t_cpd_list* msg)
 {
     if (cpd_list_size(msg)<1)
+    {
+        // error message here
         return;
+    }
 
     t_cpd_atom * a = cpd_list_at(msg,0);
     t_cpd_symbol* s = cpd_atom_get_symbol(a);
 
     if (!s)
+    {
+        // error message here
         return;
+    }
 
     std::string sym = cpd_symbol_name(s);
 
@@ -132,12 +142,23 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
             return;
 
         a = cpd_list_at(msg,1);
+        s = cpd_atom_get_symbol(a);
 
-        long lPtr =  static_cast<long>(cpd_atom_get_float(a));
+        std::stringstream stream;
+        stream << cpd_symbol_name(s);
+
+        long lPtr;
+        stream >> lPtr;
+
         t_cpd_object* objPtr = reinterpret_cast<t_cpd_object*>(lPtr);
 
         if (!objPtr)
             return;
+
+        char b[64];
+        sprintf(b,"%lu", (long)lPtr);
+
+        xpd::log()->info(b);
 
         if (!PdLocalProcess::objectObserverMap[objPtr])
                 return;
@@ -155,6 +176,7 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
         observer->setData(o);
         observer->update();
 
+        cpd_list_free(o);
     }
 
 }
