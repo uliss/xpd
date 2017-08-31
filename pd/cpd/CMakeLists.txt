@@ -15,6 +15,7 @@ set(CMP_SOURCES
     cpd_patch.h cpd_patch.cpp
     cpd_types.h cpd_types.cpp 
     pr_log.cpp cpd_loader.h cpd_loader.cpp
+    cpd_receiver.cpp
     cpd_system_lists.cpp
     )
 
