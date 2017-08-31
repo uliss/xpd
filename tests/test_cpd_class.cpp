@@ -43,8 +43,9 @@ TEST_CASE("cpd_class", "[cpd PureData wrapper]")
 
         auto obj_f = cpd_object_new(cnv, "readsf~", NULL, 0, 0);
         auto class_f = cpd_object_class(obj_f);
-        REQUIRE(cpd_class_method_count(class_f) == 5);
-        for (size_t i = 0; i < cpd_class_method_count(class_f); i++) {
+        auto nm = cpd_class_method_count(class_f);
+        REQUIRE(nm == 5);
+        for (size_t i = 0; i < nm; i++) {
             REQUIRE(cpd_class_method_at(class_f, i) != NULL);
         }
 
