@@ -1,8 +1,8 @@
 #include "pd_localprocess.h"
 #include "cpd/cpd.h"
+#include "cpd/cpd_list.h"
 #include "pd_canvas.h"
 #include "pd_consoleobserver.h"
-#include "cpd/cpd_list.h"
 #include "pd_objectobserver.h"
 
 #include "logger.h"
@@ -11,7 +11,7 @@
 
 namespace xpd {
 
-std::map<t_cpd_object*,ObserverPtr> PdLocalProcess::objectObserverMap;
+std::map<t_cpd_object*, ObserverPtr> PdLocalProcess::objectObserverMap;
 
 PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcessSettings& s)
     : AbstractServerProcess(parent, s)
@@ -22,7 +22,7 @@ PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcess
     // receiver
     cpd_receiver_init();
     receiver_ = reinterpret_cast<t_receiver*>(cpd_receiver_new());
-    cpd_receiver_set_callback(receiver_,&PdLocalProcess::receiverCallback);
+    cpd_receiver_set_callback(receiver_, &PdLocalProcess::receiverCallback);
     cpd_bind_object(reinterpret_cast<t_cpd_object*>(receiver_), cpd_symbol("xpd_receiver"));
 }
 
@@ -118,17 +118,15 @@ std::vector<std::string> PdLocalProcess::getLoadedClassesList()
 
 void PdLocalProcess::receiverCallback(t_cpd_list* msg)
 {
-    if (cpd_list_size(msg)<1)
-    {
+    if (cpd_list_size(msg) < 1) {
         // error message here
         return;
     }
 
-    t_cpd_atom * a = cpd_list_at(msg,0);
+    t_cpd_atom* a = cpd_list_at(msg, 0);
     t_cpd_symbol* s = cpd_atom_get_symbol(a);
 
-    if (!s)
-    {
+    if (!s) {
         // error message here
         return;
     }
@@ -136,12 +134,11 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
     std::string sym = cpd_symbol_name(s);
 
     // UI object pointer
-    if (sym == "pd_ui_object")
-    {
-        if (cpd_list_size(msg)<3)
+    if (sym == "pd_ui_object") {
+        if (cpd_list_size(msg) < 3)
             return;
 
-        a = cpd_list_at(msg,1);
+        a = cpd_list_at(msg, 1);
         s = cpd_atom_get_symbol(a);
 
         std::stringstream stream;
@@ -156,21 +153,21 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
             return;
 
         char b[64];
-        sprintf(b,"%lu", (long)lPtr);
+        sprintf(b, "%lu", (long)lPtr);
 
         xpd::log()->info(b);
 
         if (!PdLocalProcess::objectObserverMap[objPtr])
-                return;
+            return;
 
         ObserverPtr p = PdLocalProcess::objectObserverMap[objPtr];
-        PdObjectObserver *observer = reinterpret_cast<PdObjectObserver*>(p.get());
+        PdObjectObserver* observer = reinterpret_cast<PdObjectObserver*>(p.get());
 
         // todo:
-        t_cpd_list* o = cpd_list_new(cpd_list_size(msg)-2);
-        for (int i=2; i<cpd_list_size(msg); i++)
-        {
-            cpd_list_append(o, cpd_list_at(msg,i));
+        t_cpd_list* o = cpd_list_new(cpd_list_size(msg) - 2);
+        cpd_list_set_atom_at(o, 0, cpd_list_at(msg, 2));
+        for (int i = 3; i < cpd_list_size(msg); i++) {
+            cpd_list_append(o, cpd_list_at(msg, i));
         }
 
         observer->setData(o);
@@ -178,7 +175,6 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
 
         cpd_list_free(o);
     }
-
 }
 
 } // namespace xpd
