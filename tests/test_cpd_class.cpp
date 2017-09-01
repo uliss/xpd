@@ -39,7 +39,8 @@ static std::vector<std::string> global_class_list = { "!=", "%", "&", "&&", "*",
     "text set", "text size", "text tolist", "textfile", "threshold~", "throw~", "timer", "touchin",
     "touchout", "trigger",
     "unpack", "until",
-    "v", "value", "vcf~", "vd~", "vline~", "vsnapshot~", "wrap", "wrap~", "writesf~", "|", "||" };
+    "v", "value", "vcf~", "vd~", "vline~", "vsnapshot~", "wrap", "wrap~", "writesf~", "|", "||",
+    "@receiver object@" };
 
 static int init = cpd_init();
 
