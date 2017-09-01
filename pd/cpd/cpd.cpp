@@ -86,6 +86,8 @@ int cpd_init()
     cpd_setprinthook(cpd_log_print);
     cpd_globals_init();
 
+    cpd_receiver_init();
+
     return 1;
 }
 

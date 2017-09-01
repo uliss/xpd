@@ -37,8 +37,8 @@ public:
 
     void setReceiveSymbol(const std::string& s);
 
-    virtual void registerObserver(ObserverPtr o);
-    virtual void deleteObserver(ObserverPtr);
+    virtual void registerObserver(ObserverPtr o) override;
+    virtual void deleteObserver(ObserverPtr) override;
 };
 
 } // namespace xpd

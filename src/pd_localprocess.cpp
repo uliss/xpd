@@ -28,6 +28,8 @@ PdLocalProcess::PdLocalProcess(const AbstractServer* parent, const ServerProcess
 
 PdLocalProcess::~PdLocalProcess()
 {
+    cpd_unbind_object(reinterpret_cast<t_cpd_object*>(receiver_), cpd_symbol("xpd_receiver"));
+    cpd_receiver_free(receiver_);
     cpd_stop();
 }
 
@@ -152,12 +154,10 @@ void PdLocalProcess::receiverCallback(t_cpd_list* msg)
         if (!objPtr)
             return;
 
-        char b[64];
-        sprintf(b, "%lu", (long)lPtr);
+        // remove later
+        xpd::log()->info("callback: {}", lPtr);
 
-        xpd::log()->info(b);
-
-        if (!PdLocalProcess::objectObserverMap[objPtr])
+        if (objectObserverMap.find(objPtr) == objectObserverMap.end())
             return;
 
         ObserverPtr p = PdLocalProcess::objectObserverMap[objPtr];

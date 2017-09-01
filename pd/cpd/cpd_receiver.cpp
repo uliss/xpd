@@ -24,13 +24,16 @@ CPD_EXTERN t_cpd_object* cpd_receiver_new()
     return reinterpret_cast<t_cpd_object*>(x);
 }
 
-static void cpd_receiver_free(t_receiver* x)
+CPD_EXTERN void cpd_receiver_free(t_receiver* x)
 {
 
 }
 
 static void cpd_receiver_any(t_receiver* x, t_symbol* sel, int argc, t_atom* argv)
 {
+    if (!x->callback)
+        return;
+
     t_cpd_list* msg = cpd_list_new(0);
     cpd_list_append_symbol(msg, sel);
 
@@ -38,8 +41,9 @@ static void cpd_receiver_any(t_receiver* x, t_symbol* sel, int argc, t_atom* arg
         cpd_list_append(msg, &argv[i]);
 
     //callback
-    if (x->callback)
-        (x->callback)(msg);
+    (x->callback)(msg);
+
+    cpd_list_free(msg);
 }
 
 CPD_EXTERN void cpd_receiver_set_callback(t_receiver* x,t_cpd_receiver_callback c)
