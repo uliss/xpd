@@ -14,6 +14,7 @@ public:
     PdArguments(const PdArguments&);
     explicit PdArguments(float v);
     explicit PdArguments(const std::string& s);
+    explicit PdArguments(const Arguments& a);
     ~PdArguments();
 
     void operator=(const PdArguments&);
