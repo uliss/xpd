@@ -15,7 +15,7 @@ class PdObject : public Object {
     size_t inlet_n_;
     size_t outlet_n_;
     PdArguments args_;
-    PdObjectObserver* observer_;
+    std::shared_ptr<PdObjectObserver> observer_;
 
 public:
     PdObject(const Canvas* parent, const std::string& name, const PdArguments& args = PdArguments(), int x = 0, int y = 0);
@@ -34,6 +34,7 @@ public:
     void sendBang() override;
     void sendFloat(float f) override;
     void sendSymbol(const std::string& s) override;
+    void sendList(const Arguments a) override;
 
     void setReceiveSymbol(const std::string& s);
 
