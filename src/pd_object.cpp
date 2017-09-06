@@ -124,9 +124,19 @@ void PdObject::sendList(const Arguments a)
 {
     PdArguments pa(a);
 
-    log()->debug(">>> {} {} ", a.args().size(), cpd_list_size(pa.atomList()));
-    cpd_send_list(obj_, pa.atomList());
+    t_cpd_list* l = const_cast<t_cpd_list*>(pa.atomList());
+
+    t_cpd_symbol* sel = cpd_list_get_symbol_at(l, 0);
+
+    if (!sel) {
+        cpd_send_list(obj_, l);
+    } else {
+        t_cpd_list* l2 = cpd_list_new(0);
+        for (int i = 1; i < cpd_list_size(l); i++) {
+            cpd_list_append(l2, cpd_list_at(l, i));
+        }
+        cpd_send_message(obj_, sel, l2);
+    }
 }
 
 } // namespace xpd
-
