@@ -111,22 +111,21 @@ void PdObject::setReceiveSymbol(const std::string& s)
 
 void PdObject::registerObserver(ObserverPtr o)
 {
-    PdObjectObserver *observer = reinterpret_cast<PdObjectObserver*>(o.get());
-
-    if (!o)
-    {
-        log()->error("bad observer pointer!");
-        return;
-    }
-
-    observer_ = observer;
-    PdLocalProcess::objectObserverMap[pdObject()] = o;
-
+    observer_ = std::static_pointer_cast<PdObjectObserver>(o);
+    PdLocalProcess::objectObserverMap[pdObject()] = observer_;
 }
 void PdObject::deleteObserver(ObserverPtr)
 {
     observer_ = 0;
     PdLocalProcess::objectObserverMap[pdObject()] = 0;
+}
+
+void PdObject::sendList(const Arguments a)
+{
+    PdArguments pa(a);
+
+    log()->debug(">>> {} {} ", a.args().size(), cpd_list_size(pa.atomList()));
+    cpd_send_list(obj_, pa.atomList());
 }
 
 } // namespace xpd
