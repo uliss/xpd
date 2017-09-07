@@ -34,12 +34,12 @@ PdArguments::PdArguments(const Arguments& a)
     lst_ = cpd_list_new(s);
 
     for (int i = 0; i < s; i++) {
-        Arg a = a.args().at(i);
-        if (a.is<float>())
-            cpd_list_set_float_at(lst_, i, a.get<float>());
+        Arg ar = a.args().at(i);
+        if (ar.is<float>())
+            cpd_list_set_float_at(lst_, i, ar.get<float>());
 
-        if (a.is<std::string>())
-            cpd_list_set_string_at(lst_, i, cpd_symbol(a.get<std::string>().c_str()));
+        if (ar.is<std::string>())
+            cpd_list_set_symbol_at(lst_, i, cpd_symbol(ar.get<std::string>().c_str()));
     }
 }
 
