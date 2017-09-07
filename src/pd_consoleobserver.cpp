@@ -2,10 +2,12 @@
 
 namespace xpd {
 
-ConsoleObserverPtr PdConsoleObserver::_pdConsoleObserver;
+ConsoleObserverPtr PdConsoleObserver::_pdConsoleObserver = 0;
 
 void PdConsoleObserver::hookFunction(const char* str)
 {
+    if (!str) return;
+
     if (_pdConsoleObserver) {
         //cout << "print hook: " << str << endl;
         _pdConsoleObserver->setText(str);
