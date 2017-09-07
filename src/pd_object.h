@@ -35,6 +35,7 @@ public:
     void sendFloat(float f) override;
     void sendSymbol(const std::string& s) override;
     void sendList(const Arguments a) override;
+    void sendStringAsList(std::string s);
 
     void setReceiveSymbol(const std::string& s);
 

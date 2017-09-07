@@ -139,4 +139,21 @@ void PdObject::sendList(const Arguments a)
     }
 }
 
+void PdObject::sendStringAsList(std::string s)
+{
+    t_cpd_list* l = cpd_list_new_from_string(s.c_str());
+
+    t_cpd_symbol* sel = cpd_list_get_symbol_at(l, 0);
+
+    if (!sel) {
+        cpd_send_list(obj_, l);
+    } else {
+        t_cpd_list* l2 = cpd_list_new(0);
+        for (int i = 1; i < cpd_list_size(l); i++) {
+            cpd_list_append(l2, cpd_list_at(l, i));
+        }
+        cpd_send_message(obj_, sel, l2);
+    }
+}
+
 } // namespace xpd
