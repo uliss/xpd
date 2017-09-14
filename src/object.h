@@ -92,6 +92,7 @@ public:
     virtual void sendBang();
     virtual void sendFloat(float f);
     virtual void sendSymbol(const std::string& s);
+    virtual void sendList(const Arguments a);
 
     virtual Canvas* asCanvas();
     virtual const Canvas* asCanvas() const;

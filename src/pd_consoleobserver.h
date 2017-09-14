@@ -2,8 +2,8 @@
 #define PD_CONSOLEOBSERVER_H
 
 #include "consoleobserver.h"
-
 #include <memory>
+
 #include <string>
 
 namespace xpd {

@@ -146,6 +146,10 @@ void Object::sendSymbol(const std::string& s)
 {
 }
 
+void Object::sendList(const Arguments a)
+{
+}
+
 Canvas* Object::asCanvas()
 {
     return (type() == OBJ_TYPE_CANVAS) ? static_cast<Canvas*>(this) : nullptr;

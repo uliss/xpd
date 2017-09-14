@@ -27,6 +27,22 @@ PdArguments::PdArguments(const std::string& s)
     cpd_atom_set_string(cpd_list_at(lst_, 0), s.c_str());
 }
 
+PdArguments::PdArguments(const Arguments& a)
+{
+    size_t s = a.args().size();
+
+    lst_ = cpd_list_new(s);
+
+    for (int i = 0; i < s; i++) {
+        Arg ar = a.args().at(i);
+        if (ar.is<float>())
+            cpd_list_set_float_at(lst_, i, ar.get<float>());
+
+        if (ar.is<std::string>())
+            cpd_list_set_symbol_at(lst_, i, cpd_symbol(ar.get<std::string>().c_str()));
+    }
+}
+
 PdArguments::~PdArguments()
 {
     free();

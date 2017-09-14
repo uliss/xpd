@@ -16,6 +16,8 @@
 #include "cpd_method.h"
 #include "cpd_object.h"
 #include "cpd_patch.h"
+#include "cpd_system_lists.h"
+#include "cpd_receiver.h"
 
 #ifdef __cplusplus
 extern "C" {
