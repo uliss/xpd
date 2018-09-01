@@ -5,6 +5,9 @@
 
 namespace xpd {
 
+/**
+ * @brief The VideoDevice class
+ */
 class VideoDevice : public Device {
 public:
     VideoDevice(const std::string& name);

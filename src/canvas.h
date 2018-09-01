@@ -15,6 +15,9 @@ class CanvasObserver;
 typedef std::shared_ptr<CanvasObserver> CanvasObserverPtr;
 typedef std::vector<CanvasObserverPtr> CanvasObserverList;
 
+/**
+ * @brief The CanvasSettings class
+ */
 class CanvasSettings {
     std::string name_;
     int x_, y_;
@@ -30,6 +33,10 @@ public:
     size_t height() const { return h_; }
 };
 
+/**
+ * @brief The Canvas class
+ * @details Base class for Pd Canvas object (see PdCanvas)
+ */
 class Canvas : public Object {
 protected:
     CanvasSettings settings_;
@@ -38,10 +45,12 @@ protected:
     ObjectList obj_list_;
 
 public:
+    /// @brief Create new Canvas with parent and settings
     Canvas(const Canvas* parent, const CanvasSettings& s);
     const CanvasSettings& settings() const;
 
-    const std::string& path() const;
+    /// @brief Returns canvas file path.
+    virtual const std::string& path() const;
 
     void registerObserver(CanvasObserverPtr o);
     void deleteObserver(CanvasObserverPtr o);
@@ -55,32 +64,34 @@ public:
     virtual bool deleteObject(ObjectId objId);
 
     /**
-     * Creates new array and appends it to child list
+     * @brief Creates new array and appends it to child list
      * @param name - array name
      * @param size - array size
      * @return array ID
      */
     virtual ObjectId createArray(const std::string& name, size_t size) = 0;
 
-    bool hasChildren() const;
-    size_t childrenCount() const;
-    const ObjectList& children() const;
-    void removeAllChildren();
+    virtual bool hasChildren() const override;
+    virtual size_t childrenCount() const override;
+    virtual const ObjectList& children() const override;
+    virtual void removeAllChildren() override;
 
-    ObjectType type() const;
+    virtual ObjectType type() const override;
 
     void sendBang(ObjectId id);
     void sendFloat(ObjectId id, float f);
 
     /**
-     * Sends loadbang to all objects
+     * @brief Sends loadbang to all objects
      */
     virtual void loadbang();
 
     /**
-     * If canvas has no parents - it's root canvas
+     * @brief If canvas has no parents - it's root canvas
      */
-    bool isRoot() const;
+    virtual bool isRoot() const override;
+
+    virtual std::vector<std::string> availableObjects() const;
 };
 
 //    vector<ServerPatchcord*> _patchcords;

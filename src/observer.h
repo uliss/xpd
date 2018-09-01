@@ -3,6 +3,10 @@
 
 namespace xpd {
 
+/**
+ * @brief The Observer class
+ * @details Base class for observers
+ */
 class Observer {
 public:
     Observer();

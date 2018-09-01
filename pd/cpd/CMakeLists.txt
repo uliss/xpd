@@ -6,15 +6,20 @@ set(CMP_SOURCES
     cpd_array_element.h cpd_array_element.cpp
     cpd_canvas.h cpd_canvas.cpp
     cpd_catcher.h cpd_catcher.cpp
+    cpd_class.h cpd_class.cpp
     cpd_connection.h cpd_connection.cpp
     cpd_dsp.h cpd_dsp.cpp
     cpd_globals.h cpd_globals.cpp
     cpd_list.h cpd_list.cpp 
+    cpd_method.h cpd_method.cpp
     cpd_env.h cpd_env.cpp 
     cpd_object.h cpd_object.cpp
     cpd_patch.h cpd_patch.cpp
     cpd_types.h cpd_types.cpp 
-    pr_log.cpp cpd_loader.h cpd_loader.cpp)
+    pr_log.cpp cpd_loader.h cpd_loader.cpp
+    cpd_receiver.cpp
+    cpd_system_lists.cpp
+    )
 
 if(WIN32)
     add_definitions(-DCPD_INTERNAL)

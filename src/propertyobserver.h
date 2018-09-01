@@ -5,6 +5,10 @@
 
 namespace xpd {
 
+/**
+ * @brief The PropertyObserver class
+ * @details See Observer base class
+ */
 class PropertyObserver : public Observer {
 public:
     PropertyObserver();

@@ -106,6 +106,11 @@ bool Canvas::isRoot() const
     return !parent();
 }
 
+std::vector<std::string> Canvas::availableObjects() const
+{
+    return std::vector<std::string>();
+}
+
 CanvasSettings::CanvasSettings(const std::string& name, int x, int y, size_t w, size_t h)
     : name_(name)
     , x_(std::max(0, x))

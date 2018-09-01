@@ -86,6 +86,8 @@ int cpd_init()
     cpd_setprinthook(cpd_log_print);
     cpd_globals_init();
 
+    cpd_receiver_init();
+
     return 1;
 }
 
@@ -130,4 +132,9 @@ int cpd_send_brodcast_message(t_cpd_symbol* sel, const t_cpd_list* l)
     pd_typedmess(sel->s_thing, sel, n, atoms);
 
     return 1;
+}
+
+void cpd_set_verbose_level(int v)
+{
+    sys_verbose = v;
 }

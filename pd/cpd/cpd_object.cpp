@@ -191,6 +191,32 @@ int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inn
     return 1;
 }
 
+int cpd_disconnect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno)
+{
+    if (!obj1 || !obj2) {
+        DEBUG("NULL objects are given");
+        return 0;
+    }
+
+    if (obj1 == obj2) {
+        DEBUG("self-connection");
+        return 0;
+    }
+
+    if (outno >= cpd_object_outlet_count(obj1)) {
+        ERROR("invalid source outlet {}", outno);
+        return 0;
+    }
+
+    if (inno >= cpd_object_inlet_count(obj2)) {
+        ERROR("invalid destination inlet {}", inno);
+        return 0;
+    }
+
+    obj_disconnect(obj1, outno, obj2, inno);
+    return 1;
+}
+
 int cpd_is_canvas(t_cpd_object* x)
 {
     if (!x) {
@@ -402,4 +428,9 @@ void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s)
     }
 
     pd_unbind(&obj->te_g.g_pd, s);
+}
+
+t_cpd_class* cpd_object_class(t_cpd_object* obj)
+{
+    return obj ? obj->te_g.g_pd : NULL;
 }

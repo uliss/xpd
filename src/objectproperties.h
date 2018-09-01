@@ -10,6 +10,9 @@ class PropertyObserver;
 typedef std::shared_ptr<PropertyObserver> PropertyObserverPtr;
 typedef std::vector<PropertyObserver> PropertyObserverList;
 
+/**
+ * @brief The ObjectProperties class
+ */
 class ObjectProperties {
     PropertyObserverList observer_list_;
 

@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "object.h"
 #include "canvas.h"
 #include "objectlist.h"
@@ -62,10 +64,12 @@ void Object::setType(ObjectType type)
 
 void Object::registerObserver(ObserverPtr o)
 {
+    observers_.push_back(o);
 }
 
-void Object::deleteObserver(ObserverPtr)
+void Object::deleteObserver(ObserverPtr o)
 {
+    observers_.erase(std::find(observers_.begin(), observers_.end(), o));
 }
 
 const InletList& Object::inlets() const
@@ -146,6 +150,10 @@ void Object::sendSymbol(const std::string& s)
 {
 }
 
+void Object::sendList(const Arguments a)
+{
+}
+
 Canvas* Object::asCanvas()
 {
     return (type() == OBJ_TYPE_CANVAS) ? static_cast<Canvas*>(this) : nullptr;
@@ -154,6 +162,26 @@ Canvas* Object::asCanvas()
 const Canvas* Object::asCanvas() const
 {
     return (type() == OBJ_TYPE_CANVAS) ? static_cast<const Canvas*>(this) : nullptr;
+}
+
+bool Object::isCanvas()
+{
+    printf("Object::isCanvas()\n");
+    return false;
+}
+const bool Object::isCanvas() const
+{
+    return false;
+}
+
+bool Object::isAbstraction()
+{
+    printf("Object::isAbstraction()\n");
+    return false;
+}
+const bool Object::isAbstraction() const
+{
+    return false;
 }
 
 } // namespace xpd

@@ -5,11 +5,17 @@
 
 namespace xpd {
 
+/**
+ * @brief The PdLocalServer class
+ * @details See AbctractServer base class
+ */
 class PdLocalServer : public AbstractServer {
 public:
     PdLocalServer(const ServerSettings& s);
     ~PdLocalServer();
-    ProcessPtr createProcess();
+
+    /// @brief Create new Pd process
+    virtual ProcessPtr createProcess() override;
 };
 
 } // namespace xpd

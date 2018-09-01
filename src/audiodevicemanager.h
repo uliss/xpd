@@ -11,6 +11,9 @@ namespace xpd {
 typedef std::unique_ptr<AudioDevice> AudioDevicePtr;
 typedef std::vector<AudioDevicePtr> AudioDeviceList;
 
+/**
+ * @brief The AudioDeviceManager class
+ */
 class AudioDeviceManager {
     AudioDeviceList dev_list_;
 

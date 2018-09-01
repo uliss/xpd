@@ -15,6 +15,9 @@ class AbstractServerProcess;
 typedef std::shared_ptr<AbstractServerProcess> ProcessPtr;
 typedef std::vector<ProcessPtr> ProcessList;
 
+/**
+ * @brief The Server Settings class
+ */
 class ServerSettings {
     std::string name_;
 
@@ -24,12 +27,16 @@ public:
     {
     }
 
+    /// @brief returns server name
     const std::string& name() const;
 
     bool operator==(const ServerSettings& s) const;
     bool operator!=(const ServerSettings& s) const;
 };
 
+/**
+ * @brief The Abstract Server class.
+ */
 class AbstractServer {
 protected:
     ProcessList process_list_;
@@ -44,19 +51,26 @@ public:
     AbstractServer(const ServerSettings& s);
     virtual ~AbstractServer();
 
+    /// @brief Returns server settings
     const ServerSettings& settings() const;
+
+    /// @brief Sets server settings
     void setSettings(const ServerSettings& s);
 
+    /**
+     * @brief Returns list of processes created by server.
+     * @return
+     */
     const ProcessList& processList() const;
 
     /**
-     * @brief creates new process
-     * @return pointer to new process or null-ptr on error
+     * @brief Creates new abstract server process.
+     * @return Pointer to new process or null-ptr on error
      */
     virtual ProcessPtr createProcess() = 0;
 
     /**
-     * Returns server name 
+     * @brief Returns server name
      */
     const std::string& name() const;
 };

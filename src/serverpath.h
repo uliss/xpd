@@ -6,6 +6,9 @@
 
 namespace xpd {
 
+/**
+ * @brief The ServerPath class
+ */
 class ServerPath {
     std::vector<std::string> paths_;
 

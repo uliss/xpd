@@ -3,6 +3,7 @@
 
 namespace xpd {
 
+/// @brief Base data structure to store float arrays
 typedef struct _PdFloatArrayData {
     int size;
     float* sample;

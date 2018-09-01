@@ -24,7 +24,7 @@ public:
     const ConnectionList& connections() const;
 
     /**
-     * Appends object to object list
+     * @brief Appends object to object list
      * @return true on success, false on error
      */
     bool append(Object* o);
@@ -43,13 +43,13 @@ public:
     const Object* findObject(ObjectId id) const;
 
     /**
-     * Returns object index or -1 if not found
+     * @brief Returns object index or -1 if not found
      * @param id - object id 
      */
     ssize_t findObjectIndex(ObjectId id) const;
 
     /**
-     * Checks list contains object with specified ID
+     * @brief Checks list contains object with specified ID
      * @param id - search id
      * @return true on success, otherwise false
      */

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "cpd/cpd_loader.h"
+
 using namespace xpd;
 
 AbstractServerProcess::AbstractServerProcess(const AbstractServer* parent,
@@ -46,17 +48,22 @@ void AbstractServerProcess::unregisterObserver(ObserverPtr o)
 {
 }
 
-void AbstractServerProcess::addSearchPath(const std::string& path)
-{
-}
+//void AbstractServerProcess::addSearchPath(const std::string& path)
+//{
+//}
 
-bool AbstractServerProcess::loadLibrary(const std::string& libraryName)
-{
-}
+//bool AbstractServerProcess::loadLibrary(const std::string& libraryName)
+//{
+//    // cpd_load_library returns 0 if ok
+//    bool ret = cpd_load_library(cpd_symbol(libraryName.c_str()));
+//    return ret;
+//}
 
-bool AbstractServerProcess::loadExternal(const std::string& externalName)
-{
-}
+//bool AbstractServerProcess::loadExternal(const std::string& externalName)
+//{
+//    // stub
+//    return false;
+//}
 
 const AbstractServer* AbstractServerProcess::parent() const
 {
@@ -109,15 +116,19 @@ size_t AbstractServerProcess::canvasCount() const
 
 LibraryList AbstractServerProcess::loadedLibraries() const
 {
+    LibraryList ret;
+    return ret;
 }
 
 ClassList AbstractServerProcess::loadedClasses() const
 {
+    ClassList ret;
+    return ret;
 }
 
-void AbstractServerProcess::sendMessage(const std::string& object, const std::string& text)
-{
-}
+//void AbstractServerProcess::sendMessage(const std::string& object, const std::string& text)
+//{
+//}
 
 void AbstractServerProcess::registerConsoleObserver(ConsoleObserverPtr o)
 {

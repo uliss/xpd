@@ -58,6 +58,13 @@ CPD_EXTERN t_cpd_list* cpd_object_arguments(t_cpd_object* obj);
 CPD_EXTERN const char* cpd_object_text(t_cpd_object* obj);
 
 /**
+ * Returns object class
+ * @param obj - pointer to object
+ * @return pointer to class or NULL on error
+ */
+CPD_EXTERN t_cpd_class* cpd_object_class(t_cpd_object* obj);
+
+/**
  * Returns object help filename
  * @param obj - pointer to object
  * @return path or empty string on error
@@ -157,6 +164,12 @@ CPD_EXTERN t_cpd_object* cpd_object_next(t_cpd_object* obj);
 CPD_EXTERN int cpd_connect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
 
 /**
+ * Disconnects two objects
+ * @return 1 on success, 0 on error
+ */
+CPD_EXTERN int cpd_disconnect(t_cpd_object* obj1, size_t outno, t_cpd_object* obj2, size_t inno);
+
+/**
  * Sends bang to object
  * @see cpd_send_float(), cpd_send_symbol(), cpd_send_list(), cpd_send_message()
  */
@@ -230,5 +243,3 @@ CPD_EXTERN void cpd_unbind_object(t_cpd_object* obj, t_cpd_symbol* s);
 #endif
 
 #endif // CPD_OBJECT_H
-
-

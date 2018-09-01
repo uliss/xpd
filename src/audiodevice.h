@@ -5,6 +5,9 @@
 
 namespace xpd {
 
+/**
+ * @brief The AudioDevice class (see Device)
+ */
 class AudioDevice : public Device {
 public:
     AudioDevice(const std::string& name);

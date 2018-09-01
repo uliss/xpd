@@ -5,6 +5,10 @@
 
 namespace xpd {
 
+/**
+ * @brief The FloatArray class
+ * @details Base class for Pd Array Object (see PdFloatArray)
+ */
 class FloatArray : public Object {
 public:
     enum PlotStyle {
@@ -17,30 +21,30 @@ public:
     FloatArray(const Canvas* parent, const std::string& name, size_t size);
 
     /**
-     * Returns OBJ_TYPE_ARRAY 
+     * @brief Returns OBJ_TYPE_ARRAY
      */
-    ObjectType type() const;
+    virtual ObjectType type() const override;
 
     /**
-     * Returns array size
+     * @brief Returns array size
      */
     virtual size_t size() const;
 
     /**
-     * Checks if array is empty
+     * @brief Checks if array is empty
      * @return true if empty, false otherwise
      */
     bool empty() const;
 
     /**
-     * Resizes array
+     * @brief Resizes array
      * @param sz - new size
      * @return true on success, false on error 
      */
     virtual bool resize(size_t sz);
 
     /**
-     * Returns float value at specified position
+     * @brief Returns float value at specified position
      * @param idx - position
      * @return float value
      * @throw Exception if wrong index is given
@@ -48,18 +52,18 @@ public:
     virtual float at(size_t idx) const;
 
     /**
-     * Returns array plot style
+     * @brief Returns array plot style
      */
     virtual PlotStyle plotStyle() const;
 
     /**
-     * Sets plot style
+     * @brief Sets plot style
      * @param style - new plot style
      */
     virtual void setPlotStyle(PlotStyle style);
 
     /**
-     * Fill with value
+     * @brief Fill with value
      * @param v - fill value
      */
     virtual void fill(float v);

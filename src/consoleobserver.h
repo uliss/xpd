@@ -6,13 +6,19 @@
 
 namespace xpd {
 
+/**
+ * @brief The ConsoleObserver class
+ * @details Base class for PdConsoleObserver
+ */
 class ConsoleObserver : public Observer {
     std::string text_;
 
 public:
     ConsoleObserver();
 
+    /// @brief Set text value
     void setText(const std::string& text);
+    /// @brief Get text value
     const std::string& text() const;
 };
 

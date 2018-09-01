@@ -9,6 +9,10 @@ namespace xpd {
 
 class Canvas;
 
+/**
+ * @brief The Connection class
+ * @details Represents connection but doesn't create it
+ */
 class Connection {
     ObjectId src_, dest_;
     int src_out_, dest_in_;

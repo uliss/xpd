@@ -5,6 +5,9 @@
 
 namespace xpd {
 
+/**
+ * @brief The MIDIDevice class
+ */
 class MIDIDevice : public Device {
 public:
     MIDIDevice(const std::string& name);

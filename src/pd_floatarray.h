@@ -10,6 +10,10 @@
 
 namespace xpd {
 
+/**
+ * @brief The PdFloatArray class
+ * @details See FloatArray
+ */
 class PdFloatArray : public FloatArray {
     t_cpd_canvas* cnv_;
     t_cpd_array* arr_;
@@ -21,10 +25,12 @@ public:
 
     PdFloatArrayData* getData();
 
-    float at(size_t idx) const;
-    bool resize(size_t sz);
-    void setPlotStyle(PlotStyle style);
-    void fill(float v);
+    virtual float at(size_t idx) const override;
+    virtual bool resize(size_t sz) override;
+    virtual void setPlotStyle(PlotStyle style) override;
+    virtual void fill(float v) override;
+
+    // virtual ObjectId createObject(const std::string& name, int x, int y) override {return 0;};
 
 public:
     typedef typename std::allocator<float>::difference_type difference_type;

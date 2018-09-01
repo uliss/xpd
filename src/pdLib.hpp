@@ -327,9 +327,9 @@ EXTERN void cmp_loadbang(t_canvas *canvas);
 //    bool hasCallback;
 //} t_cmp_audio_info;
 
-t_cmp_audio_info *cmp_get_audio_device_info(); ///> get audio info structure
-std::string cmp_get_audio_apis(); ///> get list of audio api names as Tcl string
-                                  ///{{api name} {api name 2} ...}
+t_cmp_audio_info *cmp_get_audio_device_info(); /// @brief get audio info structure
+std::string cmp_get_audio_apis(); /// @brief get list of audio api names as Tcl string
+                                  /// @brief {{api name} {api name 2} ...}
 
 // ------
 // debug

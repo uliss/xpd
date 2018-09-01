@@ -11,6 +11,9 @@ namespace xpd {
 typedef std::unique_ptr<MIDIDevice> MIDIDevicePtr;
 typedef std::vector<MIDIDevicePtr> MIDIDeviceList;
 
+/**
+ * @brief The MIDIDeviceManager class
+ */
 class MIDIDeviceManager {
     MIDIDeviceList dev_list_;
 

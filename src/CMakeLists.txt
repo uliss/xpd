@@ -28,6 +28,7 @@ set(SERVER_SRC
     pd_localserver.cpp 
     pd_objectobserver.cpp
     pd_object.cpp
+    pd_consoleobserver.cpp
     propertyobserver.cpp
     serverpath.cpp
     videodevice.cpp
@@ -43,8 +44,8 @@ if(WITH_COVERAGE)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/pd/pure-data/src)
-include_directories(${CMAKE_SOURCE_DIR}/pd)
+include_directories(${PROJECT_SOURCE_DIR}/pd/pure-data/src)
+include_directories(${PROJECT_SOURCE_DIR}/pd)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/spdlog/include)
 include_directories(${PROJECT_SOURCE_DIR}/distrib/variant/include)
 

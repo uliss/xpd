@@ -35,7 +35,12 @@ enum ObjectType {
 
 typedef size_t ObjectId;
 
+/**
+ * @brief The Object class
+ * @details Base class, see PdObject
+ */
 class Object {
+    /// @brief Object Id counter. One per Server (library)
     static size_t id_counter_;
 
 protected:
@@ -46,7 +51,9 @@ protected:
     ClassInfoPtr class_;
     ObjectId id_;
     int x_, y_;
+    std::vector<ObserverPtr> observers_;
 
+    /// @brief Create new object Id
     static ObjectId generateNewId();
 
 public:
@@ -61,20 +68,30 @@ public:
 
     virtual const Arguments& arguments() const;
 
+    /// @brief Returns object inlet count
     virtual size_t inletCount() const;
+    /// @brief Returns object outlet count
     virtual size_t outletCount() const;
 
+    /// @brief Returns OBJ_TYPE_SIMPLE_BOX
     virtual ObjectType type() const;
+    /// @brief Sets object type (?)
     virtual void setType(ObjectType type);
 
+    /// @brief Add new observer
     virtual void registerObserver(ObserverPtr o);
-    virtual void deleteObserver(ObserverPtr);
+    /// @brief Remove observer from list
+    virtual void deleteObserver(ObserverPtr o);
 
+    /// @brief Inlet object list
     const InletList& inlets() const;
+    /// @brief Outlet object list
     const OutletList& outlets() const;
 
+    /// @brief Properties object
     virtual const ObjectProperties& properties() const;
 
+    /// @brief Object Id
     ObjectId id() const;
 
     virtual bool isRoot() const;
@@ -92,9 +109,17 @@ public:
     virtual void sendBang();
     virtual void sendFloat(float f);
     virtual void sendSymbol(const std::string& s);
+    virtual void sendList(const Arguments a);
 
     virtual Canvas* asCanvas();
     virtual const Canvas* asCanvas() const;
+
+    virtual bool isCanvas();
+    virtual const bool isCanvas() const;
+
+    virtual bool isAbstraction();
+    virtual const bool isAbstraction() const;
+
 
 private:
     Object(const Object&);

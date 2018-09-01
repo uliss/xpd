@@ -4,6 +4,8 @@
 #include "pd_floatarray.h"
 #include "pd_object.h"
 
+#include <string>
+
 #include "cpd/cpd.h"
 
 using namespace xpd;
@@ -13,6 +15,22 @@ PdCanvas::PdCanvas(const CanvasSettings& s)
     , cnv_(nullptr)
 {
     cnv_ = cpd_patch_new();
+    if (!cnv_) {
+        log()->error("can't create canvas");
+        throw Exception("can't create canvas");
+    }
+}
+
+PdCanvas::PdCanvas(const CanvasSettings& s, t_cpd_object* object)
+    : Canvas(nullptr, s)
+    , cnv_(nullptr)
+{
+    if (!cpd_is_canvas(object)) {
+        log()->error("object is not canvas");
+        throw Exception("can't create canvas");
+    }
+    cnv_ = (t_cpd_canvas*)(object);
+
     if (!cnv_) {
         log()->error("can't create canvas");
         throw Exception("can't create canvas");
@@ -58,26 +76,61 @@ PdCanvas::~PdCanvas()
 
 ObjectId PdCanvas::createObject(const std::string& name, int x, int y)
 {
+    // this works in tests. did not work in tilde. needs check/fix?
     if (isSubpatchName(name)) {
         CanvasSettings settings(name, x, y);
         Object* cnv = new PdCanvas(this, settings);
-        obj_list_.append(cnv);
-        return cnv->id();
+
+        using namespace std;
+
+        string argumentString;
+        string objName;
+
+        size_t pos = name.find_first_of(' ');
+        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1);
+        objName = (pos == string::npos) ? name : name.substr(0, pos);
+
+        PdArguments args;
+        args.parseString(argumentString);
+
+        Object* obj = new PdObject(this, objName, args, x, y);
+
+        obj_list_.append(obj);
+        return obj->id();//cnv->id();
     }
 
     //    t_cpd_atomlist* lst = cpd_list_new();
     //    lst.n = 0;
     //    lst.data = 0;
 
-    // throws exception on error
-    Object* obj = new PdObject(this, name, PdArguments(), x, y);
-    // ok
-    obj_list_.append(obj);
+    try {
+        // stub:
+        using namespace std;
 
-    // update inlets/outlets
-    updateXlets();
+        string argumentString;
+        string objName;
 
-    return obj->id();
+        size_t pos = name.find_first_of(' ');
+        argumentString = (pos == string::npos) ? "" : name.substr(pos + 1);
+        objName = (pos == string::npos) ? name : name.substr(0, pos);
+
+        PdArguments args;
+        args.parseString(argumentString);
+
+        // throws exception on error
+        Object* obj = new PdObject(this, objName, args, x, y);
+        // ok
+        obj_list_.append(obj);
+
+        // update inlets/outlets
+        updateXlets();
+
+        return obj->id();
+
+    } catch (const std::exception&) {
+        // error message here
+        return 0;
+    }
 }
 
 bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
@@ -94,6 +147,22 @@ bool PdCanvas::connect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inl
         return false;
 
     return cpd_connect(pd_src, outletIdx, pd_dest, inletIdx);
+}
+
+bool PdCanvas::disconnect(ObjectId src, size_t outletIdx, ObjectId dest, size_t inletIdx)
+{
+    t_cpd_object* pd_src = findById(src);
+    t_cpd_object* pd_dest = findById(dest);
+
+    if (!pd_src || !pd_dest) {
+        log()->error("PdCanvas::connect: invalid object ID: {} {}", src, dest);
+        return false;
+    }
+
+    if (!obj_list_.disconnect(src, outletIdx, dest, inletIdx))
+        return false;
+
+    return cpd_disconnect(pd_src, outletIdx, pd_dest, inletIdx);
 }
 
 const t_cpd_canvas* PdCanvas::canvas() const
@@ -151,4 +220,23 @@ ObjectId PdCanvas::createArray(const std::string& name, size_t size)
 void PdCanvas::loadbang()
 {
     cpd_canvas_loadbang(cnv_);
+}
+
+std::vector<std::string> PdCanvas::availableObjects() const
+{
+    std::vector<std::string> res;
+
+    t_cpd_list* lst = cpd_class_global_list();
+    const size_t n = cpd_list_size(lst);
+    res.reserve(n);
+
+    for (size_t i = 0; i < n; i++) {
+        auto symbol = cpd_list_get_symbol_at(lst, i);
+        if (symbol)
+            res.push_back(cpd_symbol_name(symbol));
+    }
+
+    cpd_list_free(lst);
+
+    return res;
 }
